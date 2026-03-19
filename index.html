@@ -76,12 +76,48 @@
     /* ── HEADER ── */
     header {
       border-bottom: 1px solid var(--border);
-      padding: 1rem 0;
+      padding: 0;
       position: sticky;
       top: 0;
       background: rgba(0,0,0,0.92);
       backdrop-filter: blur(4px);
       z-index: 100;
+    }
+
+    .header-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0.35rem 2rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--dim);
+    }
+
+    .header-top-bar a.home-link {
+      color: var(--green-low);
+      text-decoration: none;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: color 0.2s, text-shadow 0.2s;
+      border: 1px solid var(--green-out);
+      padding: 0.1rem 0.5rem;
+    }
+
+    .header-top-bar a.home-link:hover {
+      color: var(--green);
+      text-shadow: 0 0 6px var(--green);
+      border-color: var(--green-low);
+    }
+
+    .header-top-bar a.home-link::before { content: '↩ '; }
+
+    .nav-inner-wrap {
+      padding: 0.75rem 0;
     }
 
     .nav-inner {
@@ -484,6 +520,11 @@
 
 <!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
 <header>
+  <div class="header-top-bar">
+    <span>ROGUE_ACADEMY :: HOMEPAGE</span>
+    <a class="home-link" href="https://guilhermeptor.github.io/Rogue-Academy/">Homepage</a>
+  </div>
+  <div class="nav-inner-wrap">
   <div class="nav-inner">
     <a class="nav-logo" href="#">ROGUE<span>_</span>ACADEMY<span class="blink">█</span></a>
     <nav>
@@ -492,6 +533,7 @@
       <a href="#" onclick="document.getElementById('philosophy').scrollIntoView({behavior:'smooth'}); return false;">Philosophy</a>
       <a href="https://github.com/" target="_blank">GitHub ↗</a>
     </nav>
+  </div>
   </div>
 </header>
 
