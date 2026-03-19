@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./logo.png" width="120" alt="Rogue Academy Logo"/>
+
 
 <br/>
 
