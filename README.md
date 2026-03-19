@@ -15,13 +15,6 @@
 
 *`"Knowledge is a weapon. Curated, focused, and free — learn it. Own it. Use it to shape the future of AI."`*
 
-<br/>
-![](https://img.shields.io/badge/STATUS-IN_DEVELOPMENT-1a1a1a?style=flat-square&labelColor=001a00&color=00ff41)
-![](https://img.shields.io/badge/COURSE_01-PHYSICS_→_AI-1a1a1a?style=flat-square&labelColor=001a00&color=00cc33)
-![](https://img.shields.io/badge/RESOURCES-FREE_FIRST-1a1a1a?style=flat-square&labelColor=001a00&color=008f23)
-![](https://img.shields.io/badge/LICENSE-MIT-1a1a1a?style=flat-square&labelColor=001a00&color=005c17)
-</div>
-
 ---
 
 ## `> WHAT IS ROGUE ACADEMY?`
