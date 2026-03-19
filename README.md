@@ -340,7 +340,7 @@ MIT — knowledge should be free to use, share, and build on.
 
 <div align="center">
 
-<img src="./logo.png" width="60" alt="Rogue Academy"/>
+
 
 <br/>
 
