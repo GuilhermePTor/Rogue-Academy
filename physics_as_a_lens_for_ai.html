@@ -342,7 +342,7 @@ main {
 .lec-pill { font-size: 14px; color: var(--text2); display: flex; align-items: center; gap: 7px; }
 .lec-pill .ic { font-size: 14px; }
 
-/* ─── ENRICHED LECTURE DETAIL (stat mech panel) ─── */
+/* ─── ENRICHED LECTURE DETAIL ─── */
 .lec-detail {
   padding: 0 18px 18px;
   display: flex;
@@ -706,247 +706,147 @@ main {
 
   <div class="lec-list">
 
-    <!-- ── L1 ── -->
     <div class="lec">
       <div class="lec-top">
         <span class="lec-name"><span class="lnum">[L1]</span>Probability &amp; Entropy</span>
         <a href="https://theoreticalminimum.com/courses/statistical-mechanics/2013/spring/lecture-1" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
       <div class="lec-detail">
-
         <div class="lec-section-label">// READ — SCHROEDER</div>
         <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§2.1</span>
-            <span class="r-why">Two-state systems — the simplest probability space; entropy as log of microstates</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§2.2</span>
-            <span class="r-why">Einstein solid — practice counting multiplicities before they get large</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§2.3</span>
-            <span class="r-why">Interacting systems — where entropy maximisation first appears</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§2.4</span>
-            <span class="r-why">Stirling's approximation — essential tool for all large-N calculations ahead</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§2.6</span>
-            <span class="r-why">Entropy — formal definition; reversible vs. irreversible mirrors Susskind's info-conservation argument</span>
-          </div>
+          <div class="lec-read-item"><span class="r-sec">§2.1</span><span class="r-why">Two-state systems — the simplest probability space; entropy as log of microstates</span></div>
+          <div class="lec-read-item"><span class="r-sec">§2.2</span><span class="r-why">Einstein solid — practice counting multiplicities before they get large</span></div>
+          <div class="lec-read-item"><span class="r-sec">§2.3</span><span class="r-why">Interacting systems — where entropy maximisation first appears</span></div>
+          <div class="lec-read-item"><span class="r-sec">§2.4</span><span class="r-why">Stirling's approximation — essential tool for all large-N calculations ahead</span></div>
+          <div class="lec-read-item"><span class="r-sec">§2.6</span><span class="r-why">Entropy — formal definition; reversible vs. irreversible mirrors Susskind's info-conservation argument</span></div>
         </div>
-
         <div class="lec-section-label">// SOLVE</div>
         <div class="lec-probs">
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Problems 2.1 – 2.3</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Problems 2.1 – 2.3</span><span class="ml-badge">ML LINK</span></div>
             <div class="lec-prob-desc">Counting arrangements of coins and spins. Build the combinatorial intuition that Ω → ln Ω → entropy. This is the exact same operation as computing the entropy of a probability distribution in information theory — and the foundation of cross-entropy loss.</div>
           </div>
           <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Problem 2.9</span>
-            </div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Problem 2.9</span></div>
             <div class="lec-prob-desc">Einstein solid multiplicities for small N — compute by hand to feel the exponential growth before applying Stirling.</div>
           </div>
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Problems 2.22 – 2.24</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Problems 2.22 – 2.24</span><span class="ml-badge">ML LINK</span></div>
             <div class="lec-prob-desc">Entropy of large two-state systems and entropy of mixing. Entropy of mixing is the direct ancestor of KL divergence — the cost of using the wrong probability distribution to describe data.</div>
           </div>
         </div>
-
         <div class="lec-ml-callout">
           <div class="lec-ml-callout-label">// ML CONNECTION</div>
           <div class="lec-ml-callout-text">Shannon entropy and thermodynamic entropy are the same quantity up to the constant k&#x2082;. Every time you minimise cross-entropy loss in a neural network you are minimising a thermodynamic quantity. Understanding <em>why</em> entropy measures uncertainty — not just that it does — is what makes KL divergence and the information bottleneck principle legible later.</div>
         </div>
-
       </div>
     </div>
 
-    <!-- ── L3 ── -->
     <div class="lec">
       <div class="lec-top">
         <span class="lec-name"><span class="lnum">[L3]</span>Boltzmann Distribution</span>
         <a href="https://theoreticalminimum.com/courses/statistical-mechanics/2013/spring/lecture-3" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
       <div class="lec-detail">
-
         <div class="lec-section-label">// READ — SCHROEDER</div>
         <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§3.1</span>
-            <span class="r-why">Statistical definition of temperature — must be solid before the reservoir argument makes sense</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§3.2</span>
-            <span class="r-why">Entropy and heat — how temperature emerges from counting states</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§6.1</span>
-            <span class="r-why">The Boltzmann factor — the core derivation; do not skip any steps</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§3.3</span>
-            <span class="r-why">Paramagnetism (thermodynamic approach) — first application; will be revisited in L4 via partition functions</span>
-          </div>
+          <div class="lec-read-item"><span class="r-sec">§3.1</span><span class="r-why">Statistical definition of temperature — must be solid before the reservoir argument makes sense</span></div>
+          <div class="lec-read-item"><span class="r-sec">§3.2</span><span class="r-why">Entropy and heat — how temperature emerges from counting states</span></div>
+          <div class="lec-read-item"><span class="r-sec">§6.1</span><span class="r-why">The Boltzmann factor — the core derivation; do not skip any steps</span></div>
+          <div class="lec-read-item"><span class="r-sec">§3.3</span><span class="r-why">Paramagnetism (thermodynamic approach) — first application; will be revisited in L4 via partition functions</span></div>
         </div>
-
         <div class="lec-section-label">// SOLVE</div>
         <div class="lec-probs">
           <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Problems 3.1 – 3.5</span>
-            </div>
-            <div class="lec-prob-desc">Temperature from the entropy derivative. Solidify ∂S/∂U = 1/T before you use it in the Boltzmann derivation — if this feels shaky, everything in L3 and L4 will also feel shaky.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Problems 3.1 – 3.5</span></div>
+            <div class="lec-prob-desc">Temperature from the entropy derivative. Solidify ∂S/∂U = 1/T before you use it in the Boltzmann derivation.</div>
           </div>
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Problems 6.1 – 6.3</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Problems 6.1 – 6.3</span><span class="ml-badge">ML LINK</span></div>
             <div class="lec-prob-desc">Computing Boltzmann factors for a two-state system. Write out both probabilities P₁ and P₂, verify they sum to 1, compute their ratio. This is the softmax function with two classes.</div>
           </div>
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Problem 6.6</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Boltzmann factors for a three-level system — now it is a softmax with three classes. Compare your formula to the ML softmax: the inverse temperature β = 1/kT is exactly the temperature scaling used in attention and in language model sampling.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Problem 6.6</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Boltzmann factors for a three-level system — now it is a softmax with three classes. The inverse temperature β = 1/kT is exactly the temperature scaling used in attention and in language model sampling.</div>
           </div>
         </div>
-
         <div class="lec-ml-callout">
           <div class="lec-ml-callout-label">// ML CONNECTION</div>
           <div class="lec-ml-callout-text">The Boltzmann distribution <em>is</em> the softmax function. P(state&nbsp;i) = e<sup>−βEᵢ</sup>/Z is identical in form to softmax(logits/T). The "temperature" T in language model sampling is the literal thermodynamic temperature. Energy-based models, Gibbs sampling, simulated annealing, and the attention mechanism all trace back to this derivation.</div>
         </div>
-
       </div>
     </div>
 
-    <!-- ── L4 ── -->
     <div class="lec">
       <div class="lec-top">
         <span class="lec-name"><span class="lnum">[L4]</span>Boltzmann Distribution &amp; Partition Functions</span>
         <a href="https://theoreticalminimum.com/courses/statistical-mechanics/2013/spring/lecture-4" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
       <div class="lec-detail">
-
         <div class="lec-section-label">// READ — SCHROEDER</div>
         <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§6.2</span>
-            <span class="r-why">Average values from the partition function — the ∂ln Z/∂β trick is the key technique to master</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§6.3</span>
-            <span class="r-why">Paramagnet via partition function — worked example; compare to §3.3 to see both approaches converge</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§6.4</span>
-            <span class="r-why">Rotation and vibration — optional, but good extra partition function practice</span>
-          </div>
+          <div class="lec-read-item"><span class="r-sec">§6.2</span><span class="r-why">Average values from the partition function — the ∂ln Z/∂β trick is the key technique to master</span></div>
+          <div class="lec-read-item"><span class="r-sec">§6.3</span><span class="r-why">Paramagnet via partition function — worked example; compare to §3.3 to see both approaches converge</span></div>
+          <div class="lec-read-item"><span class="r-sec">§6.4</span><span class="r-why">Rotation and vibration — optional, but good extra partition function practice</span></div>
         </div>
-
         <div class="lec-section-label">// SOLVE</div>
         <div class="lec-probs">
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Problems 6.13 – 6.16</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Problems 6.13 – 6.16</span><span class="ml-badge">ML LINK</span></div>
             <div class="lec-prob-desc">Derive ⟨E⟩ = −∂ln Z/∂β for the two-state and harmonic oscillator systems. This is the log-derivative trick — the same mathematical move used in policy gradient methods (REINFORCE) in reinforcement learning.</div>
           </div>
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Problem 6.18</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Problem 6.18</span><span class="ml-badge">ML LINK</span></div>
             <div class="lec-prob-desc">Partition function for the paramagnet in an external field. Compute ⟨M⟩ and plot vs. T. This is the activation function of a biological neuron — the sigmoid and tanh — derived from first principles.</div>
           </div>
           <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Problems 6.20 – 6.22</span>
-            </div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Problems 6.20 – 6.22</span></div>
             <div class="lec-prob-desc">Factoring the partition function for independent subsystems (Z = Z₁ × Z₂). Understanding when systems factor is central to mean field approximations and to why factored variational distributions work at all.</div>
           </div>
         </div>
-
         <div class="lec-ml-callout">
           <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Z is the normalising constant that makes a Boltzmann distribution a proper probability distribution. In ML, computing Z exactly is intractable for large systems — this is exactly why MCMC sampling, variational inference, and contrastive divergence in Restricted Boltzmann Machines exist. Understanding Z makes the motivation for these approximation methods immediate and obvious.</div>
+          <div class="lec-ml-callout-text">Z is the normalising constant that makes a Boltzmann distribution a proper probability distribution. In ML, computing Z exactly is intractable for large systems — this is exactly why MCMC sampling, variational inference, and contrastive divergence in Restricted Boltzmann Machines exist.</div>
         </div>
-
       </div>
     </div>
 
-    <!-- ── L5 ── -->
     <div class="lec">
       <div class="lec-top">
         <span class="lec-name"><span class="lnum">[L5]</span>Helmholtz Free Energy &amp; Ideal Gas</span>
         <a href="https://theoreticalminimum.com/courses/statistical-mechanics/2013/spring/lecture-5" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
       <div class="lec-detail">
-
         <div class="lec-section-label">// READ — SCHROEDER</div>
         <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§5.1</span>
-            <span class="r-why">Free energy as a force toward equilibrium — physical intuition before the formula</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§5.2</span>
-            <span class="r-why">Helmholtz free energy F = U − TS — derive F = −kT ln Z here; it is the payoff of Lectures 3–4</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§2.5</span>
-            <span class="r-why">Ideal gas multiplicity — read before §6.5; it bridges the entropy-counting approach to partition functions</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§6.5</span>
-            <span class="r-why">Ideal gas via partition function — shows how PV = nRT drops out of ∂F/∂V</span>
-          </div>
+          <div class="lec-read-item"><span class="r-sec">§5.1</span><span class="r-why">Free energy as a force toward equilibrium — physical intuition before the formula</span></div>
+          <div class="lec-read-item"><span class="r-sec">§5.2</span><span class="r-why">Helmholtz free energy F = U − TS — derive F = −kT ln Z here; it is the payoff of Lectures 3–4</span></div>
+          <div class="lec-read-item"><span class="r-sec">§2.5</span><span class="r-why">Ideal gas multiplicity — read before §6.5; bridges the entropy-counting approach to partition functions</span></div>
+          <div class="lec-read-item"><span class="r-sec">§6.5</span><span class="r-why">Ideal gas via partition function — shows how PV = nRT drops out of ∂F/∂V</span></div>
         </div>
-
         <div class="lec-section-label">// SOLVE</div>
         <div class="lec-probs">
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Problems 5.1 – 5.4</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Problems 5.1 – 5.4</span><span class="ml-badge">ML LINK</span></div>
             <div class="lec-prob-desc">Verify F = U − TS for simple systems and show equilibrium minimises F at fixed T. This variational principle is the foundation of the ELBO in variational autoencoders: minimising free energy = maximising a lower bound on log-likelihood.</div>
           </div>
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Problem 5.13</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Free energy of a two-state system — compute F(T) and find equilibrium as a function of temperature. Raising T shifts the balance toward higher entropy. This is conceptually identical to temperature in simulated annealing and to noise schedules in diffusion models.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Problem 5.13</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Free energy of a two-state system — compute F(T) and find equilibrium as a function of temperature. This is conceptually identical to temperature in simulated annealing and to noise schedules in diffusion models.</div>
           </div>
           <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Problems 6.29 – 6.31</span>
-            </div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Problems 6.29 – 6.31</span></div>
             <div class="lec-prob-desc">Maxwell speed distribution from the partition function — a full worked example of deriving a continuous probability distribution over states from first principles.</div>
           </div>
         </div>
-
         <div class="lec-ml-callout">
           <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">The Helmholtz free energy F = U − TS is the variational free energy that Variational Autoencoders minimise. The ELBO = 𝔼[log p(x|z)] − KL(q‖p) is exactly −F in disguise: reconstruction quality (U) minus an entropy penalty (TS). Diffusion models, energy-based models, and the free-energy principle in neuroscience all speak this language. Arriving here through Susskind and Schroeder means you understand the derivation — not just the formula.</div>
+          <div class="lec-ml-callout-text">The Helmholtz free energy F = U − TS is the variational free energy that Variational Autoencoders minimise. The ELBO = 𝔼[log p(x|z)] − KL(q‖p) is exactly −F in disguise: reconstruction quality (U) minus an entropy penalty (TS).</div>
         </div>
-
       </div>
     </div>
 
-  </div><!-- /lec-list -->
+  </div>
 
   <div class="conn">
     <div class="conn-label">// AI_CONNECTIONS</div>
@@ -988,398 +888,136 @@ main {
 
   <div class="lec-list">
 
-    <!-- ── L1 ── -->
     <div class="lec">
       <div class="lec-top">
         <span class="lec-name"><span class="lnum">[L1]</span>Introduction to Information Theory</span>
         <a href="https://www.youtube.com/watch?v=BCiZc0n6COY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
       <div class="lec-detail">
-
         <div class="lec-section-label">// READ — MACKAY</div>
         <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 1</span>
-            <span class="r-why">Introduction to Information Theory — entropy H(X), the bit, and the fundamental question: how much information does a message carry?</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 2 (§2.1–2.3)</span>
-            <span class="r-why">Probability, entropy, and inference — joint entropy, conditional entropy H(X|Y), and the chain rule; the toolbox used throughout the book</span>
-          </div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 1</span><span class="r-why">Introduction to Information Theory — entropy H(X), the bit, and the fundamental question: how much information does a message carry?</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 2 (§2.1–2.3)</span><span class="r-why">Probability, entropy, and inference — joint entropy, conditional entropy H(X|Y), and the chain rule</span></div>
         </div>
-
         <div class="lec-section-label">// SOLVE</div>
         <div class="lec-probs">
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 1.1 – 1.3</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Compute entropy for simple probability distributions. Verify H is maximised by the uniform distribution. This is the direct justification for why uniform priors are the "least informative" choice in Bayesian ML — maximum entropy = maximum uncertainty.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 1.1 – 1.3</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Compute entropy for simple probability distributions. Verify H is maximised by the uniform distribution. This is the direct justification for why uniform priors are the "least informative" choice in Bayesian ML.</div>
           </div>
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 2.1 – 2.4</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Joint and conditional entropy calculations. Derive the inequality H(X,Y) ≤ H(X) + H(Y) and understand when equality holds. Independence in information theory = independence in ML features — this is the foundation of naive Bayes and factored models.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 2.1 – 2.4</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Joint and conditional entropy calculations. Derive H(X,Y) ≤ H(X) + H(Y) and understand when equality holds. Independence in information theory = independence in ML features.</div>
           </div>
           <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 2.9 – 2.11</span>
-            </div>
-            <div class="lec-prob-desc">Mutual information I(X;Y) — compute it for small joint distributions and verify I(X;Y) = H(X) − H(X|Y). Mutual information is used directly as a feature selection criterion and is the objective in the information bottleneck principle.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 2.9 – 2.11</span></div>
+            <div class="lec-prob-desc">Mutual information I(X;Y) — compute it for small joint distributions. Mutual information is used directly as a feature selection criterion and is the objective in the information bottleneck principle.</div>
           </div>
         </div>
-
         <div class="lec-ml-callout">
           <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Shannon entropy H(X) = −∑ p log p is the same formula as the cross-entropy loss when q is replaced by the model's predicted distribution. Every classification network trained with cross-entropy loss is minimising a divergence between its output distribution and the true label distribution. This lecture is where that loss function gets its mathematical justification.</div>
+          <div class="lec-ml-callout-text">Shannon entropy H(X) = −∑ p log p is the same formula as the cross-entropy loss when q is replaced by the model's predicted distribution. Every classification network trained with cross-entropy loss is minimising a divergence between its output distribution and the true label distribution.</div>
         </div>
-
       </div>
     </div>
 
-    <!-- ── L2 ── -->
     <div class="lec">
       <div class="lec-top">
         <span class="lec-name"><span class="lnum">[L2]</span>Entropy &amp; Data Compression (I)</span>
         <a href="https://www.youtube.com/watch?v=mBFSW9hikuY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
       <div class="lec-detail">
-
         <div class="lec-section-label">// READ — MACKAY</div>
         <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 4</span>
-            <span class="r-why">The Source Coding Theorem — Shannon's fundamental result: entropy is the minimum average code length; you cannot compress below H(X) bits per symbol</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 5 (§5.1–5.4)</span>
-            <span class="r-why">Symbol codes — prefix-free codes, Kraft inequality, Huffman coding; how to actually achieve near-optimal compression</span>
-          </div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 4</span><span class="r-why">The Source Coding Theorem — entropy is the minimum average code length; you cannot compress below H(X) bits per symbol</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 5 (§5.1–5.4)</span><span class="r-why">Symbol codes — prefix-free codes, Kraft inequality, Huffman coding</span></div>
         </div>
-
         <div class="lec-section-label">// SOLVE</div>
         <div class="lec-probs">
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 4.1 – 4.4</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Verify the source coding theorem by computing optimal code lengths for toy distributions. Notice that − log₂ p(x) is the "surprise" of event x and also its ideal code length. This quantity − log p(x) is exactly the per-sample cross-entropy loss — the network is learning to assign short code lengths to likely outputs.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 4.1 – 4.4</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Verify the source coding theorem by computing optimal code lengths for toy distributions. Notice that − log₂ p(x) is the "surprise" and also its ideal code length. This quantity is exactly the per-sample cross-entropy loss.</div>
           </div>
           <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 5.1 – 5.6</span>
-            </div>
-            <div class="lec-prob-desc">Construct Huffman codes for given distributions. Verify the average length L̄ satisfies H(X) ≤ L̄ &lt; H(X)+1. Understanding that entropy is a hard lower bound on compression is what makes the information bottleneck principle non-trivial.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 5.1 – 5.6</span></div>
+            <div class="lec-prob-desc">Construct Huffman codes for given distributions. Verify the average length satisfies H(X) ≤ L̄ &lt; H(X)+1.</div>
           </div>
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 5.23 – 5.24</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Arithmetic coding — think of the model distribution as defining a code; a better model = shorter average code. This is the connection between language model perplexity and compression: a lower-perplexity LLM literally compresses text more efficiently.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 5.23 – 5.24</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Arithmetic coding — a better model = shorter average code. This is the connection between language model perplexity and compression: a lower-perplexity LLM literally compresses text more efficiently.</div>
           </div>
         </div>
-
         <div class="lec-ml-callout">
           <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">The minimum description length (MDL) principle — Occam's razor formalised — follows directly from source coding. A model that assigns higher probability to the data provides a shorter description of it. This is the information-theoretic justification for regularization: simpler models compress better, and compression = generalisation.</div>
+          <div class="lec-ml-callout-text">The minimum description length (MDL) principle follows directly from source coding. A model that assigns higher probability to the data provides a shorter description of it. This is the information-theoretic justification for regularization: simpler models compress better, and compression = generalisation.</div>
         </div>
-
       </div>
     </div>
 
-    <!-- ── L3 ── -->
     <div class="lec">
       <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[L3]</span>Entropy &amp; Data Compression (II)</span>
+        <span class="lec-name"><span class="lnum">[L3]</span>Entropy &amp; Data Compression (II) — KL Divergence</span>
         <a href="https://www.youtube.com/watch?v=mBFSW9hikuY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
       <div class="lec-detail">
-
         <div class="lec-section-label">// READ — MACKAY</div>
         <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 2 (§2.4–2.7)</span>
-            <span class="r-why">KL divergence D_KL(P‖Q) — the extra bits required when using the wrong distribution Q to encode data from P; non-symmetric and non-negative</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 6 (§6.1–6.3)</span>
-            <span class="r-why">Stream codes and arithmetic coding — sequences of symbols, the empirical entropy, and why real-world compression must track context</span>
-          </div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 2 (§2.4–2.7)</span><span class="r-why">KL divergence D_KL(P‖Q) — the extra bits required when using the wrong distribution Q to encode data from P</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 6 (§6.1–6.3)</span><span class="r-why">Stream codes and arithmetic coding — sequences of symbols, the empirical entropy</span></div>
         </div>
-
         <div class="lec-section-label">// SOLVE</div>
         <div class="lec-probs">
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 2.24 – 2.26 (KL divergence)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Compute D_KL(P‖Q) and D_KL(Q‖P) for pairs of distributions and confirm they differ. The asymmetry is not a bug — in VAEs, KL(q‖p) is chosen deliberately because it is zero-forcing (it prefers to under-estimate support rather than spread probability everywhere).</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 2.24 – 2.26 (KL divergence)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Compute D_KL(P‖Q) and D_KL(Q‖P) for pairs of distributions and confirm they differ. The asymmetry is not a bug — in VAEs, KL(q‖p) is chosen deliberately because it is zero-forcing.</div>
           </div>
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 2.27 – 2.29</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Show that cross-entropy H(P,Q) = H(P) + D_KL(P‖Q). Minimising cross-entropy loss (H(P,Q)) when P is fixed is identical to minimising KL divergence. Write this identity out — it is the most important equation in this module.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 2.27 – 2.29</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Show that cross-entropy H(P,Q) = H(P) + D_KL(P‖Q). Minimising cross-entropy loss when P is fixed is identical to minimising KL divergence. Write this identity out — it is the most important equation in this module.</div>
           </div>
           <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 6.1 – 6.5</span>
-            </div>
-            <div class="lec-prob-desc">Arithmetic coding for sequences — the connection between a language model and a compressor becomes explicit here. Higher log-likelihood = lower bits-per-character = better compression.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 6.1 – 6.5</span></div>
+            <div class="lec-prob-desc">Arithmetic coding for sequences — higher log-likelihood = lower bits-per-character = better compression.</div>
           </div>
         </div>
-
         <div class="lec-ml-callout">
           <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">KL divergence is the mathematical engine of modern generative modelling. The ELBO in VAEs is derived by decomposing log p(x) into a reconstruction term minus KL(q‖p). Diffusion model training minimises a weighted sum of KL terms at each noise level. Every time a model is trained with a "variational" objective, it is minimising a KL divergence that first appears in this lecture.</div>
+          <div class="lec-ml-callout-text">KL divergence is the mathematical engine of modern generative modelling. The ELBO in VAEs is derived by decomposing log p(x) into a reconstruction term minus KL(q‖p). Diffusion model training minimises a weighted sum of KL terms at each noise level.</div>
         </div>
-
       </div>
     </div>
 
-    <!-- ── L6 ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[L6]</span>Noisy Channel Coding</span>
-        <a href="https://www.youtube.com/watch?v=mBFSW9hikuY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — MACKAY</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 8</span>
-            <span class="r-why">Dependent random variables — conditional distributions, the data processing inequality; information cannot be created by processing</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 9</span>
-            <span class="r-why">Communication over a noisy channel — channel capacity C = max I(X;Y); the theoretical maximum rate of reliable transmission</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 10 (§10.1–10.3)</span>
-            <span class="r-why">The noisy-channel coding theorem — Shannon's proof that reliable communication is possible up to capacity; random codes, typical sequences</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 8.1 – 8.5 (data processing inequality)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Verify I(X;Z) ≤ I(X;Y) when Z is computed from Y. This is the theoretical foundation of the information bottleneck principle — deep networks are channels, and each layer can only reduce the mutual information between input and representation. The optimal encoder discards irrelevant bits while preserving task-relevant information.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 9.1 – 9.6</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Compute channel capacity for the binary symmetric channel (BSC) and binary erasure channel (BEC). Map these to classification tasks: the BSC models label noise; the BEC models missing data. Channel capacity = the maximum accuracy achievable regardless of the classifier used.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 10.1 – 10.4</span>
-            </div>
-            <div class="lec-prob-desc">Typical sequences and random codes — the counting argument that makes Shannon's theorem non-obvious. Understanding why exponentially many codewords can be packed into a channel is the same intuition behind why high-dimensional spaces have room for many near-orthogonal vectors.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">The information bottleneck (Tishby et al.) is the direct application of channel coding to deep learning: the hidden layers of a network are noisy channels, and the optimal representation minimises I(X;T) while maximising I(T;Y). The data processing inequality is the reason compression of irrelevant input information is not only possible but theoretically optimal.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── L9–10 ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[L9–10]</span>Bayesian Inference</span>
-        <a href="https://www.youtube.com/watch?v=mBFSW9hikuY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — MACKAY</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 2 (§2.3)</span>
-            <span class="r-why">Bayes' theorem as information update — prior × likelihood → posterior; the formal machinery of belief revision</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 3</span>
-            <span class="r-why">More about inference — model evidence, marginal likelihood, and the Bayesian Occam's razor: complex models are automatically penalised</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 28</span>
-            <span class="r-why">Model comparison and Occam's Razor — the evidence framework for comparing models of different complexity; the formal version of "don't overfit"</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 3.1 – 3.6</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Compute posteriors for coin-bias inference with increasing data. Watch how the posterior concentrates as N grows — this is Bayesian learning in action. The prior is the regularizer; the likelihood is the training data; the posterior is what a Bayesian neural network produces instead of a point estimate.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 28.1 – 28.3 (model evidence)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Compute the marginal likelihood (model evidence) for polynomial regression models of different degree. The evidence automatically peaks at the correct complexity without a held-out validation set. This is the theoretical basis for Bayesian hyperparameter optimisation and for evidence-based early stopping.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 3.12 – 3.15</span>
-            </div>
-            <div class="lec-prob-desc">Sequential Bayesian updating — process data one point at a time, updating the posterior at each step. The posterior after N points is identical to the posterior from processing all N points at once. This is the justification for online learning and streaming updates in production ML systems.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Maximum likelihood estimation (MLE) is a special case of MAP inference with a flat prior. L2 regularization is MAP with a Gaussian prior. L1 regularization is MAP with a Laplace prior. Every regularized training objective in ML is a Bayesian posterior in disguise — understanding the prior that corresponds to a given regularizer is what MacKay Chapters 2–3 make explicit.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── L14 ── -->
     <div class="lec">
       <div class="lec-top">
         <span class="lec-name"><span class="lnum">[L14]</span>Variational Methods</span>
         <a href="https://www.youtube.com/watch?v=mBFSW9hikuY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
       <div class="lec-detail">
-
         <div class="lec-section-label">// READ — MACKAY</div>
         <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 33</span>
-            <span class="r-why">Variational methods — approximating an intractable posterior p(z|x) with a tractable family q(z); the free energy F(q) as the object to minimise</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 29 (§29.1–29.3)</span>
-            <span class="r-why">Monte Carlo methods — sampling as an alternative to variational approximation; understanding both approaches clarifies why variational methods are preferred at scale</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 27</span>
-            <span class="r-why">Laplace's method — approximating posteriors with Gaussians; the simplest variational approximation and the ancestor of the Laplace approximation in Bayesian neural nets</span>
-          </div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 33</span><span class="r-why">Variational methods — approximating an intractable posterior p(z|x) with a tractable family q(z); the free energy F(q) as the object to minimise</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 29 (§29.1–29.3)</span><span class="r-why">Monte Carlo methods — sampling as an alternative to variational approximation</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 27</span><span class="r-why">Laplace's method — approximating posteriors with Gaussians; the simplest variational approximation</span></div>
         </div>
-
         <div class="lec-section-label">// SOLVE</div>
         <div class="lec-probs">
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 33.1 – 33.4</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Derive the variational free energy F(q) = ⟨log q(z)⟩ − ⟨log p(x,z)⟩ and show that minimising F(q) is equivalent to maximising the ELBO. Write out the ELBO = 𝔼_q[log p(x|z)] − D_KL(q‖p) and identify the two terms: reconstruction and regularisation. This is the VAE objective, derived from first principles.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 33.1 – 33.4</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Derive the variational free energy F(q) and show that minimising F(q) is equivalent to maximising the ELBO = 𝔼_q[log p(x|z)] − D_KL(q‖p). This is the VAE objective, derived from first principles.</div>
           </div>
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 33.5 – 33.7</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Mean-field variational inference — factorise q(z) = ∏ q_i(z_i) and derive the coordinate-ascent update equations. The mean-field assumption is the same factorisation used in factored variational autoencoders and in the diagonal Gaussian encoder of the standard VAE.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 27.1 – 27.3 (Laplace)</span>
-            </div>
-            <div class="lec-prob-desc">Apply Laplace's method to a 1D posterior: find the mode, compute the Hessian, fit a Gaussian. Recognise that the curvature of the loss landscape at a minimum determines the effective "posterior width" — sharp minima generalise worse than flat ones, which connects directly to the sharpness-aware minimisation (SAM) line of work.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 33.5 – 33.7</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Mean-field variational inference — factorise q(z) = ∏ q_i(z_i) and derive the coordinate-ascent updates. The mean-field assumption is the same factorisation used in the diagonal Gaussian encoder of the standard VAE.</div>
           </div>
         </div>
-
         <div class="lec-ml-callout">
           <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Chapter 33 is the direct mathematical prerequisite for understanding VAEs, β-VAEs, and diffusion model training. The ELBO derived here is what the VAE encoder and decoder jointly optimise. The KL term in the ELBO is what forces the latent space to be a smooth, well-structured distribution — without it, the model collapses to a deterministic autoencoder.</div>
+          <div class="lec-ml-callout-text">Chapter 33 is the direct mathematical prerequisite for understanding VAEs, β-VAEs, and diffusion model training. The KL term in the ELBO forces the latent space to be a smooth, well-structured distribution — without it, the model collapses to a deterministic autoencoder.</div>
         </div>
-
       </div>
     </div>
 
-    <!-- ── L15–16 ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[L15–16]</span>Neural Networks &amp; Boltzmann Machines</span>
-        <a href="https://www.youtube.com/watch?v=mBFSW9hikuY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — MACKAY</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 38–39</span>
-            <span class="r-why">Introduction to neural networks and the single neuron as a classifier — the probabilistic view: a neuron computes a posterior P(class|input)</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 41</span>
-            <span class="r-why">Learning as inference — weight learning is Bayesian inference over parameters; the evidence framework for setting the regularisation strength automatically</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 42</span>
-            <span class="r-why">Hopfield networks — content-addressable memory as an energy minimisation problem; the ancestor of modern attention mechanisms</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">Ch. 43</span>
-            <span class="r-why">Boltzmann machines — the bridge between Susskind Module 1 and deep generative models; learning = matching model statistics to data statistics</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 39.1 – 39.5</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Derive the sigmoid output of a single neuron from the likelihood ratio of two Gaussians. Confirm that the logistic function is not arbitrary — it is the posterior probability under a specific generative model. This is the probabilistic justification for sigmoid activations that most DL courses skip entirely.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 41.1 – 41.4 (evidence framework)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Use the evidence framework to find the optimal regularisation strength α for a small neural network without a validation set. Compare to the manually tuned value. The evidence framework is the theoretical basis for automatic relevance determination (ARD) and for hyperparameter optimisation in Bayesian neural networks.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 42.1 – 42.5 (Hopfield)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Store patterns in a Hopfield network and verify retrieval under partial inputs. Compute the energy at each step and confirm it decreases monotonically. Modern Hopfield networks (Ramsauer et al., 2020) use the same energy framework with exponential interactions — and their update rule is the transformer attention mechanism.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 43.1 – 43.4 (Boltzmann)</span>
-            </div>
-            <div class="lec-prob-desc">Derive the Boltzmann machine learning rule: ΔW_ij ∝ ⟨s_i s_j⟩_data − ⟨s_i s_j⟩_model. Recognise the two terms: data statistics and model statistics. This contrastive divergence structure reappears in energy-based model training and in the negative phase of diffusion model score matching.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">This is the payoff lecture for the entire module. The probabilistic framing of the neuron (Ch. 39), Bayesian weight learning (Ch. 41), Hopfield networks as the predecessor of attention (Ch. 42), and Boltzmann machines as the predecessor of diffusion models and energy-based models (Ch. 43) — all of modern deep learning is traceable to the ideas in these four chapters. After this lecture, the architecture choices in transformers and generative models stop being arbitrary and start being derivable.</div>
-        </div>
-
-      </div>
-    </div>
-
-  </div><!-- /lec-list -->
+  </div>
 
   <div class="conn">
     <div class="conn-label">// AI_CONNECTIONS</div>
@@ -1422,400 +1060,93 @@ main {
 
   <div class="lec-list">
 
-    <!-- ── 1D FLOWS ── -->
     <div class="lec">
       <div class="lec-top">
         <span class="lec-name"><span class="lnum">[Ch. 2]</span>Flows on the Line — 1D Systems</span>
         <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
       <div class="lec-detail">
-
         <div class="lec-section-label">// READ — STROGATZ</div>
         <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§2.1–2.2</span>
-            <span class="r-why">Geometric thinking and fixed points — draw ẋ = f(x), read off stability by inspection; the phase portrait as a complete solution</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§2.4</span>
-            <span class="r-why">Linear stability analysis — linearise around a fixed point; the sign of f'(x*) determines stability; the Jacobian is just the 1×1 version of what comes later</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§2.7</span>
-            <span class="r-why">Potentials — rewrite ẋ = −dV/dx and interpret dynamics as a ball rolling downhill; this is gradient descent, literally</span>
-          </div>
+          <div class="lec-read-item"><span class="r-sec">§2.1–2.2</span><span class="r-why">Geometric thinking and fixed points — draw ẋ = f(x), read off stability by inspection</span></div>
+          <div class="lec-read-item"><span class="r-sec">§2.4</span><span class="r-why">Linear stability analysis — linearise around a fixed point; the sign of f'(x*) determines stability</span></div>
+          <div class="lec-read-item"><span class="r-sec">§2.7</span><span class="r-why">Potentials — rewrite ẋ = −dV/dx and interpret dynamics as a ball rolling downhill; this is gradient descent, literally</span></div>
         </div>
-
         <div class="lec-section-label">// SOLVE</div>
         <div class="lec-probs">
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 2.2.1 – 2.2.9 (fixed points)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">For each ODE sketch the phase portrait and classify every fixed point as stable, unstable, or half-stable. A stable fixed point is a loss minimum; an unstable one is a saddle or maximum. The geometric picture here is the 1D version of the loss landscape reasoning used in all of Chapter 8 (optimisation) of Goodfellow et al.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 2.2.1 – 2.2.9 (fixed points)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">For each ODE sketch the phase portrait and classify every fixed point. A stable fixed point is a loss minimum; an unstable one is a saddle or maximum.</div>
           </div>
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 2.7.1 – 2.7.5 (potentials)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Rewrite each system as gradient descent on a potential V(x). Confirm that trajectories always flow downhill and that stable fixed points are potential minima. This is gradient descent on a 1D loss landscape — write the update rule Δx = −η f'(x) and recognise it as the Euler method applied to ẋ = −dV/dx.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 2.3.1 – 2.3.4 (population growth)</span>
-            </div>
-            <div class="lec-prob-desc">Logistic growth model — the same sigmoid saturation that appears in neural network activation functions. The carrying capacity K is a stable fixed point; verify it using linear stability analysis.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 2.7.1 – 2.7.5 (potentials)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Rewrite each system as gradient descent on a potential V(x). This is gradient descent on a 1D loss landscape — write the update rule Δx = −η f'(x) and recognise it as the Euler method applied to ẋ = −dV/dx.</div>
           </div>
         </div>
-
         <div class="lec-ml-callout">
           <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Gradient descent is the Euler discretisation of ẋ = −∇L(x). Every concept from this chapter has a direct ML translation: fixed point = converged model, stable fixed point = local minimum, unstable fixed point = saddle point, basin of attraction = region where a given optimiser converges to a given minimum. The potential V(x) is the loss function. The 1D picture is the foundation for all higher-dimensional loss landscape intuition.</div>
+          <div class="lec-ml-callout-text">Gradient descent is the Euler discretisation of ẋ = −∇L(x). Every concept from this chapter has a direct ML translation: fixed point = converged model, stable fixed point = local minimum, unstable fixed point = saddle point, basin of attraction = region where a given optimiser converges to a given minimum.</div>
         </div>
-
       </div>
     </div>
 
-    <!-- ── BIFURCATIONS 1D ── -->
     <div class="lec">
       <div class="lec-top">
         <span class="lec-name"><span class="lnum">[Ch. 3]</span>Bifurcations</span>
         <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
       <div class="lec-detail">
-
         <div class="lec-section-label">// READ — STROGATZ</div>
         <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§3.1</span>
-            <span class="r-why">Saddle-node bifurcation — two fixed points collide and annihilate as a parameter crosses a threshold; the canonical "phase transition" in a 1D system</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§3.4</span>
-            <span class="r-why">Pitchfork bifurcation — one stable fixed point splits into two as a parameter increases; symmetry breaking at its simplest</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§3.6</span>
-            <span class="r-why">Imperfect bifurcations and catastrophes — small perturbations to a symmetric system create qualitatively different behaviour; robustness and sensitivity to hyperparameters</span>
-          </div>
+          <div class="lec-read-item"><span class="r-sec">§3.1</span><span class="r-why">Saddle-node bifurcation — two fixed points collide and annihilate; the canonical "phase transition" in a 1D system</span></div>
+          <div class="lec-read-item"><span class="r-sec">§3.4</span><span class="r-why">Pitchfork bifurcation — one stable fixed point splits into two; symmetry breaking at its simplest</span></div>
+          <div class="lec-read-item"><span class="r-sec">§3.6</span><span class="r-why">Imperfect bifurcations and catastrophes — small perturbations create qualitatively different behaviour</span></div>
         </div>
-
         <div class="lec-section-label">// SOLVE</div>
         <div class="lec-probs">
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 3.1.1 – 3.1.6 (saddle-node)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Locate the bifurcation point r_c for ẋ = r + x². For r &gt; r_c there are no fixed points — the system has no equilibrium. This models a network that fails to converge as a hyperparameter (learning rate, weight decay) crosses a critical threshold. The sudden loss of stability is exactly what happens when the learning rate is too large.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 3.1.1 – 3.1.6 (saddle-node)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Locate the bifurcation point r_c for ẋ = r + x². The sudden loss of stability is exactly what happens when the learning rate is too large.</div>
           </div>
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 3.4.1 – 3.4.5 (pitchfork)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Trace the pitchfork bifurcation for ẋ = rx − x³. Below r = 0 there is one stable fixed point; above it the system has two. This is spontaneous symmetry breaking — the same mechanism that creates two competing modes in a bimodal latent space, or two degenerate solutions in an underdetermined network.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 3.6.1 – 3.6.3 (catastrophes)</span>
-            </div>
-            <div class="lec-prob-desc">Imperfect pitchfork: add a small asymmetry h to the system. The clean bifurcation becomes a smooth curve — one branch disappears. This is the ML intuition for why small regularisation (h ≠ 0) can break the degeneracy between two equally good solutions and steer the optimiser to a preferred minimum.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 3.4.1 – 3.4.5 (pitchfork)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Trace the pitchfork bifurcation for ẋ = rx − x³. This is spontaneous symmetry breaking — the same mechanism that creates two competing modes in a bimodal latent space.</div>
           </div>
         </div>
-
         <div class="lec-ml-callout">
           <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Phase transitions in training — sudden changes in loss or accuracy as a hyperparameter varies — are bifurcations. Grokking (delayed generalisation), double descent, and the sharp transition from memorisation to generalisation in large language models are all bifurcation phenomena. Strogatz Chapter 3 gives the exact vocabulary and tools needed to reason about them without hand-waving.</div>
+          <div class="lec-ml-callout-text">Phase transitions in training — sudden changes in loss or accuracy as a hyperparameter varies — are bifurcations. Grokking, double descent, and the sharp transition from memorisation to generalisation in LLMs are all bifurcation phenomena.</div>
         </div>
-
       </div>
     </div>
 
-    <!-- ── 2D LINEAR ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 5–6]</span>Linear Systems &amp; Phase Plane</span>
-        <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — STROGATZ</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§5.1–5.2</span>
-            <span class="r-why">Classification of 2D linear systems — eigenvalues determine everything: nodes, spirals, centres, saddles; the full taxonomy from trace and determinant</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§6.3</span>
-            <span class="r-why">Fixed points and linearisation — the Jacobian matrix at a fixed point determines local stability; this is what the Hessian does at a loss minimum</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§6.5</span>
-            <span class="r-why">Conservative systems — energy is preserved; trajectories form closed orbits; understanding when a system conserves a quantity is prerequisite for Hamiltonian mechanics (Module 6)</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 5.1.1 – 5.1.10 (eigenvalue classification)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Classify each 2×2 system by computing eigenvalues: stable node (both negative), saddle (opposite signs), stable spiral (complex with negative real part). Map each case to a training scenario: stable node = clean convergence, saddle = stuck training, spiral = oscillating loss. The trace-determinant plane is the 2D loss landscape.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 6.3.1 – 6.3.8 (Jacobian / linearisation)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Compute the Jacobian at each fixed point of a nonlinear system and classify its stability. This is exactly what second-order optimisers (Newton's method, natural gradient) do at each step — they linearise the loss landscape using the Hessian and step toward the stable fixed point of the linearised system.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 6.4.1 – 6.4.5 (rabbits vs. sheep)</span>
-            </div>
-            <div class="lec-prob-desc">The Lotka-Volterra competition model — two species competing for resources. Identify all fixed points and their stability; determine which species survives from the initial conditions. This is the ML intuition for competing optima: two attractors in the loss landscape, and the outcome depends entirely on initialisation.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">The Hessian of the loss at a minimum is the Jacobian of the gradient flow. Its eigenvalues determine the local geometry: positive eigenvalues = stable directions (curvature), near-zero eigenvalues = flat directions (plateaus), negative eigenvalues = saddle directions (escape routes). Understanding eigenvalue structure is why sharpness-aware minimisation (SAM) and natural gradient descent work — they reshape the local geometry to avoid sharp minima.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── LIMIT CYCLES ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 7]</span>Limit Cycles</span>
-        <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — STROGATZ</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§7.0–7.1</span>
-            <span class="r-why">Introduction and examples — isolated closed orbits that nearby trajectories spiral toward; stable periodic behaviour that is qualitatively different from fixed-point convergence</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§7.2</span>
-            <span class="r-why">Ruling out closed orbits — Bendixson's criterion; understanding why certain systems cannot oscillate is as important as knowing when they can</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§7.5</span>
-            <span class="r-why">Relaxation oscillations — systems that build tension slowly then release rapidly; the van der Pol oscillator as a prototype of spiking neurons and periodic training dynamics</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 7.2.1 – 7.2.7 (ruling out limit cycles)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Apply Bendixson's criterion to confirm certain systems have no closed orbits. The ML translation: these theorems tell you when an optimiser is guaranteed to converge to a fixed point rather than cycling. SGD with constant learning rate on a non-convex loss can exhibit limit-cycle-like behaviour — understanding when this is and isn't possible is a key stability diagnostic.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 7.5.1 – 7.5.4 (van der Pol / relaxation)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Simulate the van der Pol oscillator numerically; observe the limit cycle in phase space and the slow-fast separation in time. The slow buildup / fast release is the mechanism behind bursting neurons and is the qualitative behaviour of loss spikes observed during LLM training — sudden destabilisation followed by rapid recovery.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 7.1.1 – 7.1.5</span>
-            </div>
-            <div class="lec-prob-desc">Find and classify limit cycles for given polar-coordinate systems. Verify that the cycle is stable by checking nearby trajectories spiral inward. This is the RNN stability condition: a stable limit cycle = sustained oscillation (periodic memory); an unstable one = the network cannot maintain periodic patterns.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Recurrent neural networks trained on periodic tasks (music generation, time-series forecasting, motor control) must learn to produce limit cycles in their hidden-state dynamics. Vanishing gradients occur because the Jacobian of the RNN map at a stable fixed point has spectral radius &lt; 1 — the system damps all perturbations. Limit cycles require spectral radius = 1. This is why LSTM and GRU gates are designed to let the spectral radius stay near 1 across many time steps.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── BIFURCATIONS REVISITED + HOPF ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 8]</span>Bifurcations Revisited — Hopf &amp; Global</span>
-        <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — STROGATZ</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§8.1</span>
-            <span class="r-why">Saddle-node, transcritical, and pitchfork in 2D — the 1D bifurcations reappear in higher-dimensional systems; same algebra, richer geometry</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§8.2</span>
-            <span class="r-why">Hopf bifurcation — a fixed point loses stability and a limit cycle is born; the transition from convergence to oscillation as a single parameter crosses a threshold</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§8.7</span>
-            <span class="r-why">Poincaré maps — reduce a continuous-time flow to a discrete-time map; the technical bridge between ODEs and the iterated maps used to study chaos</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 8.2.1 – 8.2.7 (Hopf bifurcation)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Identify the Hopf bifurcation point for a 2D system by tracking when the real part of the eigenvalues crosses zero. The transition to oscillation in the hidden states of an RNN as the weight matrix norm increases is a Hopf bifurcation. This explains why initialisation with large weights leads to unstable training — the network starts past the bifurcation point.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 8.5.1 – 8.5.4 (hysteresis)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">The driven pendulum exhibits hysteresis: the final state depends on the history of the driving parameter, not just its current value. Map this to learning rate schedules — a model trained with high then low learning rate can reach a different (better) basin than one trained at a constant low rate. Hysteresis is the reason warm restarts and cyclical schedules work.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 8.7.1 – 8.7.5 (Poincaré maps)</span>
-            </div>
-            <div class="lec-prob-desc">Construct the Poincaré map for a periodically driven system and find its fixed points. A fixed point of the Poincaré map = a periodic orbit of the flow. This connects continuous gradient flow to the discrete update steps of SGD — each epoch is one application of the map; a stable training run is a fixed point of that map.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">The Hopf bifurcation is the mechanism behind one of the most practically important phenomena in deep learning: the transition from stable training to oscillating or diverging loss as the learning rate is increased. The critical learning rate is the Hopf bifurcation point of the gradient flow. Understanding this means you can reason about learning rate schedules, warmup, and the edge of stability not as empirical recipes but as consequences of the underlying dynamical geometry.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── CHAOS / LORENZ ── -->
     <div class="lec">
       <div class="lec-top">
         <span class="lec-name"><span class="lnum">[Ch. 9–10]</span>Chaos — Lorenz Equations &amp; 1D Maps</span>
         <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
       <div class="lec-detail">
-
         <div class="lec-section-label">// READ — STROGATZ</div>
         <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§9.2–9.3</span>
-            <span class="r-why">Simple properties of the Lorenz equations and chaos on a strange attractor — sensitivity to initial conditions, bounded but non-periodic trajectories</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§10.1–10.3</span>
-            <span class="r-why">Fixed points and cobwebs, logistic map — the simplest route to chaos via period doubling; Liapunov exponents as the quantitative measure of sensitivity</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§10.5</span>
-            <span class="r-why">Lyapunov exponent — positive = chaotic (exponential divergence of nearby trajectories); negative = stable convergence; zero = marginally stable, on the edge</span>
-          </div>
+          <div class="lec-read-item"><span class="r-sec">§9.2–9.3</span><span class="r-why">Simple properties of the Lorenz equations and chaos on a strange attractor — sensitivity to initial conditions</span></div>
+          <div class="lec-read-item"><span class="r-sec">§10.1–10.3</span><span class="r-why">Fixed points and cobwebs, logistic map — the simplest route to chaos via period doubling</span></div>
+          <div class="lec-read-item"><span class="r-sec">§10.5</span><span class="r-why">Lyapunov exponent — positive = chaotic; negative = stable convergence; zero = marginally stable</span></div>
         </div>
-
         <div class="lec-section-label">// SOLVE</div>
         <div class="lec-probs">
           <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 9.2.1 – 9.2.6 (Lorenz properties)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Show that the Lorenz system is dissipative (volumes in phase space contract) and bounded (all trajectories enter a large ellipsoid). Dissipation = information is lost over time; this is the origin of the arrow of time in Susskind Module 1, and the reason why deep networks are contractive maps — they reduce the volume of the input space as information flows forward.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 10.2.1 – 10.2.8 (logistic map, cobwebs)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Iterate the logistic map x_{n+1} = rx_n(1−x_n) for r = 2.5, 3.2, 3.5, 3.9. Draw cobweb diagrams; observe period doubling and eventual chaos. The logistic map is a discrete-time model of a single-neuron recurrent network — the parameter r plays the role of the weight. Period doubling is grokking; chaos is training divergence.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 10.5.1 – 10.5.4 (Lyapunov exponent)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Compute the Lyapunov exponent λ for the logistic map numerically at several values of r. Locate the onset of chaos (λ = 0). The Lyapunov exponent of an RNN's weight matrix determines whether gradients vanish (λ &lt; 0), explode (λ &gt; 0), or propagate (λ ≈ 0). Gradient clipping is a hard fix; careful initialisation targets λ ≈ 0 by design.</div>
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 10.5.1 – 10.5.4 (Lyapunov exponent)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Compute the Lyapunov exponent λ for the logistic map. The Lyapunov exponent of an RNN's weight matrix determines whether gradients vanish (λ &lt; 0), explode (λ &gt; 0), or propagate (λ ≈ 0). Gradient clipping is a hard fix; careful initialisation targets λ ≈ 0 by design.</div>
           </div>
         </div>
-
         <div class="lec-ml-callout">
           <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">The vanishing and exploding gradient problems in deep networks are Lyapunov exponent phenomena. Backpropagation multiplies Jacobians across layers — if the spectral radius is &lt;1 at every layer, gradients vanish; if &gt;1, they explode. Residual connections (ResNets) are a structural solution: they keep the Lyapunov exponent near zero by construction, placing the network at the "edge of chaos" where information propagates through arbitrary depth without shrinking or growing.</div>
+          <div class="lec-ml-callout-text">The vanishing and exploding gradient problems are Lyapunov exponent phenomena. Residual connections (ResNets) keep the Lyapunov exponent near zero by construction, placing the network at the "edge of chaos" where information propagates through arbitrary depth.</div>
         </div>
-
       </div>
     </div>
 
-    <!-- ── STRANGE ATTRACTORS ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 11–12]</span>Fractals &amp; Strange Attractors</span>
-        <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — STROGATZ</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§11.3–11.4</span>
-            <span class="r-why">Dimension of self-similar fractals and box dimension — a rigorous way to measure the "size" of a set that is neither a curve nor a surface; intrinsic dimensionality of attractors</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§12.1–12.2</span>
-            <span class="r-why">Simplest strange attractors and the Hénon map — a 2D discrete map with a fractal attractor; trajectories neither converge nor diverge but fold onto a fractal set</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§12.4</span>
-            <span class="r-why">Attractor reconstruction from data — Takens' theorem; you can reconstruct the full attractor geometry from a single scalar time series by delay embedding</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 11.4.1 – 11.4.5 (box dimension)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Compute the box-counting dimension of the Cantor set and the Koch curve. Extend the idea to point clouds: if data in ℝ¹⁰⁰⁰ lives on a manifold of box dimension ~20, a network only needs a 20-dimensional representation. This is the intrinsic dimensionality argument for why neural network embeddings work — and why dimensionality reduction from 1000 to 128 can be nearly lossless.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 12.2.1 – 12.2.4 (Hénon map)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Iterate the Hénon map and plot the attractor. Observe the fractal fine structure. The Hénon map is a 2D version of the recurrent network update x_{n+1} = tanh(Wx_n + b) — the fractal attractor is what the hidden state space looks like when an RNN is driven by chaotic input. Neural ODE and continuous-depth networks are explicitly built on this connection.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 12.4.1 – 12.4.3 (attractor reconstruction)</span>
-            </div>
-            <div class="lec-prob-desc">Apply delay embedding to a scalar time series (e.g. the x-component of Lorenz) and reconstruct the attractor in 3D. Recognise that this is exactly what an autoregressive model does: it reconstructs the hidden state from a window of past observations without direct access to the latent dynamics.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">The manifold hypothesis — that real-world data lives on a low-dimensional manifold embedded in a high-dimensional space — is the informal statement of what strange attractor theory makes precise. The intrinsic dimension of the data manifold is the attractor dimension. Generative models (VAEs, GANs, diffusion models) are all implicitly learning to approximate this manifold. Strogatz Chapters 11–12 give the geometric language needed to state this precisely and to understand why learning low-dimensional representations is not just a computational convenience but a reflection of the data's actual structure.</div>
-        </div>
-
-      </div>
-    </div>
-
-  </div><!-- /lec-list -->
+  </div>
 
   <div class="conn">
     <div class="conn-label">// AI_CONNECTIONS</div>
@@ -1828,7 +1159,6 @@ main {
       <span class="ctag">RNNs as dynamical systems</span>
       <span class="ctag">Edge of chaos &amp; ResNets</span>
       <span class="ctag">Manifold hypothesis</span>
-      <span class="ctag">Attractor dimension = intrinsic dim</span>
     </div>
   </div>
 </div>
@@ -1852,32 +1182,258 @@ main {
   <div class="lnks">
     <a href="https://otexts.com/fpppy/nbs/01-intro.html" target="_blank" class="lnk">▶ FPPy Online Book ↗</a>
     <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="lnk">▶ Lecture Playlist ↗</a>
+    <a href="https://github.com/robjhyndman/fpp3python" target="_blank" class="lnk">▶ GitHub — Notebooks ↗</a>
   </div>
 
   <div class="why">
-    This is where physical systems thinking gets applied computationally. Time series are the observable outputs of dynamical systems — everything from climate to financial markets to neural signals. Decomposition, smoothing, ARIMA, and state-space models are all grounded in the same reasoning used to analyse physical processes evolving over time. The transition to neural forecasting (N-BEATS, TFT) shows how deep learning enters as a generalization of classical methods — not a replacement, but an extension of the same underlying logic.
+    This is where physical systems thinking gets applied computationally. Time series are the observable outputs of dynamical systems — everything from climate to financial markets to neural signals. Decomposition, smoothing, ARIMA, and state-space models are all grounded in the same reasoning used to analyse physical processes evolving over time. The transition to neural forecasting (N-BEATS, TFT, foundation models) shows how deep learning enters as a generalisation of classical methods — not a replacement, but an extension of the same underlying logic. After Strogatz (Module 3), these methods stop being black boxes and start being recognisable as discretised dynamical systems.
   </div>
 
-  <table class="tbl">
-    <thead><tr><th>Topic</th><th>Reading</th><th>Practice</th></tr></thead>
-    <tbody>
-      <tr><td>Intro &amp; Visualization</td><td class="ch">Ch. 2</td><td>pandas time series + plotting</td></tr>
-      <tr><td>Decomposition</td><td class="ch">Ch. 3</td><td>STL and seasonal_decompose</td></tr>
-      <tr><td>Exponential Smoothing (ETS)</td><td class="ch">Ch. 4</td><td>statsmodels ExponentialSmoothing</td></tr>
-      <tr><td>ARIMA</td><td class="ch">Ch. 5</td><td>ARIMA / auto_arima</td></tr>
-      <tr><td>Dynamic Regression</td><td class="ch">Ch. 6</td><td>SARIMAX with exogenous variables</td></tr>
-      <tr><td>Neural Forecasting</td><td class="ch">Ch. 7–8</td><td>N-BEATS / TFT</td></tr>
-    </tbody>
-  </table>
+  <div class="lec-list">
+
+    <!-- ── Ch 1-2: FOUNDATIONS ── -->
+    <div class="lec">
+      <div class="lec-top">
+        <span class="lec-name"><span class="lnum">[Ch. 1–2]</span>Getting Started &amp; Time Series Graphics</span>
+        <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
+      </div>
+      <div class="lec-detail">
+        <div class="lec-section-label">// READ — FPPPY</div>
+        <div class="lec-reads">
+          <div class="lec-read-item"><span class="r-sec">Ch. 1</span><span class="r-why">Getting started — what forecasting is and isn't; the forecasting task as estimating a conditional distribution P(y_{t+h} | y_{1:t}); this is probabilistic inference, not curve fitting</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 2</span><span class="r-why">Time series graphics — tsibble objects, seasonal plots, lag plots, autocorrelation function (ACF); visualising the temporal dependence structure before modelling it</span></div>
+        </div>
+        <div class="lec-section-label">// SOLVE</div>
+        <div class="lec-probs">
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 2.1 – 2.5 (ACF plots)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Compute and plot the ACF of several real time series (airline passengers, retail sales, temperature). Identify the lag structure: slow decay = trend, seasonal spikes = periodicity, rapid cutoff = weak dependence. The ACF is the empirical autocorrelation — the same structure that attention mechanisms learn to detect in sequences, and that S4/Mamba state space models encode in their transition matrices.</div>
+          </div>
+          <div class="lec-prob">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 2.6 – 2.9 (seasonal plots)</span></div>
+            <div class="lec-prob-desc">Produce seasonal and subseries plots for a monthly series. Confirm the period visually. Identify which months drive most of the variance. This visual decomposition is the intuition behind learned positional and seasonal embeddings in transformer-based forecasters.</div>
+          </div>
+        </div>
+        <div class="lec-ml-callout">
+          <div class="lec-ml-callout-label">// ML CONNECTION</div>
+          <div class="lec-ml-callout-text">A time series is a sequence of observations from an underlying dynamical system (Strogatz Module 3). The ACF measures how much information past observations carry about future ones — this is mutual information I(y_t; y_{t-k}) in the Gaussian case. High ACF at lag k means the series has memory of depth k, which directly sets the minimum context window length a neural forecaster needs.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Ch 3-4: DECOMPOSITION & FEATURES ── -->
+    <div class="lec">
+      <div class="lec-top">
+        <span class="lec-name"><span class="lnum">[Ch. 3–4]</span>Decomposition &amp; Time Series Features</span>
+        <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
+      </div>
+      <div class="lec-detail">
+        <div class="lec-section-label">// READ — FPPPY</div>
+        <div class="lec-reads">
+          <div class="lec-read-item"><span class="r-sec">Ch. 3</span><span class="r-why">Time series decomposition — additive and multiplicative decompositions y_t = T_t + S_t + R_t; STL decomposition using loess; isolating trend, seasonality, and remainder for independent analysis</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 4</span><span class="r-why">Time series features — summary statistics: strength of trend, seasonality, entropy, spectral features; the feature vector as a fixed-size representation of a variable-length sequence</span></div>
+        </div>
+        <div class="lec-section-label">// SOLVE</div>
+        <div class="lec-probs">
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 3.1 – 3.5 (STL decomposition)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Apply STL decomposition to monthly retail sales and quarterly GDP. Extract the remainder R_t. Test whether R_t is white noise using the Ljung-Box statistic. A non-white remainder means the model has not captured all structure — the remainder is the signal a neural network should be asked to learn, not the full raw series. Remove what you understand analytically; model what remains.</div>
+          </div>
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 4.1 – 4.5 (feature extraction)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Compute the feature matrix for a panel of 100 time series using Ch. 4 features (trend strength, seasonality strength, ACF1, spectral entropy). Visualise in 2D with PCA. Cluster similar series. This is the standard workflow for large-scale forecasting — the same pipeline used in M4 and M5 competition winners.</div>
+          </div>
+        </div>
+        <div class="lec-ml-callout">
+          <div class="lec-ml-callout-label">// ML CONNECTION</div>
+          <div class="lec-ml-callout-text">STL decomposition is a physics-informed preprocessing step: it separates deterministic components (trend, seasonality) that can be modelled analytically from the stochastic remainder requiring learning. The spectral entropy feature in Ch. 4 is the same Shannon entropy from MacKay Module 2, applied to the power spectrum of a time series.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Ch 5-6: TOOLBOX ── -->
+    <div class="lec">
+      <div class="lec-top">
+        <span class="lec-name"><span class="lnum">[Ch. 5–6]</span>The Forecaster's Toolbox &amp; Judgmental Forecasts</span>
+        <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
+      </div>
+      <div class="lec-detail">
+        <div class="lec-section-label">// READ — FPPPY</div>
+        <div class="lec-reads">
+          <div class="lec-read-item"><span class="r-sec">Ch. 5</span><span class="r-why">The forecaster's toolbox — benchmark methods (naïve, seasonal naïve, drift, mean); forecast distributions and prediction intervals; residual diagnostics; train/test split for time series</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 6</span><span class="r-why">Judgmental forecasts — structured expert elicitation, the Delphi method, combining statistical and judgmental forecasts; the limits of model-based approaches when data is scarce</span></div>
+        </div>
+        <div class="lec-section-label">// SOLVE</div>
+        <div class="lec-probs">
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 5.1 – 5.7 (benchmarks + prediction intervals)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Fit all four benchmark methods to an airline passenger series. Compute 80%/95% prediction intervals. Evaluate on a held-out test set using RMSE and MASE. The critical lesson: always beat a naïve baseline before claiming a complex model adds value. Most neural forecasters in the literature fail to beat seasonal naïve on standard benchmarks — the naïve baseline is the null hypothesis.</div>
+          </div>
+          <div class="lec-prob">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 5.8 – 5.11 (residual diagnostics)</span></div>
+            <div class="lec-prob-desc">Inspect residuals of each benchmark: plot ACF of residuals, apply the Ljung-Box test, check normality. A good model has white-noise residuals. Residual ACF directly shows what structure remains for a neural network to learn.</div>
+          </div>
+        </div>
+        <div class="lec-ml-callout">
+          <div class="lec-ml-callout-label">// ML CONNECTION</div>
+          <div class="lec-ml-callout-text">Prediction intervals are the frequentist version of the Bayesian posterior predictive distribution from MacKay Module 2. Neural forecasters that output quantiles (quantile regression) or full distributions are doing exactly what Ch. 5 describes, but with a learned conditional distribution rather than a Gaussian approximation.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Ch 7-8: REGRESSION + ETS ── -->
+    <div class="lec">
+      <div class="lec-top">
+        <span class="lec-name"><span class="lnum">[Ch. 7–8]</span>Time Series Regression &amp; Exponential Smoothing (ETS)</span>
+        <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
+      </div>
+      <div class="lec-detail">
+        <div class="lec-section-label">// READ — FPPPY</div>
+        <div class="lec-reads">
+          <div class="lec-read-item"><span class="r-sec">Ch. 7</span><span class="r-why">Time series regression — regression with time series predictors; spurious regression and cointegration; Fourier terms for complex seasonality</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 8 (§8.1–8.4)</span><span class="r-why">Simple, double, and Holt's exponential smoothing — the weighted average of past observations with exponentially decaying weights; the smoothing parameter α as the memory decay rate</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 8 (§8.5–8.7)</span><span class="r-why">Holt-Winters seasonal method and ETS state-space formulation — error, trend, seasonality modelled jointly; maximum likelihood estimation of smoothing parameters</span></div>
+        </div>
+        <div class="lec-section-label">// SOLVE</div>
+        <div class="lec-probs">
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 8.1 – 8.5 (smoothing parameter)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Fit simple exponential smoothing with α = 0.1, 0.5, 0.9 and compare forecasts. The smoothing parameter α is the inverse memory constant — it is the discrete-time version of the decay rate in a first-order ODE (Strogatz Ch. 2). An ETS model is a discretised linear dynamical system whose parameters are learned by maximum likelihood.</div>
+          </div>
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 8.6 – 8.9 (ETS state-space formulation)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Write the ETS(A,A,A) model in state-space form: state vector x_t = (l_t, b_t, s_t), transition matrix F, observation equation. This is a Kalman filter — the linear Gaussian special case of the Dynamic Bayesian Network from Koller Module 5 (Ch. 6). ETS is HMM with Gaussian emissions and a linear transition, fitted by the Kalman recursion.</div>
+          </div>
+          <div class="lec-prob">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 7.5 – 7.8 (Fourier terms for seasonality)</span></div>
+            <div class="lec-prob-desc">Add K pairs of Fourier sine/cosine terms to a regression model. Compare models for K = 1, 3, 5 using AIC. The Fourier representation of seasonality is the same spectral decomposition from Taylor Module 6 (§5.8) — the series is decomposed into normal modes and the regression selects which modes carry signal.</div>
+          </div>
+        </div>
+        <div class="lec-ml-callout">
+          <div class="lec-ml-callout-label">// ML CONNECTION</div>
+          <div class="lec-ml-callout-text">Exponential smoothing is a learnable first-order IIR filter — the exact same structure as a GRU or LSTM cell with a single gate. The smoothing parameter α is the gate value; (1−α) is the forget factor. Modern SSMs (S4, Mamba) are the deep, multi-state generalisations of exactly this structure: they learn banks of ETS-like filters in parallel, one per latent state dimension.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Ch 9-10: ARIMA + DYNAMIC REGRESSION ── -->
+    <div class="lec">
+      <div class="lec-top">
+        <span class="lec-name"><span class="lnum">[Ch. 9–10]</span>ARIMA Models &amp; Dynamic Regression</span>
+        <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
+      </div>
+      <div class="lec-detail">
+        <div class="lec-section-label">// READ — FPPPY</div>
+        <div class="lec-reads">
+          <div class="lec-read-item"><span class="r-sec">Ch. 9 (§9.1–9.4)</span><span class="r-why">Stationarity, differencing, and the ARIMA model — AR(p) and MA(q) polynomials; the characteristic roots of the AR polynomial determine stability</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 9 (§9.5–9.8)</span><span class="r-why">Model selection via ACF/PACF and information criteria; seasonal ARIMA (SARIMA); automatic model selection with auto_arima</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 10</span><span class="r-why">Dynamic regression models — ARIMAX; regression with ARIMA errors; transfer function models; interventions and outliers</span></div>
+        </div>
+        <div class="lec-section-label">// SOLVE</div>
+        <div class="lec-probs">
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 9.1 – 9.6 (AR characteristic roots)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">For AR(2) with coefficients φ₁ and φ₂, compute the characteristic roots of 1 − φ₁B − φ₂B² = 0. Confirm stationarity iff all roots lie outside the unit circle. Map this to the RNN stability condition from Strogatz: the roots of the AR polynomial are the eigenvalues of the companion matrix — identical to the Jacobian eigenvalue stability condition for a recurrent network.</div>
+          </div>
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 9.7 – 9.10 (SARIMA identification)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Identify the SARIMA(p,d,q)(P,D,Q)[m] order using ACF and PACF plots. Select the best specification using AIC. AIC = −2 log-likelihood + 2k is the information-theoretic model selection criterion from MacKay Module 2 (Ch. 28) — Bayesian Occam's razor with a flat prior approximation. Choosing lag order by AIC is choosing the model complexity that minimises free energy.</div>
+          </div>
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 10.1 – 10.5 (dynamic regression / ARIMAX)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Fit a dynamic regression model for electricity demand using temperature as an exogenous regressor with lagged effects. This is the linear version of what a Temporal Fusion Transformer (TFT) does: combine known future covariates with autoregressive dynamics to produce a conditional forecast distribution.</div>
+          </div>
+        </div>
+        <div class="lec-ml-callout">
+          <div class="lec-ml-callout-label">// ML CONNECTION</div>
+          <div class="lec-ml-callout-text">An ARIMA(p,d,q) model is a linear recurrent network. The AR coefficients are the recurrent weights; the MA coefficients are the input-to-output weights. The stationarity condition (roots outside the unit circle) is the stability condition for a linear RNN (spectral radius &lt; 1). Fitting ARIMA is training this linear RNN by maximum likelihood — the Kalman filter computes the likelihood exactly in O(T) time, which is the linear-algebra version of what transformers do in O(T²) for nonlinear sequence modelling.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Ch 11-13: HIERARCHICAL + PRACTICAL ── -->
+    <div class="lec">
+      <div class="lec-top">
+        <span class="lec-name"><span class="lnum">[Ch. 11–13]</span>Hierarchical Forecasting, Advanced Methods &amp; Practical Issues</span>
+        <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
+      </div>
+      <div class="lec-detail">
+        <div class="lec-section-label">// READ — FPPPY</div>
+        <div class="lec-reads">
+          <div class="lec-read-item"><span class="r-sec">Ch. 11</span><span class="r-why">Forecasting hierarchical and grouped time series — coherence constraints: forecasts at all levels must sum to the aggregate; MinT reconciliation minimises total error subject to summation constraints</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 12</span><span class="r-why">Advanced forecasting methods — bootstrapping for prediction intervals; bagging of time series models; combining forecasts; cross-validation for time series (rolling origin)</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 13</span><span class="r-why">Practical forecasting issues — missing data imputation, outlier handling, very short series, intermittent demand (Croston's method), count data forecasting</span></div>
+        </div>
+        <div class="lec-section-label">// SOLVE</div>
+        <div class="lec-probs">
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 11.1 – 11.5 (MinT reconciliation)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Apply bottom-up, top-down, and MinT reconciliation to a 3-level hierarchy. Compare RMSE at each level. MinT reconciliation solves a constrained least-squares problem — it is a Lagrange-multiplier optimisation (Taylor Module 6, §6.5) subject to the summation constraint Sy = ỹ. Hierarchical coherence is structured prediction: outputs must satisfy global linear constraints, just as CRF decoding enforces label consistency.</div>
+          </div>
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 12.2 – 12.5 (forecast combination)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Combine ETS, ARIMA, and seasonal naïve forecasts using equal weights, inverse-RMSE weights, and optimal regression weights. The combined forecast almost always beats the best individual model. Forecast combination is Bayesian model averaging — the weights are the posterior model probabilities (MacKay Module 2, Ch. 28).</div>
+          </div>
+          <div class="lec-prob">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 12.1 (time-series cross-validation)</span></div>
+            <div class="lec-prob-desc">Implement rolling-origin cross-validation: for each origin t₀ train on [1, t₀] and evaluate on [t₀+1, t₀+h]. Average the h-step-ahead RMSE over all origins. This is the only valid CV for time series — standard k-fold leaks future into training.</div>
+          </div>
+        </div>
+        <div class="lec-ml-callout">
+          <div class="lec-ml-callout-label">// ML CONNECTION</div>
+          <div class="lec-ml-callout-text">MinT reconciliation is optimal linear projection onto the coherence subspace — a linear algebra operation that parallels how structured prediction CRFs enforce label consistency. The reconciliation matrix is the Moore-Penrose pseudoinverse of the summation constraint matrix, connecting to the constrained optimisation tools from Module 6.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Ch 14-15: NEURAL FORECASTING ── -->
+    <div class="lec">
+      <div class="lec-top">
+        <span class="lec-name"><span class="lnum">[Ch. 14–15]</span>Neural Networks &amp; Foundation Forecasting Models</span>
+        <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
+      </div>
+      <div class="lec-detail">
+        <div class="lec-section-label">// READ — FPPPY</div>
+        <div class="lec-reads">
+          <div class="lec-read-item"><span class="r-sec">Ch. 14</span><span class="r-why">Neural networks for forecasting — feed-forward NNARs, RNNs, LSTMs; the N-BEATS architecture (pure MLP with basis expansion); the Temporal Fusion Transformer (TFT); probabilistic outputs via quantile and distribution heads</span></div>
+          <div class="lec-read-item"><span class="r-sec">Ch. 15</span><span class="r-why">Foundation forecasting models — zero-shot and few-shot forecasting; TimeGPT, Chronos, Lag-Llama; pre-training on large corpora of time series; in-context learning for forecasting</span></div>
+        </div>
+        <div class="lec-section-label">// SOLVE</div>
+        <div class="lec-probs">
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 14.1 – 14.5 (NNAR baseline)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Fit an NNAR(p,P,k)[m] model to a seasonal series: p lagged inputs, P seasonal lags, k hidden units. Compare to SARIMA on the same series using time-series CV. NNAR is a nonlinear AR model — the neural network replaces the linear AR polynomial with a universal function approximator. The AR order p is the context window; k is the representation dimensionality.</div>
+          </div>
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 14.6 – 14.9 (N-BEATS / TFT)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Run N-BEATS on the M4 monthly dataset using the neuralforecast library. Inspect the trend and seasonality basis expansion outputs — N-BEATS explicitly decomposes its forecast into interpretable components, producing a learnable version of STL decomposition (Ch. 3). Then fit TFT and examine the attention weights over time — the self-attention pattern should align with the ACF structure identified in Ch. 2.</div>
+          </div>
+          <div class="lec-prob ml-hot">
+            <div class="lec-prob-head"><span class="lec-prob-num">Ex. 15.1 – 15.4 (zero-shot with Chronos)</span><span class="ml-badge">ML LINK</span></div>
+            <div class="lec-prob-desc">Apply Chronos (Amazon) in zero-shot mode to three datasets from different domains (retail, energy, healthcare). Compare zero-shot MASE to fitted ETS and SARIMA. Foundation forecasting models are trained by the same next-token prediction objective as language models — the time series is tokenised and the model learns P(y_{t+1} | y_{1:t}) as a distribution over quantised values. Lower perplexity = better compression of the series = better forecasting (MacKay Module 2, L2).</div>
+          </div>
+        </div>
+        <div class="lec-ml-callout">
+          <div class="lec-ml-callout-label">// ML CONNECTION</div>
+          <div class="lec-ml-callout-text">Neural forecasting is the payoff chapter for the entire module. N-BEATS connects to STL decomposition (Ch. 3) and Fourier analysis (Taylor Module 6 §5.8). TFT's attention connects to the ACF structure from Ch. 2 and to the PGM variable elimination perspective (Koller Module 5, Ch. 9). Foundation models (Chronos, TimeGPT, Lag-Llama) are autoregressive graphical models trained by maximum likelihood — the same objective as MacKay's source coding theorem: a lower-perplexity model is a better compressor and a better forecaster.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /lec-list -->
 
   <div class="conn">
     <div class="conn-label">// AI_CONNECTIONS</div>
     <div class="conn-tags">
-      <span class="ctag">State-space models</span>
-      <span class="ctag">Sequential prediction</span>
-      <span class="ctag">Physical systems as time series</span>
-      <span class="ctag">Classical → neural methods</span>
-      <span class="ctag">Temporal structure in data</span>
+      <span class="ctag">ACF → attention context window</span>
+      <span class="ctag">STL → physics-informed preprocessing</span>
+      <span class="ctag">ETS = learnable IIR filter → GRU/SSM</span>
+      <span class="ctag">ARIMA = linear RNN</span>
+      <span class="ctag">AR roots → RNN stability (Strogatz)</span>
+      <span class="ctag">AIC → Bayesian Occam's razor (MacKay)</span>
+      <span class="ctag">Kalman filter = Gaussian DBN (Koller)</span>
+      <span class="ctag">N-BEATS → learnable STL decomposition</span>
+      <span class="ctag">Foundation models → LLM for time series</span>
     </div>
   </div>
 </div>
@@ -1904,405 +1460,6 @@ main {
   <div class="why">
     PGMs are the formal language for representing uncertainty and dependence between variables — the same concepts that appear in physical systems as conditional probabilities and joint distributions over states. Bayesian networks, Markov networks, and the EM algorithm connect directly to how modern generative models learn latent structure. Variational inference closes this module as the bridge between the free energy ideas in Module 1 and the practical machinery inside VAEs and diffusion models.
   </div>
-
-  <div class="lec-list">
-
-    <!-- ── PART I: REPRESENTATION ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 2–3]</span>Foundations &amp; Bayesian Networks</span>
-        <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — KOLLER &amp; FRIEDMAN</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§2.1–2.3</span>
-            <span class="r-why">Probability theory foundations — joint distributions, conditional probability, independence; the full joint over n binary variables has 2ⁿ − 1 parameters; graphs make this tractable</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§3.1–3.2</span>
-            <span class="r-why">Exploiting independence and Bayesian networks — a DAG encodes conditional independencies; the chain rule factorises the joint into local CPDs</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§3.3–3.4</span>
-            <span class="r-why">D-separation and reading independencies from graphs — the three canonical patterns: chain, fork, v-structure (collider); which variables become independent given evidence</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 3.1 – 3.5 (d-separation)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">For each DAG, apply d-separation to determine which pairs (X, Y) are independent given evidence Z. Pay particular attention to v-structures — conditioning on a collider opens a path and creates dependence. This is the theoretical reason why conditioning on a shared effect (e.g. selecting for a high-performing model) introduces spurious correlations between its causes — selection bias in ML datasets is a v-structure.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 3.7 – 3.10 (factorisation)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Write out the full joint P(X₁,…,Xₙ) as a product of conditional distributions following the DAG topology. Count the number of parameters before and after factorisation. The compression ratio is the practical justification for the independence assumptions built into every generative model — a VAE's decoder P(x|z) assumes x ⊥ z's parents given z.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 2.3 – 2.6 (conditional independence)</span>
-            </div>
-            <div class="lec-prob-desc">Verify conditional independence statements by marginalising joint distributions. Confirm that X ⊥ Y | Z does not imply X ⊥ Y. This is the naive Bayes failure mode — features are not unconditionally independent, only conditionally independent given the label.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Every generative model is a Bayesian network. A VAE is a two-node DAG: z → x. A diffusion model is a chain: x₀ → x₁ → … → x_T. A language model is an autoregressive DAG: each token depends on all previous tokens. The factorisation that makes these models tractable is exactly the chain rule of the Bayesian network. Reading Chapters 3–4 makes the architecture choices in these models no longer arbitrary — they are the minimal parameterisations consistent with a specific graph.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── MARKOV NETWORKS ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 4–5]</span>Undirected Graphical Models &amp; Local CPDs</span>
-        <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — KOLLER &amp; FRIEDMAN</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§4.1–4.3</span>
-            <span class="r-why">Markov networks — undirected graphs with potential functions; no causal direction; the Hammersley-Clifford theorem connects graph structure to the factorisation of the joint</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§4.5</span>
-            <span class="r-why">Bayesian networks vs. Markov networks — when to use each; converting between the two via moralization; understanding the representational tradeoff</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§5.4–5.5</span>
-            <span class="r-why">Independence of causal influence and continuous variables — noisy-OR and sigmoid CPDs; Gaussian CPDs; the bridge to neural network units as probabilistic models</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 4.1 – 4.5 (Markov blankets)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">For each undirected graph, identify the Markov blanket of each node — the minimal set of nodes that renders it conditionally independent of all others. In a neural network, the Markov blanket of a hidden unit is its direct neighbours. This is the theoretical basis for dropout and sparse connectivity: a unit only needs to communicate with its Markov blanket, not the full network.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 4.3 – 4.4 (partition function)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Write the joint of an undirected model as P(X) = (1/Z) ∏ ψ_c(X_c). Attempt to compute Z by brute-force enumeration for n = 3, 5, 10 nodes. Observe how Z becomes intractable. This is the exact same intractability problem as Susskind Module 1's partition function — and the reason contrastive divergence, pseudolikelihood, and score matching exist as approximate training methods.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 5.5.1 – 5.5.4 (Gaussian CPDs)</span>
-            </div>
-            <div class="lec-prob-desc">Build a Gaussian Bayesian network — each node is a linear Gaussian of its parents. Show the joint is multivariate Gaussian; recover the mean and covariance from the CPD parameters. This is the generative model underlying linear regression, Kalman filters, and Gaussian process regression.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Markov networks are the natural model for spatial and relational data where causality has no direction. Conditional Random Fields (CRFs) — used in sequence labelling, image segmentation, and structured prediction — are discriminative Markov networks. The undirected energy function ψ_c(X_c) is precisely the "energy" from Susskind Module 1, and the partition function Z is the same intractable normalising constant. CRFs are energy-based models, and Chapter 4 is where that connection becomes explicit.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── TEMPORAL + GAUSSIAN MODELS ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 6–7]</span>Temporal Models &amp; Gaussian Networks</span>
-        <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — KOLLER &amp; FRIEDMAN</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§6.1–6.2</span>
-            <span class="r-why">Temporal models and Dynamic Bayesian Networks — the Markov assumption over time; hidden Markov models and Kalman filters as special cases of the same DBN template</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§7.1–7.2</span>
-            <span class="r-why">Multivariate Gaussian basics and Gaussian Bayesian networks — precision matrix encodes conditional independence; the graphical structure of the covariance is the model structure</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§7.3</span>
-            <span class="r-why">Gaussian Markov Random Fields — sparse precision matrices correspond to sparse graphs; the foundation of Gaussian process kernels and structured covariance models</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 6.2.1 – 6.2.5 (DBN unrolling)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Unroll a 2-slice DBN for T time steps into a static Bayesian network. Identify which arcs come from the transition model and which from the observation model. An unrolled DBN with discrete hidden states is a Hidden Markov Model; with continuous Gaussian states it is a Kalman filter. An unrolled RNN is a DBN where the transition function is a neural network — the architecture is the graph.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 7.1.1 – 7.1.6 (precision matrix)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">For a multivariate Gaussian, show that Λᵢⱼ = 0 in the precision matrix (inverse covariance) if and only if Xᵢ ⊥ Xⱼ | all others. Construct the GMRF graph from a sparse Λ. This is the foundation of Gaussian Process covariance design: choosing a kernel = choosing a graph structure over inputs, encoding which inputs are conditionally independent.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 6.1.1 – 6.1.4 (HMM as DBN)</span>
-            </div>
-            <div class="lec-prob-desc">Encode an HMM as a 2-slice DBN with discrete hidden state Z_t and observation X_t. Write out the joint P(X_{1:T}, Z_{1:T}) and identify the transition P(Z_t|Z_{t-1}) and emission P(X_t|Z_t) parameters. Recognise that a transformer with KV-cache is performing a form of online inference in a DBN where the attention pattern is the graphical structure.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">State space models — HMMs, Kalman filters, and their neural generalisations (SSMs, Mamba, S4) — are all DBNs. The DBN framework from Chapter 6 provides the unified representation: a latent Markov chain with observed emissions. The structured state space models that have recently challenged transformers on long sequences are precisely Gaussian DBNs with learned transition matrices. Reading Chapter 6 makes this architecture family immediately legible.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── PART II: INFERENCE ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 9–10]</span>Exact Inference — Variable Elimination &amp; Belief Propagation</span>
-        <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — KOLLER &amp; FRIEDMAN</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§9.1–9.2</span>
-            <span class="r-why">Variable elimination — marginalise out variables one by one using the graph structure to avoid recomputation; complexity determined by the treewidth of the graph</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§10.2–10.3</span>
-            <span class="r-why">Belief propagation on clique trees — pass messages between cliques to compute all marginals simultaneously; exact on trees, approximate on graphs with cycles</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§11.1–11.2</span>
-            <span class="r-why">Inference as optimisation and the variational framework — reformulate marginal inference as minimising the Bethe free energy; connects exact inference to the variational methods of MacKay Module 2</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 9.1 – 9.5 (variable elimination)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Apply variable elimination by hand to a chain and a tree. Count the number of operations for each elimination ordering. The key insight: computing attention in a transformer over a sequence of length T is variable elimination on a chain — the O(T²) cost is from the treewidth of the attention graph. Sparse attention patterns are exactly the treewidth-reduction strategies from §9.3.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 10.2.1 – 10.2.6 (message passing)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Run sum-product belief propagation on a chain of length 5. Verify that the messages correspond to forward and backward passes of the forward-backward algorithm. The forward pass of an RNN is forward message passing; the backward pass (BPTT) is backward message passing on the unrolled graph. Backpropagation through time is belief propagation on a DAG.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 11.2.1 – 11.2.4 (Bethe free energy)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Show that fixed points of loopy belief propagation minimise the Bethe free energy. Compare the Bethe approximation to the exact free energy from MacKay Module 2 (Chapter 33). The Bethe free energy is the tractable approximation used when the exact variational objective is intractable — this is the direct theoretical link between PGM inference and VAE training.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Backpropagation is exact inference (belief propagation) on a DAG. Attention is variable elimination on a sequence. Message-passing GNNs generalise belief propagation to arbitrary graph topologies — every GNN layer is one round of message passing on the input graph. The connection between inference algorithms and neural network computations is not metaphorical: they are the same algorithm applied to different graph structures. Chapter 10 makes this explicit.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── MCMC + MAP ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 12–13]</span>Approximate Inference — MCMC &amp; MAP</span>
-        <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — KOLLER &amp; FRIEDMAN</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§12.2–12.3</span>
-            <span class="r-why">Importance sampling and MCMC — sampling from an intractable distribution using a tractable proposal; Metropolis-Hastings and Gibbs sampling as the workhorses</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§13.1–13.3</span>
-            <span class="r-why">MAP inference and max-product belief propagation — finding the most probable assignment rather than computing marginals; the Viterbi algorithm as a special case</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§8.1–8.2</span>
-            <span class="r-why">Exponential families and graphical models — the natural parameterisation connects the log-linear form of graphical models to the softmax and log-sum-exp operations in neural networks</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 12.3.1 – 12.3.6 (Gibbs sampling)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Implement Gibbs sampling for a small Ising model (4 nodes). At each step sample one node conditioned on its neighbours. Verify that the stationary distribution is the Boltzmann distribution from Susskind Module 1. Gibbs sampling is the inference algorithm for Restricted Boltzmann Machines — the negative phase of CD-k training is k steps of Gibbs sampling.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 13.2.1 – 13.2.5 (max-product / Viterbi)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Apply max-product belief propagation to a chain HMM and recover the Viterbi path. Replace sum-product with max-product in your belief propagation code and observe the difference: sum-product returns marginal probabilities, max-product returns the single most likely assignment. Beam search in LLMs is an approximate version of max-product on an autoregressive DAG.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 8.1 – 8.4 (exponential family)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Write the Bernoulli, Gaussian, and Categorical distributions in exponential family form: p(x|η) = h(x) exp(η·T(x) − A(η)). Identify the log-partition function A(η) and its gradient ∇A(η) = 𝔼[T(x)]. The softmax is the log-partition function for the Categorical distribution — its gradient is the expected sufficient statistic, which is the probability vector.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">MAP inference is decoding: beam search, greedy decoding, and CTC decoding are all MAP inference algorithms on autoregressive graphical models. Diffusion model sampling is MCMC on a learned score function. The exponential family framework (Ch. 8) unifies softmax, sigmoid, Gaussian output heads, and Poisson regression under a single parameterisation — they are all log-linear models, and their gradients are all the difference between observed sufficient statistics and model-predicted sufficient statistics.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── PART III: LEARNING ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 15–16]</span>Parameter Learning &amp; the EM Algorithm</span>
-        <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — KOLLER &amp; FRIEDMAN</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§15.1–15.2</span>
-            <span class="r-why">MLE for Bayesian networks — with fully observed data, MLE decomposes into independent per-node problems; no global optimisation needed</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§15.5</span>
-            <span class="r-why">MLE for undirected models — the gradient of the log-likelihood is the difference between data statistics and model statistics; this is the contrastive divergence structure</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§16.2–16.4</span>
-            <span class="r-why">The EM algorithm and latent variable models — E-step computes the posterior over hidden variables; M-step maximises the expected complete-data log-likelihood; guaranteed to increase log-likelihood at every iteration</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 15.5.1 – 15.5.4 (MLE for MRFs)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Derive the gradient of log P(X; θ) for an undirected model: ∂ log P/∂θ = 𝔼_data[φ(X)] − 𝔼_model[φ(X)]. Recognise the two terms: data statistics (positive phase) and model statistics (negative phase). This contrastive structure is the learning rule for RBMs, energy-based models, and — in continuous form — score matching for diffusion models.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 16.2.1 – 16.2.8 (EM algorithm)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Apply EM to a Gaussian mixture model: E-step computes soft cluster assignments (responsibilities); M-step recomputes means, variances, and mixing weights. Prove that each EM iteration is guaranteed to increase log P(X). Show that EM is coordinate ascent on the ELBO — connecting it directly to the variational framework from MacKay Module 2, Chapter 33.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 16.4.1 – 16.4.5 (latent variable models)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Implement EM for a simple HMM (Baum-Welch). The E-step is forward-backward (belief propagation); the M-step updates transition and emission parameters. Recognise that training a VAE with the reparameterisation trick is EM where the E-step is replaced by an amortised inference network (the encoder) — amortised EM is exactly what VAE training is.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">EM is the algorithm that unifies k-means, Gaussian mixtures, HMMs, PCA, and VAE training under a single framework: alternate between inferring hidden variables (E-step) and updating parameters (M-step). The VAE is EM with an amortised E-step — instead of solving a separate inference problem for each data point, the encoder neural network shares parameters across all points and does approximate E-steps in one forward pass. This is the connection that makes the VAE architecture not just a clever trick but a principled approximation to a well-understood algorithm.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── STRUCTURE LEARNING + CAUSAL ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 17–18 &amp; 20]</span>Structure Learning &amp; Causal Reasoning</span>
-        <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — KOLLER &amp; FRIEDMAN</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§17.1–17.2</span>
-            <span class="r-why">Constraint-based and score-based structure learning — learning the DAG from data; the PC algorithm uses conditional independence tests; BIC/MDL scoring penalises complexity</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§18.1–18.2</span>
-            <span class="r-why">Structure learning for Markov networks — L1-regularised MLE learns sparse graphs; the graphical LASSO is MRF structure learning for Gaussian models</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§20.1–20.3</span>
-            <span class="r-why">Causal Bayesian networks and intervention queries — the do-calculus; the difference between P(Y|X) (observational) and P(Y|do(X)) (interventional); why correlation ≠ causation has a formal answer</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 17.2.1 – 17.2.5 (BIC scoring)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Score several candidate DAGs over 4 variables using BIC = log-likelihood − (k/2) log N. Select the highest-scoring structure. BIC penalises model complexity — this is the same MDL/Bayesian Occam's razor from MacKay Module 2, Chapter 28, applied to graph structure. Neural architecture search (NAS) is structure learning on neural network computation graphs.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 20.2.1 – 20.2.5 (do-calculus)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">For a simple 3-node DAG (X → Z → Y with X → Y), compute P(Y|do(X=x)) using the backdoor adjustment formula. Compare to the observational P(Y|X=x). Confirm they differ when there is a confounder. This is the fundamental reason why a classifier trained on observational data cannot be used for intervention — and why causal ML (invariant risk minimisation, DIDA) is necessary for out-of-distribution generalisation.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 18.1.1 – 18.1.4 (L1 structure learning)</span>
-            </div>
-            <div class="lec-prob-desc">Apply L1-regularised logistic regression to learn the neighbourhood of each node in a binary MRF (pseudo-likelihood). Observe how increasing λ sparsifies the learned graph. This is graphical LASSO — the same L1 sparsity that prunes neural network weights can learn the conditional independence structure of a data distribution.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Causal reasoning is the unsolved frontier of ML. Language models trained by MLE learn P(Y|X) — the observational distribution. Deploying them in an environment where the intervention distribution P(Y|do(X)) matters leads to systematic failures: a model that learned "high temperature predicts ice cream sales" will predict that banning ice cream reduces temperature. Chapter 20 gives the formal tools — the do-calculus, causal graphs, identifiability conditions — that distinguish what a model can and cannot reliably predict before you deploy it.</div>
-        </div>
-
-      </div>
-    </div>
-
-  </div><!-- /lec-list -->
 
   <div class="conn">
     <div class="conn-label">// AI_CONNECTIONS</div>
@@ -2344,352 +1501,6 @@ main {
   <div class="why">
     The Hamiltonian formulation of mechanics — energy as the central object, phase space as the arena — is the conceptual ancestor of several ideas now appearing at the frontier of deep learning. Hamiltonian Monte Carlo is a direct application used in Bayesian inference. Hamiltonian Neural Networks learn to respect conservation laws in physical simulations. The Lagrangian framework, built on the principle of least action, mirrors how optimisation finds paths of minimal cost through parameter space. This module closes the loop — the physicist's toolkit becomes the ML practitioner's toolkit.
   </div>
-
-  <div class="lec-list">
-
-    <!-- ── ENERGY + CONSERVATIVE FORCES ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 4–5]</span>Energy, Potentials &amp; Oscillations</span>
-        <a href="https://theoreticalminimum.com/courses/classical-mechanics/2011/fall/lecture-1" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — TAYLOR</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§4.1–4.3</span>
-            <span class="r-why">Kinetic energy, work, and potential energy — force as the negative gradient of a scalar potential: F = −∇V; the gradient is the direction of steepest descent</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§4.6–4.7</span>
-            <span class="r-why">Energy for 1D and curvilinear systems — drawing the potential energy curve and reading off fixed points and stability by inspection; identical to §2.7 of Strogatz but now with physical units</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§5.4–5.6</span>
-            <span class="r-why">Damped and driven oscillations, resonance — the driven damped oscillator as the prototype for any system responding to an external signal; frequency response and the transfer function</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§5.8–5.9</span>
-            <span class="r-why">Fourier series and the driven oscillator — decomposing any periodic forcing into sinusoids; the response is the sum of responses to each harmonic independently</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 4.3 – 4.6 (gradient of potential)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Compute F = −∇V for several 2D potential surfaces. Find the equilibrium points by setting ∇V = 0 and classify them using the Hessian ∂²V/∂xᵢ∂xⱼ. This is the loss landscape in coordinates: equilibria are critical points, positive-definite Hessian = local minimum, indefinite Hessian = saddle. The force pointing toward minima is the negative gradient — the update direction of gradient descent.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 5.5 – 5.6 (resonance and transfer function)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Solve for the steady-state amplitude A(ω) of the driven damped oscillator. Plot |A(ω)|² as a function of driving frequency. Identify the resonance peak and the bandwidth. This is the frequency-domain view of a linear system — the same view used in signal processing, spectral methods, and the analysis of learning rate dynamics in momentum-based optimisers (which are second-order oscillators in loss-parameter space).</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 5.8 – 5.9 (Fourier series)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Decompose a square wave and a sawtooth into Fourier series; compute the partial sums. Solve for the driven oscillator response to each harmonic. Fourier analysis is the mathematical foundation of the attention mechanism's positional encodings, of the S4/Mamba state space models operating in the frequency domain, and of why convolutional networks detect multi-scale frequency features.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">The potential energy surface V(x) and the loss landscape L(θ) are the same mathematical object. A particle rolling under −∇V is gradient descent. Damping = momentum decay (the β parameter in Adam). Driving frequency = learning rate oscillation in cyclical schedules. Resonance = the catastrophic instability that occurs when a periodic learning rate matches the natural frequency of the loss curvature. Chapter 5 gives the exact vocabulary to reason about these phenomena quantitatively.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── CALCULUS OF VARIATIONS ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 6]</span>Calculus of Variations &amp; Euler–Lagrange</span>
-        <a href="https://theoreticalminimum.com/courses/classical-mechanics/2011/fall/lecture-4" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — TAYLOR</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§6.1–6.2</span>
-            <span class="r-why">Two examples and the Euler–Lagrange equation — optimising a functional S[q] = ∫L(q, q̇, t)dt over all paths; the EL equation is the condition δS = 0</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§6.3–6.4</span>
-            <span class="r-why">Applications — geodesics, Brachistochrone, minimal surfaces; the EL equation turns a global optimisation over function space into a local ODE</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§6.5</span>
-            <span class="r-why">Lagrange multipliers and constraints — incorporating equality constraints into the variational problem; the method that connects optimisation with constraints to the unconstrained Lagrangian formulation</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 6.2 – 6.5 (Euler–Lagrange)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Derive the equation of motion for a free particle, a pendulum, and a bead on a wire by applying the EL equation to each Lagrangian. The EL equation is the continuous-time version of gradient descent on a functional — the principle that the true trajectory minimises the action S is the physicist's version of "the network finds the parameter path of least cost." Gradient flow is action minimisation in parameter space.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 6.5.1 – 6.5.4 (Lagrange multipliers)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Apply Lagrange multipliers to minimise a function subject to an equality constraint. Verify the KKT conditions hold at the solution. Lagrange multipliers are used directly in constrained ML optimisation: the dual variables in SVMs, the β multiplier in β-VAEs (controlling the KL constraint), and the Lagrangian relaxation in constrained RL reward shaping all use the identical formalism from this section.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 6.3 – 6.4 (Brachistochrone / geodesics)</span>
-            </div>
-            <div class="lec-prob-desc">Solve the Brachistochrone problem: find the curve of fastest descent between two points. The optimal path is a cycloid — not a straight line. This teaches the key variational intuition: the locally steepest path is not the globally fastest path. Natural gradient descent uses the Fisher information metric to find the geodesic in distribution space — the "Brachistochrone" of parameter optimisation.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">The calculus of variations is the mathematical foundation for three important ideas in modern ML: (1) natural gradient descent, which finds the geodesic in the statistical manifold of model distributions; (2) optimal transport, which minimises the "action" of moving probability mass between distributions — used in Wasserstein GANs and diffusion model theory; (3) the path integral formulation of deep learning, where training trajectories are weighted by exp(−S[θ(t)]) and the dominant path minimises the action. Chapter 6 is where "learning as optimisation" becomes "learning as physics."</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── LAGRANGIAN MECHANICS ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 7]</span>Lagrange's Equations &amp; Generalised Coordinates</span>
-        <a href="https://theoreticalminimum.com/courses/classical-mechanics/2011/fall/lecture-4" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — TAYLOR</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§7.1–7.2</span>
-            <span class="r-why">Lagrange's equations for unconstrained motion — generalised coordinates qᵢ can be any parametrisation of configuration space; equations of motion are always the same form regardless of coordinates</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§7.5–7.6</span>
-            <span class="r-why">Examples and generalised momenta — the canonical momentum pᵢ = ∂L/∂q̇ᵢ; if L doesn't depend on qᵢ (ignorable coordinate) then pᵢ is conserved</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§7.3–7.4</span>
-            <span class="r-why">Constrained systems — Lagrange multipliers enforce holonomic constraints; the constraint forces appear naturally as the multipliers; no need to resolve forces explicitly</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 7.1 – 7.6 (equations of motion)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Derive the equations of motion for the double pendulum, a bead on a rotating hoop, and a particle in polar coordinates using the Lagrangian. Notice the same L = T − V structure produces correct equations in any coordinate system. Neural ODEs use exactly this: the network learns the generalised force field in the latent coordinate system that makes the dynamics simplest — the ML analogue of choosing convenient generalised coordinates.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 7.6.1 – 7.6.4 (ignorable coordinates)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Identify all ignorable coordinates in the Kepler problem and the central force problem. Write down the corresponding conserved momenta. An ignorable coordinate = a symmetry = a conserved quantity (Noether's theorem preview). In ML, symmetries in the loss landscape create flat directions — dimensions along which the parameter is unconstrained. Weight sharing in CNNs is an explicit encoding of translation symmetry as an ignorable coordinate.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 7.8 – 7.9 (magnetic forces and constraints)</span>
-            </div>
-            <div class="lec-prob-desc">Derive the Lagrangian for a charged particle in an electromagnetic field — the vector potential A appears in the kinetic term, not the potential. The canonical momentum is p = mv + qA, not mv. This is the origin of gauge freedom: adding a gradient ∇f to A doesn't change the physics. Gauge equivariance in geometric deep learning is the ML generalisation of this exact symmetry.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Generalised coordinates are the physics version of representation learning: choose the coordinate system that makes the dynamics simplest. Ignorable coordinates are symmetries; conserved momenta are invariant features. The entire field of geometric deep learning (equivariant networks, graph neural networks with symmetry, SE(3)-equivariant models for molecular simulation) is the ML implementation of this principle: build the symmetries of the problem directly into the architecture, just as Lagrangian mechanics builds them into the choice of coordinates.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── COUPLED OSCILLATORS + NORMAL MODES ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 11]</span>Coupled Oscillators &amp; Normal Modes</span>
-        <a href="https://theoreticalminimum.com/courses/classical-mechanics/2011/fall/lecture-4" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — TAYLOR</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§11.1–11.2</span>
-            <span class="r-why">Two masses and three springs; identical springs — the normal mode frequencies and the decoupled normal coordinates; each mode oscillates independently</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§11.5–11.6</span>
-            <span class="r-why">The general case — n coupled oscillators reduce to n independent harmonic oscillators in the eigenbasis; diagonalisation of the stiffness matrix K relative to the mass matrix M</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§11.7</span>
-            <span class="r-why">Normal coordinates — the change of basis that decouples the system; the normal coordinates are the eigenvectors of the generalised eigenvalue problem Kv = ω²Mv</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 11.1 – 11.4 (normal modes)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Find the normal mode frequencies and eigenvectors of a 2-mass spring system. Verify that in normal coordinates the equations of motion decouple completely. The Hessian of the loss at a minimum plays the role of the stiffness matrix K — its eigenvectors are the principal curvature directions. The normal modes of the loss are the directions along which gradient descent converges independently, at rates determined by the eigenvalues. This is the physics of the condition number.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 11.5 – 11.6 (general eigenvalue problem)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Solve Kv = ω²Mv for a 3-oscillator chain. Diagonalise in the eigenbasis and verify decoupling. The ratio ω_max/ω_min is the condition number of the system. A poorly conditioned loss landscape (large condition number) is a system with widely separated normal mode frequencies — gradient descent converges at the rate of the slowest mode. Preconditioning is the ML equivalent of rescaling to equalise all mode frequencies.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 11.3 (weakly coupled oscillators)</span>
-            </div>
-            <div class="lec-prob-desc">Two nearly identical oscillators — energy sloshes back and forth between them with a beat frequency ω_beat = |ω₁ − ω₂|. Recognise this as the analogue of two nearly degenerate loss minima: a network near two competing attractors of similar depth will oscillate between them during training if the learning rate is too large.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">PCA is normal mode analysis applied to data: find the eigenvectors of the covariance matrix (the data's "stiffness matrix") and project onto the principal axes. The eigenvalues are the mode frequencies — high eigenvalue = high-variance direction = fast mode. Truncating to the top k eigenvectors is retaining only the slow (large-amplitude) normal modes. Every linear dimensionality reduction method is normal mode analysis; every second-order optimiser is solving the normal mode problem of the loss Hessian.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── HAMILTONIAN MECHANICS ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 13]</span>Hamiltonian Mechanics &amp; Phase Space</span>
-        <a href="https://theoreticalminimum.com/courses/classical-mechanics/2011/fall/lecture-7" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — TAYLOR</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§13.1–13.3</span>
-            <span class="r-why">Hamilton's equations — replace (q, q̇) with canonical coordinates (q, p); equations of motion become ṗ = −∂H/∂q and q̇ = ∂H/∂p; first-order symmetric structure</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§13.6</span>
-            <span class="r-why">Phase-space orbits — all dynamics is a flow in (q,p) space; Hamiltonian flows preserve the phase-space volume element dq dp; trajectories cannot cross</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§13.7</span>
-            <span class="r-why">Liouville's theorem — the phase-space density ρ(q,p) is conserved along trajectories; the flow is incompressible; the phase-space volume occupied by an ensemble is invariant</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 13.2 – 13.5 (Hamilton's equations)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Convert the Lagrangian of the harmonic oscillator and the pendulum to the Hamiltonian formulation. Write Hamilton's equations and verify they match Newton's second law. The Hamiltonian H(q,p) = T + V is the total energy — conserved exactly. In Hamiltonian Monte Carlo, the position q is the model parameter and the momentum p is an auxiliary variable; H governs the proposal trajectory, ensuring it explores the target distribution efficiently.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 13.6.1 – 13.6.4 (phase-space orbits)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Plot the phase portrait (q,p) of the harmonic oscillator, the pendulum, and a double-well potential. Identify separatrices and basins of attraction. The phase portrait is the parameter space of an ML model together with its gradient momentum — the "phase space" explored by an optimiser with momentum (SGD+M, Adam) is (θ, v) where v is the velocity. Adam's adaptive preconditioning deforms the phase space to make orbits more circular, improving conditioning.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 13.7.1 – 13.7.3 (Liouville's theorem)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Verify Liouville's theorem for a 2D Hamiltonian system: show that the Jacobian of the flow map has determinant 1 at all times. Contrast with a dissipative system (∇·F &lt; 0) where volumes contract. Hamiltonian Monte Carlo exploits Liouville's theorem to construct a Metropolis proposal that is automatically volume-preserving — this is why it has a higher acceptance rate than random-walk proposals and why symplectic integrators (leapfrog) are required.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">Hamiltonian Monte Carlo (HMC) is the direct application of Chapter 13 to Bayesian inference. The target posterior π(θ) ∝ exp(−U(θ)) defines the potential; an auxiliary momentum p ~ N(0,I) defines the kinetic energy; the Hamiltonian H(θ,p) = U(θ) + p²/2 governs the proposal trajectory. Liouville's theorem guarantees volume preservation, making the Metropolis acceptance rate high. The leapfrog integrator preserves the symplectic structure of Hamilton's equations — use any other integrator and Liouville's theorem breaks, destroying the efficiency advantage of HMC.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── CHAOS + POINCARE ── -->
-    <div class="lec">
-      <div class="lec-top">
-        <span class="lec-name"><span class="lnum">[Ch. 12]</span>Nonlinear Mechanics &amp; Chaos in Physical Systems</span>
-        <a href="https://theoreticalminimum.com/courses/classical-mechanics/2011/fall/lecture-7" target="_blank" class="watch-btn">WATCH ↗</a>
-      </div>
-      <div class="lec-detail">
-
-        <div class="lec-section-label">// READ — TAYLOR</div>
-        <div class="lec-reads">
-          <div class="lec-read-item">
-            <span class="r-sec">§12.2–12.4</span>
-            <span class="r-why">The driven damped pendulum — a concrete physical system that transitions from periodic to chaotic motion; the route to chaos via period doubling mirrors Strogatz Ch. 10</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§12.6–12.7</span>
-            <span class="r-why">Bifurcation diagrams and state-space orbits — systematic maps of how the long-time behaviour changes as a control parameter varies; the period-doubling cascade to chaos</span>
-          </div>
-          <div class="lec-read-item">
-            <span class="r-sec">§12.8–12.9</span>
-            <span class="r-why">Poincaré sections and the logistic map — sampling a continuous trajectory once per period reveals discrete-map structure; the logistic map as the simplest model of period doubling</span>
-          </div>
-        </div>
-
-        <div class="lec-section-label">// SOLVE</div>
-        <div class="lec-probs">
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 12.2 – 12.4 (driven damped pendulum)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Numerically integrate the driven damped pendulum for increasing drive amplitude γ. Record the long-time behaviour at each γ: fixed point → period-1 → period-2 → chaos. Map each regime to a training scenario: fixed point = converged, period-2 = loss oscillation between two basins (large learning rate), chaos = divergent training. Identify the critical γ_c and map it to the critical learning rate of gradient descent.</div>
-          </div>
-          <div class="lec-prob ml-hot">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 12.8.1 – 12.8.3 (Poincaré sections)</span>
-              <span class="ml-badge">ML LINK</span>
-            </div>
-            <div class="lec-prob-desc">Compute the Poincaré section of the driven pendulum at several values of γ. Observe: at γ &lt; γ_c a finite set of dots (periodic orbit); at γ &gt; γ_c a fractal cloud (strange attractor). The Poincaré section of an SGD trajectory in parameter space — taken once per epoch — is the training analogue. A fixed point of the section = convergence; a fractal cloud = chaotic exploration. This is why learning rate warmup and decay are needed: moving γ smoothly avoids the chaotic regime.</div>
-          </div>
-          <div class="lec-prob">
-            <div class="lec-prob-head">
-              <span class="lec-prob-num">Ex. 12.9.1 – 12.9.4 (logistic map)</span>
-            </div>
-            <div class="lec-prob-desc">Construct the bifurcation diagram of the logistic map xₙ₊₁ = rxₙ(1−xₙ) by iterating 500 steps and plotting the last 100 for each r ∈ [2.5, 4]. Locate the first period-doubling bifurcation at r₁ ≈ 3 and the onset of chaos at r_∞ ≈ 3.57. Use Feigenbaum's constant δ ≈ 4.669 to predict the next bifurcation from the previous two. This complements Strogatz §10 with an explicit numerical experiment on a physical map.</div>
-          </div>
-        </div>
-
-        <div class="lec-ml-callout">
-          <div class="lec-ml-callout-label">// ML CONNECTION</div>
-          <div class="lec-ml-callout-text">The driven damped pendulum is the physical analogue of a neural network being trained with SGD: the damping is weight decay, the driving is the stochastic gradient noise, and the drive amplitude is the learning rate. The period-doubling route to chaos is the sequence of instabilities observed as the learning rate is increased past the edge of stability. Taylor Chapter 12 is the physical experiment that makes the Strogatz theory tangible — the same mathematics, now in a system you can simulate and measure precisely.</div>
-        </div>
-
-      </div>
-    </div>
-
-  </div><!-- /lec-list -->
 
   <div class="conn">
     <div class="conn-label">// AI_CONNECTIONS</div>
@@ -2818,7 +1629,7 @@ main {
         </div>
       </div>
       <div class="pc-body">
-        <div class="pc-desc">The most rigorous ML textbook for someone with a physics background. Bishop's probabilistic framing of everything — linear models, SVMs, neural networks, graphical models — aligns directly with the physics-ML bridge this guide builds. Chapter 1 (probability theory) and Chapter 11 (sampling methods / Langevin dynamics) have no equivalent in any free resource.</div>
+        <div class="pc-desc">The most rigorous ML textbook for someone with a physics background. Bishop's probabilistic framing of everything — linear models, SVMs, neural networks, graphical models — aligns directly with the physics-ML bridge this guide builds.</div>
         <div class="applies-hd">// APPLIES_TO</div>
         <ul class="applies">
           <li class="hot">Module 1 — deepens Susskind partition function content</li>
@@ -2828,33 +1639,6 @@ main {
         <div class="pc-links">
           <a href="https://www.cambridge.org/9780387310732" target="_blank" class="pl pri">↗ Cambridge University Press</a>
           <a href="https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/" target="_blank" class="pl sec">↗ Free PDF</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="pc">
-      <div class="pc-head">
-        <div class="pc-icon">🎓</div>
-        <div class="pc-meta">
-          <div class="pc-title">Probabilistic Deep Learning</div>
-          <div class="pc-author">Imperial College London — Coursera Specialization</div>
-          <div class="pc-badges">
-            <span class="pbadge p-mid">~$49/MONTH · ~2 MONTHS</span>
-            <span class="pbadge p-plat">COURSERA</span>
-          </div>
-        </div>
-      </div>
-      <div class="pc-body">
-        <div class="pc-desc">The only Coursera course that takes the probabilistic framing seriously from the start. Covers predictive distributions, aleatoric vs epistemic uncertainty, Bayesian neural networks, and deep probabilistic models — all directly applicable to forecasting and anomaly detection. Best complement to MacKay (Module 2).</div>
-        <div class="applies-hd">// APPLIES_TO</div>
-        <ul class="applies">
-          <li class="hot">Direct complement to MacKay Module 2</li>
-          <li class="hot">Forecasting — prediction intervals &amp; uncertainty quantification</li>
-          <li class="hot">Anomaly detection — deep probabilistic scoring</li>
-          <li>Pairs with: Susskind Module 1 + MacKay Module 2</li>
-        </ul>
-        <div class="pc-links">
-          <a href="https://www.coursera.org/specializations/probabilistic-deep-learning-with-tensorflow2" target="_blank" class="pl pri">↗ Coursera Specialization</a>
         </div>
       </div>
     </div>
@@ -2872,7 +1656,7 @@ main {
         </div>
       </div>
       <div class="pc-body">
-        <div class="pc-desc">Murphy's two-volume set is the most comprehensive modern treatment of probabilistic ML. Vol. 1 covers statistical foundations with more modern notation than Bishop. Vol. 2 goes deep into sequence models (directly relevant to forecasting) and deep generative models for anomaly detection. The free PDF makes this a no-cost upgrade to the free track.</div>
+        <div class="pc-desc">Murphy's two-volume set is the most comprehensive modern treatment of probabilistic ML. Vol. 2 goes deep into sequence models (directly relevant to forecasting) and deep generative models.</div>
         <div class="applies-hd">// APPLIES_TO</div>
         <ul class="applies">
           <li>Reference throughout all modules</li>
@@ -2900,17 +1684,15 @@ main {
         </div>
       </div>
       <div class="pc-body">
-        <div class="pc-desc">The undisputed bible of time series theory. Rigorous, mathematically demanding, comprehensive — covers ARIMA to state space models, VAR, cointegration, spectral analysis, and maximum likelihood estimation. Where FPPy teaches you how to forecast in Python, Hamilton explains exactly what the mathematics behind those forecasts are. If you own one time series book in your career, it is this one.</div>
+        <div class="pc-desc">The undisputed bible of time series theory. Rigorous, mathematically demanding, comprehensive — covers ARIMA to state space models, VAR, cointegration, spectral analysis, and maximum likelihood estimation. Where FPPy teaches you how to forecast in Python, Hamilton explains exactly what the mathematics behind those forecasts are.</div>
         <div class="applies-hd">// APPLIES_TO</div>
         <ul class="applies">
           <li class="hot">Parallel FPPy track — Hamilton Ch.3 alongside ARIMA lectures</li>
           <li class="hot">State space models, VAR, cointegration (Ch.11–13)</li>
           <li class="hot">Model diagnostics and residual theory (Ch.5)</li>
-          <li>Bayesian vs. frequentist time series (Ch.12)</li>
         </ul>
         <div class="pc-links">
           <a href="https://press.princeton.edu/books/hardcover/9780691042893/time-series-analysis" target="_blank" class="pl pri">↗ Princeton University Press</a>
-          <a href="https://www.amazon.com/Time-Analysis-James-Douglas-Hamilton/dp/0691042896" target="_blank" class="pl sec">↗ Amazon</a>
         </div>
       </div>
     </div>
@@ -2928,13 +1710,12 @@ main {
         </div>
       </div>
       <div class="pc-body">
-        <div class="pc-desc">The best applied bridge between the theory in this guide and production ML code. Part 1 covers modern deep learning practice (transformers, diffusion, tabular models) with exceptional intuition building. Part 2 goes into the internals of diffusion models and NLP architectures at a level that directly maps to the physics concepts in Modules 1–2.</div>
+        <div class="pc-desc">The best applied bridge between the theory in this guide and production ML code. Part 1 covers modern deep learning practice (transformers, diffusion, tabular models). Part 2 goes into the internals of diffusion models and NLP architectures at a level that directly maps to the physics concepts in Modules 1–2.</div>
         <div class="applies-hd">// APPLIES_TO</div>
         <ul class="applies">
           <li class="hot">Bridge: theory (this guide) → production code</li>
           <li class="hot">NLP — transformer internals made concrete</li>
           <li class="hot">Anomaly detection — tabular &amp; time series models</li>
-          <li>Part 2 deepens diffusion model understanding from Module 1</li>
         </ul>
         <div class="pc-links">
           <a href="https://www.fast.ai/" target="_blank" class="pl pri">↗ fast.ai (free)</a>
@@ -2955,13 +1736,12 @@ main {
         </div>
       </div>
       <div class="pc-body">
-        <div class="pc-desc">Not a physics book — but the single most relevant industry resource for production forecasting, anomaly detection, and NLP. Covers data pipelines for time series, feature engineering for sequence data, model monitoring (which is applied anomaly detection), and deployment patterns for NLP systems. The physics theory gives you the 'why'; this book gives you the 'how it ships'.</div>
+        <div class="pc-desc">Not a physics book — but the single most relevant industry resource for production forecasting, anomaly detection, and NLP. The physics theory gives you the 'why'; this book gives you the 'how it ships'.</div>
         <div class="applies-hd">// APPLIES_TO</div>
         <ul class="applies">
           <li class="hot">Production companion for all focus areas</li>
           <li class="hot">Anomaly detection — model monitoring = anomaly detection in disguise</li>
           <li class="hot">Forecasting — data pipeline design for time series at scale</li>
-          <li class="hot">NLP — deployment patterns for chatbots and language models</li>
         </ul>
         <div class="pc-links">
           <a href="https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/" target="_blank" class="pl pri">↗ O'Reilly</a>
