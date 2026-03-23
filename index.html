@@ -942,7 +942,7 @@ result = <span class="fn">process</span>(numbers)
       skullMsg.className = 'ok';
       skullSubmit.disabled = true;
       skullAnswer.disabled = true;
-      setTimeout(() => skullAnswer.focus(), 200);
+      setTimeout(() => window.location.href = TARGET_URL, 800);
     } else {
       skullMsg.textContent = '// ACCESS DENIED · wrong output · try again';
       skullMsg.className = 'err';
