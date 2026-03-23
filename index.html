@@ -962,7 +962,16 @@ result = <span class="fn">process</span>(numbers)
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeSkull();
   });
-
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+      skullAnswer.disabled  = false;
+      skullSubmit.disabled  = false;
+      skullAnswer.value     = '';
+      skullMsg.textContent  = '';
+      skullMsg.className    = '';
+      skullOverlay.classList.remove('open');
+    }
+  });
   const lines = [
     'accessing knowledge_base...',
     'loading physics_to_ai module...',
