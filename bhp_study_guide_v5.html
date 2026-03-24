@@ -79,8 +79,39 @@
   /* PHASE/WEEK */
   .phase { margin-bottom:10px; border:1px solid var(--border); border-radius:6px; overflow:hidden; background:var(--bg2); transition:border-color .2s; }
   .phase:hover { border-color:rgba(0,255,136,.3); }
-  .phase-header { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:14px; padding:16px 20px; cursor:pointer; user-select:none; background:var(--bg3); border-bottom:1px solid transparent; transition:background .2s,border-color .2s; }
+  .phase.week-done { border-color:rgba(0,255,136,.5); }
+  .phase.week-done .phase-header { background:rgba(0,255,136,.06); }
+  .phase-header { display:grid; grid-template-columns:auto auto 1fr auto; align-items:center; gap:14px; padding:16px 20px; cursor:pointer; user-select:none; background:var(--bg3); border-bottom:1px solid transparent; transition:background .2s,border-color .2s; }
   .phase.open .phase-header { border-bottom-color:var(--border); background:rgba(0,255,136,.04); }
+
+  /* WEEK CHECKBOX */
+  .week-check-wrap { display:flex; align-items:center; gap:8px; z-index:10; }
+  .week-checkbox {
+    appearance:none; -webkit-appearance:none;
+    width:18px; height:18px; border:2px solid rgba(0,255,136,.4);
+    border-radius:3px; background:transparent; cursor:pointer;
+    position:relative; flex-shrink:0; transition:border-color .2s, background .2s, box-shadow .2s;
+  }
+  .week-checkbox:hover { border-color:var(--green); box-shadow:0 0 8px rgba(0,255,136,.3); }
+  .week-checkbox:checked { background:var(--green); border-color:var(--green); box-shadow:0 0 10px rgba(0,255,136,.5); }
+  .week-checkbox:checked::after { content:'✓'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#000; font-size:11px; font-weight:900; line-height:1; }
+  .week-check-label { font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:1.5px; color:var(--text-dim); text-transform:uppercase; white-space:nowrap; transition:color .2s; pointer-events:none; }
+  .week-checkbox:checked + .week-check-label { color:var(--green); }
+
+  /* DAY CHECKBOX */
+  .day { display:grid; grid-template-columns:70px auto 1fr; gap:12px; align-items:start; padding:12px 14px; background:rgba(0,0,0,.25); border-left:2px solid var(--border); border-radius:0 4px 4px 0; transition:border-left-color .2s,background .2s; }
+  .day:hover { border-left-color:var(--green); background:var(--green-faint); }
+  .day.day-done { border-left-color:rgba(0,255,136,.5); background:rgba(0,255,136,.04); opacity:.7; }
+  .day.day-done .day-content strong { text-decoration:line-through; text-decoration-color:rgba(0,255,136,.5); color:var(--text-dim); }
+  .day-checkbox {
+    appearance:none; -webkit-appearance:none;
+    width:15px; height:15px; border:1.5px solid rgba(0,255,136,.3);
+    border-radius:2px; background:transparent; cursor:pointer;
+    position:relative; flex-shrink:0; margin-top:3px; transition:border-color .2s, background .2s;
+  }
+  .day-checkbox:hover { border-color:var(--green); box-shadow:0 0 6px rgba(0,255,136,.3); }
+  .day-checkbox:checked { background:var(--green); border-color:var(--green); }
+  .day-checkbox:checked::after { content:'✓'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#000; font-size:9px; font-weight:900; line-height:1; }
   .week-badge { font-family:'Share Tech Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--bg); background:var(--green); padding:3px 8px; border-radius:2px; font-weight:700; white-space:nowrap; }
   .phase-title { font-family:'Rajdhani',sans-serif; font-size:16px; font-weight:700; color:#fff; display:block; }
   .phase-chapters { font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--text-dim); letter-spacing:1px; margin-top:2px; display:block; }
@@ -92,8 +123,6 @@
 
   /* DAYS */
   .day-grid { display:grid; gap:8px; }
-  .day { display:grid; grid-template-columns:70px 1fr; gap:12px; align-items:start; padding:12px 14px; background:rgba(0,0,0,.25); border-left:2px solid var(--border); border-radius:0 4px 4px 0; transition:border-left-color .2s,background .2s; }
-  .day:hover { border-left-color:var(--green); background:var(--green-faint); }
   .day-label { font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--green); letter-spacing:2px; text-transform:uppercase; padding-top:2px; }
   .day-content strong { font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:600; color:#e8f4ff; display:block; margin-bottom:4px; }
   .day-content p { font-size:13px; color:var(--text-dim); line-height:1.6; }
@@ -670,18 +699,19 @@
   <div class="phase open" id="w1">
     <div class="phase-header" onclick="tog('w1')">
       <span class="week-badge">WEEK 01</span>
+      <div class="week-check-wrap" onclick="event.stopPropagation()"><input type="checkbox" class="week-checkbox" id="chk-w1" onchange="weekCheck('w1',this)"><label class="week-check-label" for="chk-w1">Done</label></div>
       <div><span class="phase-title">Environment & Network Fundamentals</span><span class="phase-chapters">Ch. 1 — Setup · Ch. 2 — Basic Networking Tools</span></div>
       <div><div class="phase-hours">7 hrs</div><div class="toggle-arrow">▾</div></div>
     </div>
     <div class="phase-body">
       <div class="day-grid">
-        <div class="day"><div class="day-label">Day 01</div><div class="day-content"><strong>Setup Hacking Environment</strong><p>Install Python 3, set up virtualenv, configure Kali + Windows VM. Read Chapter 1. <em>ML bonus: use Docker containers as lightweight attack/target environments alongside VMs.</em></p><div class="tag-list"><span class="tag-item tool">venv</span><span class="tag-item tool">virtualbox</span><span class="tag-item ml">docker</span></div></div></div>
-        <div class="day"><div class="day-label">Day 02</div><div class="day-content"><strong>TCP Client & Server</strong><p>Code a TCP client using the socket module. Understand how sockets are created, connected, and used to transmit raw bytes. <em>ML bonus: compare to how your ML APIs expose TCP endpoints.</em></p><div class="tag-list"><span class="tag-item skill">TCP sockets</span><span class="tag-item tool">socket</span></div></div></div>
-        <div class="day"><div class="day-label">Day 03</div><div class="day-content"><strong>UDP Client & Netcat Replacement</strong><p>Build a UDP client then start the Python netcat clone — understand stdin/stdout redirection and subprocess control.</p><div class="tag-list"><span class="tag-item skill">UDP</span><span class="tag-item skill">subprocess</span><span class="tag-item tool">socket</span></div></div></div>
-        <div class="day"><div class="day-label">Day 04</div><div class="day-content"><strong>Complete Netcat + TCP Proxy</strong><p>Finish the netcat clone. Begin TCP proxy — intercept and relay traffic. <em>ML bonus: log intercepted bytes to a pandas DataFrame for traffic pattern analysis.</em></p><div class="tag-list"><span class="tag-item project">bhnet.py</span><span class="tag-item skill">proxying</span><span class="tag-item ml">pandas logging</span></div></div></div>
-        <div class="day"><div class="day-label">Day 05</div><div class="day-content"><strong>SSH with Paramiko</strong><p>Build an SSH client and server using Paramiko. Explore SSH tunneling and reverse tunneling concepts.</p><div class="tag-list"><span class="tag-item tool">paramiko</span><span class="tag-item skill">SSH tunneling</span></div></div></div>
-        <div class="day"><div class="day-label">Day 06</div><div class="day-content"><strong>Extend & Refactor Week's Scripts</strong><p>Add argparse CLI, error handling, and structured JSON logging to all scripts. Push to GitHub.</p><div class="tag-list"><span class="tag-item review">review</span><span class="tag-item tool">argparse</span><span class="tag-item ml">JSON logs</span></div></div></div>
-        <div class="day"><div class="day-label">Day 07</div><div class="day-content"><strong>Mini-Project: Multithreaded Port Scanner</strong><p>Build a threaded port scanner from scratch. Benchmark vs nmap. <em>ML bonus: use sklearn to cluster open port patterns by host type.</em></p><div class="tag-list"><span class="tag-item project">port_scanner.py</span><span class="tag-item skill">threading</span><span class="tag-item ml">clustering</span></div></div></div>
+        <div class="day"><div class="day-label">Day 01</div><input type="checkbox" class="day-checkbox" id="chk-d01" data-day="d01" onchange="dayCheck('d01',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Setup Hacking Environment</strong><p>Install Python 3, set up virtualenv, configure Kali + Windows VM. Read Chapter 1. <em>ML bonus: use Docker containers as lightweight attack/target environments alongside VMs.</em></p><div class="tag-list"><span class="tag-item tool">venv</span><span class="tag-item tool">virtualbox</span><span class="tag-item ml">docker</span></div></div></div>
+        <div class="day"><div class="day-label">Day 02</div><input type="checkbox" class="day-checkbox" id="chk-d02" data-day="d02" onchange="dayCheck('d02',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>TCP Client & Server</strong><p>Code a TCP client using the socket module. Understand how sockets are created, connected, and used to transmit raw bytes. <em>ML bonus: compare to how your ML APIs expose TCP endpoints.</em></p><div class="tag-list"><span class="tag-item skill">TCP sockets</span><span class="tag-item tool">socket</span></div></div></div>
+        <div class="day"><div class="day-label">Day 03</div><input type="checkbox" class="day-checkbox" id="chk-d03" data-day="d03" onchange="dayCheck('d03',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>UDP Client & Netcat Replacement</strong><p>Build a UDP client then start the Python netcat clone — understand stdin/stdout redirection and subprocess control.</p><div class="tag-list"><span class="tag-item skill">UDP</span><span class="tag-item skill">subprocess</span><span class="tag-item tool">socket</span></div></div></div>
+        <div class="day"><div class="day-label">Day 04</div><input type="checkbox" class="day-checkbox" id="chk-d04" data-day="d04" onchange="dayCheck('d04',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Complete Netcat + TCP Proxy</strong><p>Finish the netcat clone. Begin TCP proxy — intercept and relay traffic. <em>ML bonus: log intercepted bytes to a pandas DataFrame for traffic pattern analysis.</em></p><div class="tag-list"><span class="tag-item project">bhnet.py</span><span class="tag-item skill">proxying</span><span class="tag-item ml">pandas logging</span></div></div></div>
+        <div class="day"><div class="day-label">Day 05</div><input type="checkbox" class="day-checkbox" id="chk-d05" data-day="d05" onchange="dayCheck('d05',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>SSH with Paramiko</strong><p>Build an SSH client and server using Paramiko. Explore SSH tunneling and reverse tunneling concepts.</p><div class="tag-list"><span class="tag-item tool">paramiko</span><span class="tag-item skill">SSH tunneling</span></div></div></div>
+        <div class="day"><div class="day-label">Day 06</div><input type="checkbox" class="day-checkbox" id="chk-d06" data-day="d06" onchange="dayCheck('d06',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Extend & Refactor Week's Scripts</strong><p>Add argparse CLI, error handling, and structured JSON logging to all scripts. Push to GitHub.</p><div class="tag-list"><span class="tag-item review">review</span><span class="tag-item tool">argparse</span><span class="tag-item ml">JSON logs</span></div></div></div>
+        <div class="day"><div class="day-label">Day 07</div><input type="checkbox" class="day-checkbox" id="chk-d07" data-day="d07" onchange="dayCheck('d07',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Mini-Project: Multithreaded Port Scanner</strong><p>Build a threaded port scanner from scratch. Benchmark vs nmap. <em>ML bonus: use sklearn to cluster open port patterns by host type.</em></p><div class="tag-list"><span class="tag-item project">port_scanner.py</span><span class="tag-item skill">threading</span><span class="tag-item ml">clustering</span></div></div></div>
       </div>
     </div>
   </div>
@@ -690,18 +720,19 @@
   <div class="phase" id="w2">
     <div class="phase-header" onclick="tog('w2')">
       <span class="week-badge">WEEK 02</span>
+      <div class="week-check-wrap" onclick="event.stopPropagation()"><input type="checkbox" class="week-checkbox" id="chk-w2" onchange="weekCheck('w2',this)"><label class="week-check-label" for="chk-w2">Done</label></div>
       <div><span class="phase-title">Raw Sockets & Network Sniffing</span><span class="phase-chapters">Ch. 3 — Writing a Sniffer · Ch. 4 — Scapy</span></div>
       <div><div class="phase-hours">7 hrs</div><div class="toggle-arrow">▾</div></div>
     </div>
     <div class="phase-body">
       <div class="day-grid">
-        <div class="day"><div class="day-label">Day 08</div><div class="day-content"><strong>Raw Sockets & Packet Decoding</strong><p>Capture raw IP packets. Understand raw sockets on Linux and Windows.</p><div class="tag-list"><span class="tag-item skill">raw sockets</span><span class="tag-item tool">struct</span><span class="tag-item skill">IP headers</span></div></div></div>
-        <div class="day"><div class="day-label">Day 09</div><div class="day-content"><strong>Decoding ICMP & IP Layers</strong><p>Parse IP and ICMP headers using ctypes and struct. <em>ML bonus: capture 1000 packets and build a feature matrix — TTL, protocol, length. Visualise with seaborn.</em></p><div class="tag-list"><span class="tag-item tool">ctypes</span><span class="tag-item skill">ICMP</span><span class="tag-item ml">feature extraction</span></div></div></div>
-        <div class="day"><div class="day-label">Day 10</div><div class="day-content"><strong>Host Discovery Tool</strong><p>Complete Ch. 3. Build the UDP host scanner that maps live hosts using ICMP responses.</p><div class="tag-list"><span class="tag-item project">scanner.py</span><span class="tag-item skill">host discovery</span></div></div></div>
-        <div class="day"><div class="day-label">Day 11</div><div class="day-content"><strong>Scapy — Crafting Packets</strong><p>Install Scapy. Craft TCP, UDP, and ICMP packets. Inspect them in Wireshark to understand every field.</p><div class="tag-list"><span class="tag-item tool">scapy</span><span class="tag-item skill">packet crafting</span></div></div></div>
-        <div class="day"><div class="day-label">Day 12</div><div class="day-content"><strong>ARP Poisoning & Credential Intercept</strong><p>Implement ARP cache poisoning. Intercept and parse credentials over the network in your lab. <em>ML bonus: use regex + NLP to auto-classify captured data types.</em></p><div class="tag-list"><span class="tag-item skill">ARP poisoning</span><span class="tag-item skill">MITM</span><span class="tag-item ml">NLP classification</span></div></div></div>
-        <div class="day"><div class="day-label">Day 13</div><div class="day-content"><strong>PCAP Processing & Image Sniffing</strong><p>Process .pcap files with Scapy. Extract images from HTTP traffic and reconstruct them from captured packets.</p><div class="tag-list"><span class="tag-item skill">PCAP analysis</span><span class="tag-item project">recapper.py</span></div></div></div>
-        <div class="day"><div class="day-label">Day 14</div><div class="day-content"><strong>Review + Wireshark Correlation</strong><p>Capture your own scripts' traffic in Wireshark. Document each layer at the byte level. <em>ML bonus: build a simple anomaly detector on your captured traffic using Isolation Forest.</em></p><div class="tag-list"><span class="tag-item review">review</span><span class="tag-item tool">wireshark</span><span class="tag-item ml">anomaly detection</span></div></div></div>
+        <div class="day"><div class="day-label">Day 08</div><input type="checkbox" class="day-checkbox" id="chk-d08" data-day="d08" onchange="dayCheck('d08',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Raw Sockets & Packet Decoding</strong><p>Capture raw IP packets. Understand raw sockets on Linux and Windows.</p><div class="tag-list"><span class="tag-item skill">raw sockets</span><span class="tag-item tool">struct</span><span class="tag-item skill">IP headers</span></div></div></div>
+        <div class="day"><div class="day-label">Day 09</div><input type="checkbox" class="day-checkbox" id="chk-d09" data-day="d09" onchange="dayCheck('d09',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Decoding ICMP & IP Layers</strong><p>Parse IP and ICMP headers using ctypes and struct. <em>ML bonus: capture 1000 packets and build a feature matrix — TTL, protocol, length. Visualise with seaborn.</em></p><div class="tag-list"><span class="tag-item tool">ctypes</span><span class="tag-item skill">ICMP</span><span class="tag-item ml">feature extraction</span></div></div></div>
+        <div class="day"><div class="day-label">Day 10</div><input type="checkbox" class="day-checkbox" id="chk-d10" data-day="d10" onchange="dayCheck('d10',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Host Discovery Tool</strong><p>Complete Ch. 3. Build the UDP host scanner that maps live hosts using ICMP responses.</p><div class="tag-list"><span class="tag-item project">scanner.py</span><span class="tag-item skill">host discovery</span></div></div></div>
+        <div class="day"><div class="day-label">Day 11</div><input type="checkbox" class="day-checkbox" id="chk-d11" data-day="d11" onchange="dayCheck('d11',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Scapy — Crafting Packets</strong><p>Install Scapy. Craft TCP, UDP, and ICMP packets. Inspect them in Wireshark to understand every field.</p><div class="tag-list"><span class="tag-item tool">scapy</span><span class="tag-item skill">packet crafting</span></div></div></div>
+        <div class="day"><div class="day-label">Day 12</div><input type="checkbox" class="day-checkbox" id="chk-d12" data-day="d12" onchange="dayCheck('d12',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>ARP Poisoning & Credential Intercept</strong><p>Implement ARP cache poisoning. Intercept and parse credentials over the network in your lab. <em>ML bonus: use regex + NLP to auto-classify captured data types.</em></p><div class="tag-list"><span class="tag-item skill">ARP poisoning</span><span class="tag-item skill">MITM</span><span class="tag-item ml">NLP classification</span></div></div></div>
+        <div class="day"><div class="day-label">Day 13</div><input type="checkbox" class="day-checkbox" id="chk-d13" data-day="d13" onchange="dayCheck('d13',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>PCAP Processing & Image Sniffing</strong><p>Process .pcap files with Scapy. Extract images from HTTP traffic and reconstruct them from captured packets.</p><div class="tag-list"><span class="tag-item skill">PCAP analysis</span><span class="tag-item project">recapper.py</span></div></div></div>
+        <div class="day"><div class="day-label">Day 14</div><input type="checkbox" class="day-checkbox" id="chk-d14" data-day="d14" onchange="dayCheck('d14',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Review + Wireshark Correlation</strong><p>Capture your own scripts' traffic in Wireshark. Document each layer at the byte level. <em>ML bonus: build a simple anomaly detector on your captured traffic using Isolation Forest.</em></p><div class="tag-list"><span class="tag-item review">review</span><span class="tag-item tool">wireshark</span><span class="tag-item ml">anomaly detection</span></div></div></div>
       </div>
     </div>
   </div>
@@ -710,18 +741,19 @@
   <div class="phase" id="w3">
     <div class="phase-header" onclick="tog('w3')">
       <span class="week-badge">WEEK 03</span>
+      <div class="week-check-wrap" onclick="event.stopPropagation()"><input type="checkbox" class="week-checkbox" id="chk-w3" onchange="weekCheck('w3',this)"><label class="week-check-label" for="chk-w3">Done</label></div>
       <div><span class="phase-title">Web Hacking & Burp Extensions</span><span class="phase-chapters">Ch. 5 — Web Hackery · Ch. 6 — Burp Suite Extensions</span></div>
       <div><div class="phase-hours">7 hrs</div><div class="toggle-arrow">▾</div></div>
     </div>
     <div class="phase-body">
       <div class="day-grid">
-        <div class="day"><div class="day-label">Day 15</div><div class="day-content"><strong>urllib & requests Deep Dive</strong><p>Make raw HTTP requests, handle cookies, sessions, headers, and user-agent spoofing. <em>ML bonus: your existing API call knowledge maps 1:1 here — focus on attack-specific headers.</em></p><div class="tag-list"><span class="tag-item tool">requests</span><span class="tag-item skill">HTTP sessions</span></div></div></div>
-        <div class="day"><div class="day-label">Day 16</div><div class="day-content"><strong>Web Scraper with BeautifulSoup</strong><p>Parse HTML, extract links, forms, hidden fields. Apply to a live login form in your lab.</p><div class="tag-list"><span class="tag-item tool">beautifulsoup4</span><span class="tag-item skill">form extraction</span></div></div></div>
-        <div class="day"><div class="day-label">Day 17</div><div class="day-content"><strong>Brute-Forcing Directories & Auth</strong><p>Build a directory brute-forcer and a login brute-forcer. Use threading for speed. <em>ML bonus: train a model on HTTP response codes + lengths to auto-classify interesting pages.</em></p><div class="tag-list"><span class="tag-item project">bruter.py</span><span class="tag-item skill">brute force</span><span class="tag-item ml">response classifier</span></div></div></div>
-        <div class="day"><div class="day-label">Day 18</div><div class="day-content"><strong>WordPress Scanner</strong><p>Build an automated WordPress vulnerability scanner that maps users, plugins, and exposed endpoints.</p><div class="tag-list"><span class="tag-item project">wordpress_scanner.py</span><span class="tag-item skill">web recon</span></div></div></div>
-        <div class="day"><div class="day-label">Day 19</div><div class="day-content"><strong>Burp Suite + Jython Setup</strong><p>Configure Burp Suite with Jython for Python extension development. Understand IBurpExtender API structure.</p><div class="tag-list"><span class="tag-item tool">burp suite</span><span class="tag-item tool">jython</span></div></div></div>
-        <div class="day"><div class="day-label">Day 20</div><div class="day-content"><strong>Writing a Burp Fuzzer Extension</strong><p>Write a custom Burp intruder extension that fuzzes parameters with mutation payloads.</p><div class="tag-list"><span class="tag-item project">bhp_fuzzer.py</span><span class="tag-item skill">fuzzing</span></div></div></div>
-        <div class="day"><div class="day-label">Day 21</div><div class="day-content"><strong>Burp OSINT Integration & Review</strong><p>Build a Burp extension that auto-queries APIs for intel on intercepted domains. Review all Ch. 5–6 scripts. <em>ML bonus: use your NLP skills to extract company intel from scraped pages automatically.</em></p><div class="tag-list"><span class="tag-item review">review</span><span class="tag-item skill">OSINT</span><span class="tag-item ml">NLP entity extraction</span></div></div></div>
+        <div class="day"><div class="day-label">Day 15</div><input type="checkbox" class="day-checkbox" id="chk-d15" data-day="d15" onchange="dayCheck('d15',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>urllib & requests Deep Dive</strong><p>Make raw HTTP requests, handle cookies, sessions, headers, and user-agent spoofing. <em>ML bonus: your existing API call knowledge maps 1:1 here — focus on attack-specific headers.</em></p><div class="tag-list"><span class="tag-item tool">requests</span><span class="tag-item skill">HTTP sessions</span></div></div></div>
+        <div class="day"><div class="day-label">Day 16</div><input type="checkbox" class="day-checkbox" id="chk-d16" data-day="d16" onchange="dayCheck('d16',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Web Scraper with BeautifulSoup</strong><p>Parse HTML, extract links, forms, hidden fields. Apply to a live login form in your lab.</p><div class="tag-list"><span class="tag-item tool">beautifulsoup4</span><span class="tag-item skill">form extraction</span></div></div></div>
+        <div class="day"><div class="day-label">Day 17</div><input type="checkbox" class="day-checkbox" id="chk-d17" data-day="d17" onchange="dayCheck('d17',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Brute-Forcing Directories & Auth</strong><p>Build a directory brute-forcer and a login brute-forcer. Use threading for speed. <em>ML bonus: train a model on HTTP response codes + lengths to auto-classify interesting pages.</em></p><div class="tag-list"><span class="tag-item project">bruter.py</span><span class="tag-item skill">brute force</span><span class="tag-item ml">response classifier</span></div></div></div>
+        <div class="day"><div class="day-label">Day 18</div><input type="checkbox" class="day-checkbox" id="chk-d18" data-day="d18" onchange="dayCheck('d18',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>WordPress Scanner</strong><p>Build an automated WordPress vulnerability scanner that maps users, plugins, and exposed endpoints.</p><div class="tag-list"><span class="tag-item project">wordpress_scanner.py</span><span class="tag-item skill">web recon</span></div></div></div>
+        <div class="day"><div class="day-label">Day 19</div><input type="checkbox" class="day-checkbox" id="chk-d19" data-day="d19" onchange="dayCheck('d19',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Burp Suite + Jython Setup</strong><p>Configure Burp Suite with Jython for Python extension development. Understand IBurpExtender API structure.</p><div class="tag-list"><span class="tag-item tool">burp suite</span><span class="tag-item tool">jython</span></div></div></div>
+        <div class="day"><div class="day-label">Day 20</div><input type="checkbox" class="day-checkbox" id="chk-d20" data-day="d20" onchange="dayCheck('d20',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Writing a Burp Fuzzer Extension</strong><p>Write a custom Burp intruder extension that fuzzes parameters with mutation payloads.</p><div class="tag-list"><span class="tag-item project">bhp_fuzzer.py</span><span class="tag-item skill">fuzzing</span></div></div></div>
+        <div class="day"><div class="day-label">Day 21</div><input type="checkbox" class="day-checkbox" id="chk-d21" data-day="d21" onchange="dayCheck('d21',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Burp OSINT Integration & Review</strong><p>Build a Burp extension that auto-queries APIs for intel on intercepted domains. Review all Ch. 5–6 scripts. <em>ML bonus: use your NLP skills to extract company intel from scraped pages automatically.</em></p><div class="tag-list"><span class="tag-item review">review</span><span class="tag-item skill">OSINT</span><span class="tag-item ml">NLP entity extraction</span></div></div></div>
       </div>
     </div>
   </div>
@@ -730,18 +762,19 @@
   <div class="phase" id="w4">
     <div class="phase-header" onclick="tog('w4')">
       <span class="week-badge">WEEK 04</span>
+      <div class="week-check-wrap" onclick="event.stopPropagation()"><input type="checkbox" class="week-checkbox" id="chk-w4" onchange="weekCheck('w4',this)"><label class="week-check-label" for="chk-w4">Done</label></div>
       <div><span class="phase-title">Command & Control + Trojaning Windows</span><span class="phase-chapters">Ch. 7 — GitHub C2 · Ch. 8 — Windows Trojan Tasks</span></div>
       <div><div class="phase-hours">7 hrs</div><div class="toggle-arrow">▾</div></div>
     </div>
     <div class="phase-body">
       <div class="day-grid">
-        <div class="day"><div class="day-label">Day 22</div><div class="day-content"><strong>GitHub as a Covert C2 Channel</strong><p>Use a GitHub repo as a covert C2 channel. Set up encrypted config files and a Python trojan that polls it.</p><div class="tag-list"><span class="tag-item skill">C2 framework</span><span class="tag-item tool">pygithub</span></div></div></div>
-        <div class="day"><div class="day-label">Day 23</div><div class="day-content"><strong>Modular Trojan Architecture</strong><p>Build a trojan that fetches and executes Python modules from GitHub at runtime. <em>ML bonus: add a module that evaluates if the target is a data scientist's machine — detect GPU, CUDA, Jupyter.</em></p><div class="tag-list"><span class="tag-item project">trojan.py</span><span class="tag-item skill">dynamic imports</span><span class="tag-item ml">env fingerprinting</span></div></div></div>
-        <div class="day"><div class="day-label">Day 24</div><div class="day-content"><strong>Windows Keylogger</strong><p>Build a keylogger using pynput. Understand Windows message hooks and keyboard event capture at the OS level.</p><div class="tag-list"><span class="tag-item skill">keylogging</span><span class="tag-item tool">pynput</span></div></div></div>
-        <div class="day"><div class="day-label">Day 25</div><div class="day-content"><strong>Screenshots & Process Injection</strong><p>Capture screenshots with pywin32. Understand shellcode injection into processes using ctypes and VirtualAlloc.</p><div class="tag-list"><span class="tag-item tool">pywin32</span><span class="tag-item tool">ctypes</span><span class="tag-item skill">process injection</span></div></div></div>
-        <div class="day"><div class="day-label">Day 26</div><div class="day-content"><strong>Sandbox Detection & Evasion</strong><p>Detect virtual/sandbox environments via user behaviour patterns. Understand how malware evades automated analysis. <em>ML bonus: apply behavioral anomaly detection — idle mouse patterns, CPU usage, process count.</em></p><div class="tag-list"><span class="tag-item skill">sandbox evasion</span><span class="tag-item ml">behavioral ML</span></div></div></div>
-        <div class="day"><div class="day-label">Day 27</div><div class="day-content"><strong>Man-in-the-Browser with COM</strong><p>Interact with IE via COM objects to intercept form submissions. Understand browser automation as an attack vector.</p><div class="tag-list"><span class="tag-item skill">COM automation</span><span class="tag-item skill">MITB</span><span class="tag-item tool">win32com</span></div></div></div>
-        <div class="day"><div class="day-label">Day 28</div><div class="day-content"><strong>Mid-Book Integration Lab</strong><p>Wire keylogger + screenshot module into your GitHub C2 trojan. Test end-to-end in your lab.</p><div class="tag-list"><span class="tag-item review">integration lab</span><span class="tag-item project">c2_trojan_v1</span></div></div></div>
+        <div class="day"><div class="day-label">Day 22</div><input type="checkbox" class="day-checkbox" id="chk-d22" data-day="d22" onchange="dayCheck('d22',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>GitHub as a Covert C2 Channel</strong><p>Use a GitHub repo as a covert C2 channel. Set up encrypted config files and a Python trojan that polls it.</p><div class="tag-list"><span class="tag-item skill">C2 framework</span><span class="tag-item tool">pygithub</span></div></div></div>
+        <div class="day"><div class="day-label">Day 23</div><input type="checkbox" class="day-checkbox" id="chk-d23" data-day="d23" onchange="dayCheck('d23',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Modular Trojan Architecture</strong><p>Build a trojan that fetches and executes Python modules from GitHub at runtime. <em>ML bonus: add a module that evaluates if the target is a data scientist's machine — detect GPU, CUDA, Jupyter.</em></p><div class="tag-list"><span class="tag-item project">trojan.py</span><span class="tag-item skill">dynamic imports</span><span class="tag-item ml">env fingerprinting</span></div></div></div>
+        <div class="day"><div class="day-label">Day 24</div><input type="checkbox" class="day-checkbox" id="chk-d24" data-day="d24" onchange="dayCheck('d24',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Windows Keylogger</strong><p>Build a keylogger using pynput. Understand Windows message hooks and keyboard event capture at the OS level.</p><div class="tag-list"><span class="tag-item skill">keylogging</span><span class="tag-item tool">pynput</span></div></div></div>
+        <div class="day"><div class="day-label">Day 25</div><input type="checkbox" class="day-checkbox" id="chk-d25" data-day="d25" onchange="dayCheck('d25',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Screenshots & Process Injection</strong><p>Capture screenshots with pywin32. Understand shellcode injection into processes using ctypes and VirtualAlloc.</p><div class="tag-list"><span class="tag-item tool">pywin32</span><span class="tag-item tool">ctypes</span><span class="tag-item skill">process injection</span></div></div></div>
+        <div class="day"><div class="day-label">Day 26</div><input type="checkbox" class="day-checkbox" id="chk-d26" data-day="d26" onchange="dayCheck('d26',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Sandbox Detection & Evasion</strong><p>Detect virtual/sandbox environments via user behaviour patterns. Understand how malware evades automated analysis. <em>ML bonus: apply behavioral anomaly detection — idle mouse patterns, CPU usage, process count.</em></p><div class="tag-list"><span class="tag-item skill">sandbox evasion</span><span class="tag-item ml">behavioral ML</span></div></div></div>
+        <div class="day"><div class="day-label">Day 27</div><input type="checkbox" class="day-checkbox" id="chk-d27" data-day="d27" onchange="dayCheck('d27',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Man-in-the-Browser with COM</strong><p>Interact with IE via COM objects to intercept form submissions. Understand browser automation as an attack vector.</p><div class="tag-list"><span class="tag-item skill">COM automation</span><span class="tag-item skill">MITB</span><span class="tag-item tool">win32com</span></div></div></div>
+        <div class="day"><div class="day-label">Day 28</div><input type="checkbox" class="day-checkbox" id="chk-d28" data-day="d28" onchange="dayCheck('d28',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Mid-Book Integration Lab</strong><p>Wire keylogger + screenshot module into your GitHub C2 trojan. Test end-to-end in your lab.</p><div class="tag-list"><span class="tag-item review">integration lab</span><span class="tag-item project">c2_trojan_v1</span></div></div></div>
       </div>
     </div>
   </div>
@@ -750,18 +783,19 @@
   <div class="phase" id="w5">
     <div class="phase-header" onclick="tog('w5')">
       <span class="week-badge">WEEK 05</span>
+      <div class="week-check-wrap" onclick="event.stopPropagation()"><input type="checkbox" class="week-checkbox" id="chk-w5" onchange="weekCheck('w5',this)"><label class="week-check-label" for="chk-w5">Done</label></div>
       <div><span class="phase-title">Exfiltration & Privilege Escalation</span><span class="phase-chapters">Ch. 9 — Exfiltration · Ch. 10 — Windows Priv Esc</span></div>
       <div><div class="phase-hours">7 hrs</div><div class="toggle-arrow">▾</div></div>
     </div>
     <div class="phase-body">
       <div class="day-grid">
-        <div class="day"><div class="day-label">Day 29</div><div class="day-content"><strong>Email & File Transmission Exfil</strong><p>Exfiltrate via SMTP. Encrypt files before sending. <em>ML bonus: use lossy image compression + steganography to hide model weights inside innocuous images.</em></p><div class="tag-list"><span class="tag-item skill">exfiltration</span><span class="tag-item tool">smtplib</span><span class="tag-item ml">model weight exfil</span></div></div></div>
-        <div class="day"><div class="day-label">Day 30</div><div class="day-content"><strong>Covert HTTP & Slack Channels</strong><p>Hide data inside normal HTTP traffic and Slack messages. <em>ML bonus: encode stolen data as float tensors in a fake "model evaluation" payload — extremely hard to detect.</em></p><div class="tag-list"><span class="tag-item skill">covert channel</span><span class="tag-item ml">tensor encoding</span></div></div></div>
-        <div class="day"><div class="day-label">Day 31</div><div class="day-content"><strong>Cryptography for Exfiltration</strong><p>Encrypt files using the cryptography library (AES/Fernet). Understand key management in offensive context.</p><div class="tag-list"><span class="tag-item tool">cryptography</span><span class="tag-item skill">AES/Fernet</span></div></div></div>
-        <div class="day"><div class="day-label">Day 32</div><div class="day-content"><strong>Windows Privilege Escalation Theory</strong><p>UAC bypass, token impersonation, and process token manipulation theory.</p><div class="tag-list"><span class="tag-item skill">UAC bypass</span><span class="tag-item skill">token impersonation</span></div></div></div>
-        <div class="day"><div class="day-label">Day 33</div><div class="day-content"><strong>File & Process Monitoring</strong><p>Monitor filesystem changes and processes using WMI. <em>ML bonus: apply time-series anomaly detection (LSTM or Isolation Forest) on process event streams.</em></p><div class="tag-list"><span class="tag-item project">file_monitor.py</span><span class="tag-item tool">WMI</span><span class="tag-item ml">LSTM anomaly</span></div></div></div>
-        <div class="day"><div class="day-label">Day 34</div><div class="day-content"><strong>Win32 API Code Injection</strong><p>Inject code into running processes via VirtualAllocEx + CreateRemoteThread using ctypes. Understand DLL injection.</p><div class="tag-list"><span class="tag-item skill">code injection</span><span class="tag-item tool">ctypes win32</span></div></div></div>
-        <div class="day"><div class="day-label">Day 35</div><div class="day-content"><strong>Full Attack Chain Lab</strong><p>Simulate: network scan → web exploit → C2 deploy → exfiltration. Document each step. Your capstone attack exercise.</p><div class="tag-list"><span class="tag-item project">full chain lab</span><span class="tag-item review">integration</span></div></div></div>
+        <div class="day"><div class="day-label">Day 29</div><input type="checkbox" class="day-checkbox" id="chk-d29" data-day="d29" onchange="dayCheck('d29',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Email & File Transmission Exfil</strong><p>Exfiltrate via SMTP. Encrypt files before sending. <em>ML bonus: use lossy image compression + steganography to hide model weights inside innocuous images.</em></p><div class="tag-list"><span class="tag-item skill">exfiltration</span><span class="tag-item tool">smtplib</span><span class="tag-item ml">model weight exfil</span></div></div></div>
+        <div class="day"><div class="day-label">Day 30</div><input type="checkbox" class="day-checkbox" id="chk-d30" data-day="d30" onchange="dayCheck('d30',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Covert HTTP & Slack Channels</strong><p>Hide data inside normal HTTP traffic and Slack messages. <em>ML bonus: encode stolen data as float tensors in a fake "model evaluation" payload — extremely hard to detect.</em></p><div class="tag-list"><span class="tag-item skill">covert channel</span><span class="tag-item ml">tensor encoding</span></div></div></div>
+        <div class="day"><div class="day-label">Day 31</div><input type="checkbox" class="day-checkbox" id="chk-d31" data-day="d31" onchange="dayCheck('d31',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Cryptography for Exfiltration</strong><p>Encrypt files using the cryptography library (AES/Fernet). Understand key management in offensive context.</p><div class="tag-list"><span class="tag-item tool">cryptography</span><span class="tag-item skill">AES/Fernet</span></div></div></div>
+        <div class="day"><div class="day-label">Day 32</div><input type="checkbox" class="day-checkbox" id="chk-d32" data-day="d32" onchange="dayCheck('d32',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Windows Privilege Escalation Theory</strong><p>UAC bypass, token impersonation, and process token manipulation theory.</p><div class="tag-list"><span class="tag-item skill">UAC bypass</span><span class="tag-item skill">token impersonation</span></div></div></div>
+        <div class="day"><div class="day-label">Day 33</div><input type="checkbox" class="day-checkbox" id="chk-d33" data-day="d33" onchange="dayCheck('d33',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>File & Process Monitoring</strong><p>Monitor filesystem changes and processes using WMI. <em>ML bonus: apply time-series anomaly detection (LSTM or Isolation Forest) on process event streams.</em></p><div class="tag-list"><span class="tag-item project">file_monitor.py</span><span class="tag-item tool">WMI</span><span class="tag-item ml">LSTM anomaly</span></div></div></div>
+        <div class="day"><div class="day-label">Day 34</div><input type="checkbox" class="day-checkbox" id="chk-d34" data-day="d34" onchange="dayCheck('d34',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Win32 API Code Injection</strong><p>Inject code into running processes via VirtualAllocEx + CreateRemoteThread using ctypes. Understand DLL injection.</p><div class="tag-list"><span class="tag-item skill">code injection</span><span class="tag-item tool">ctypes win32</span></div></div></div>
+        <div class="day"><div class="day-label">Day 35</div><input type="checkbox" class="day-checkbox" id="chk-d35" data-day="d35" onchange="dayCheck('d35',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Full Attack Chain Lab</strong><p>Simulate: network scan → web exploit → C2 deploy → exfiltration. Document each step. Your capstone attack exercise.</p><div class="tag-list"><span class="tag-item project">full chain lab</span><span class="tag-item review">integration</span></div></div></div>
       </div>
     </div>
   </div>
@@ -770,18 +804,19 @@
   <div class="phase" id="w6">
     <div class="phase-header" onclick="tog('w6')">
       <span class="week-badge">WEEK 06</span>
+      <div class="week-check-wrap" onclick="event.stopPropagation()"><input type="checkbox" class="week-checkbox" id="chk-w6" onchange="weekCheck('w6',this)"><label class="week-check-label" for="chk-w6">Done</label></div>
       <div><span class="phase-title">Offensive Forensics & Final Mastery</span><span class="phase-chapters">Ch. 11 — Offensive Forensics · Final Projects</span></div>
       <div><div class="phase-hours">7 hrs</div><div class="toggle-arrow">▾</div></div>
     </div>
     <div class="phase-body">
       <div class="day-grid">
-        <div class="day"><div class="day-label">Day 36</div><div class="day-content"><strong>Volatility 3 & Memory Analysis</strong><p>Analyze Windows memory dumps with Volatility 3. Detect processes, network connections, and injected code.</p><div class="tag-list"><span class="tag-item tool">volatility3</span><span class="tag-item skill">memory forensics</span></div></div></div>
-        <div class="day"><div class="day-label">Day 37</div><div class="day-content"><strong>Custom Volatility Plugins</strong><p>Write Python plugins to auto-extract credentials, clipboard data, and shellcode from memory dumps. <em>ML bonus: use clustering to group similar memory anomalies across multiple dumps.</em></p><div class="tag-list"><span class="tag-item project">custom_plugin.py</span><span class="tag-item ml">memory clustering</span></div></div></div>
-        <div class="day"><div class="day-label">Day 38</div><div class="day-content"><strong>Detecting Your Own Injections</strong><p>Learn to forensically detect your Ch. 10 injections. Understand the attack-vs-forensics cat-and-mouse game.</p><div class="tag-list"><span class="tag-item skill">injection detection</span><span class="tag-item skill">VAD analysis</span></div></div></div>
-        <div class="day"><div class="day-label">Day 39</div><div class="day-content"><strong>Full Book Concept Map</strong><p>Map all chapters into a mind map: networking → sniffing → web → C2 → exfil → PrivEsc → forensics. Identify gaps.</p><div class="tag-list"><span class="tag-item review">mind map</span><span class="tag-item review">gap analysis</span></div></div></div>
-        <div class="day"><div class="day-label">Day 40</div><div class="day-content"><strong>Rebuild Your Weakest Chapter</strong><p>Rewrite all code from your hardest chapter from scratch, without the book. If it works, you own it.</p><div class="tag-list"><span class="tag-item review">active recall</span></div></div></div>
-        <div class="day"><div class="day-label">Day 41</div><div class="day-content"><strong>Build a Portfolio Tool</strong><p>Combine 3+ techniques into one original tool. Combines your ML + hacking skills for a unique portfolio piece.</p><div class="tag-list"><span class="tag-item project">portfolio tool</span><span class="tag-item ml">ML+sec hybrid</span></div></div></div>
-        <div class="day"><div class="day-label">Day 42</div><div class="day-content"><strong>Final Lab: HTB / THM + Planning</strong><p>Use only your own Python scripts against an HTB/THM box. Plan your next resource path using the career ladder below.</p><div class="tag-list"><span class="tag-item project">HTB/THM lab</span><span class="tag-item review">career plan</span></div></div></div>
+        <div class="day"><div class="day-label">Day 36</div><input type="checkbox" class="day-checkbox" id="chk-d36" data-day="d36" onchange="dayCheck('d36',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Volatility 3 & Memory Analysis</strong><p>Analyze Windows memory dumps with Volatility 3. Detect processes, network connections, and injected code.</p><div class="tag-list"><span class="tag-item tool">volatility3</span><span class="tag-item skill">memory forensics</span></div></div></div>
+        <div class="day"><div class="day-label">Day 37</div><input type="checkbox" class="day-checkbox" id="chk-d37" data-day="d37" onchange="dayCheck('d37',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Custom Volatility Plugins</strong><p>Write Python plugins to auto-extract credentials, clipboard data, and shellcode from memory dumps. <em>ML bonus: use clustering to group similar memory anomalies across multiple dumps.</em></p><div class="tag-list"><span class="tag-item project">custom_plugin.py</span><span class="tag-item ml">memory clustering</span></div></div></div>
+        <div class="day"><div class="day-label">Day 38</div><input type="checkbox" class="day-checkbox" id="chk-d38" data-day="d38" onchange="dayCheck('d38',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Detecting Your Own Injections</strong><p>Learn to forensically detect your Ch. 10 injections. Understand the attack-vs-forensics cat-and-mouse game.</p><div class="tag-list"><span class="tag-item skill">injection detection</span><span class="tag-item skill">VAD analysis</span></div></div></div>
+        <div class="day"><div class="day-label">Day 39</div><input type="checkbox" class="day-checkbox" id="chk-d39" data-day="d39" onchange="dayCheck('d39',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Full Book Concept Map</strong><p>Map all chapters into a mind map: networking → sniffing → web → C2 → exfil → PrivEsc → forensics. Identify gaps.</p><div class="tag-list"><span class="tag-item review">mind map</span><span class="tag-item review">gap analysis</span></div></div></div>
+        <div class="day"><div class="day-label">Day 40</div><input type="checkbox" class="day-checkbox" id="chk-d40" data-day="d40" onchange="dayCheck('d40',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Rebuild Your Weakest Chapter</strong><p>Rewrite all code from your hardest chapter from scratch, without the book. If it works, you own it.</p><div class="tag-list"><span class="tag-item review">active recall</span></div></div></div>
+        <div class="day"><div class="day-label">Day 41</div><input type="checkbox" class="day-checkbox" id="chk-d41" data-day="d41" onchange="dayCheck('d41',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Build a Portfolio Tool</strong><p>Combine 3+ techniques into one original tool. Combines your ML + hacking skills for a unique portfolio piece.</p><div class="tag-list"><span class="tag-item project">portfolio tool</span><span class="tag-item ml">ML+sec hybrid</span></div></div></div>
+        <div class="day"><div class="day-label">Day 42</div><input type="checkbox" class="day-checkbox" id="chk-d42" data-day="d42" onchange="dayCheck('d42',this)" onclick="event.stopPropagation()"><div class="day-content"><strong>Final Lab: HTB / THM + Planning</strong><p>Use only your own Python scripts against an HTB/THM box. Plan your next resource path using the career ladder below.</p><div class="tag-list"><span class="tag-item project">HTB/THM lab</span><span class="tag-item review">career plan</span></div></div></div>
       </div>
     </div>
   </div>
@@ -4075,7 +4110,75 @@
 </div>
 
 <script>
+  // Toggle accordion
   function tog(id) { document.getElementById(id).classList.toggle('open'); }
+
+  // --- Persistence ---
+  const STORE = 'bhp_progress';
+  function loadState() { try { return JSON.parse(localStorage.getItem(STORE)) || {}; } catch(e){ return {}; } }
+  function saveState(s) { localStorage.setItem(STORE, JSON.stringify(s)); }
+
+  // --- Day check ---
+  function dayCheck(dayId, cb) {
+    const state = loadState();
+    state[dayId] = cb.checked;
+    saveState(state);
+    const dayEl = cb.closest('.day');
+    dayEl.classList.toggle('day-done', cb.checked);
+    // Check if parent week is fully done
+    updateWeekFromDays(cb.closest('.phase').id);
+  }
+
+  // --- Week check (check/uncheck all days in week) ---
+  function weekCheck(weekId, cb) {
+    const phase = document.getElementById(weekId);
+    const state = loadState();
+    phase.querySelectorAll('.day-checkbox').forEach(dc => {
+      dc.checked = cb.checked;
+      const dayId = dc.dataset.day;
+      state[dayId] = cb.checked;
+      dc.closest('.day').classList.toggle('day-done', cb.checked);
+    });
+    state['week_' + weekId] = cb.checked;
+    saveState(state);
+    phase.classList.toggle('week-done', cb.checked);
+  }
+
+  // Auto-check week if all its days are done
+  function updateWeekFromDays(weekId) {
+    const phase = document.getElementById(weekId);
+    const boxes = phase.querySelectorAll('.day-checkbox');
+    const allDone = [...boxes].every(b => b.checked);
+    const weekCb = document.getElementById('chk-' + weekId);
+    weekCb.checked = allDone;
+    phase.classList.toggle('week-done', allDone);
+    const state = loadState();
+    state['week_' + weekId] = allDone;
+    saveState(state);
+  }
+
+  // --- Restore on load ---
+  document.addEventListener('DOMContentLoaded', () => {
+    const state = loadState();
+    // Restore day checkboxes
+    document.querySelectorAll('.day-checkbox').forEach(cb => {
+      const dayId = cb.dataset.day;
+      if (state[dayId]) {
+        cb.checked = true;
+        cb.closest('.day').classList.add('day-done');
+      }
+    });
+    // Restore week checkboxes
+    ['w1','w2','w3','w4','w5','w6'].forEach(wid => {
+      const weekCb = document.getElementById('chk-' + wid);
+      if (!weekCb) return;
+      const phase = document.getElementById(wid);
+      const boxes = phase.querySelectorAll('.day-checkbox');
+      const allDone = boxes.length > 0 && [...boxes].every(b => b.checked);
+      weekCb.checked = allDone;
+      if (allDone) phase.classList.add('week-done');
+    });
+  });
 </script>
 </body>
 </html>

@@ -632,6 +632,113 @@ main {
   .lec-top { flex-direction: column; align-items: flex-start; }
   .ascii-logo { display: none; }
 }
+
+/* ─── WEEK CHECKBOXES ─── */
+.lec-checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.lec-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--g3);
+  background: var(--bg3);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  vertical-align: middle;
+}
+.lec-checkbox:hover {
+  border-color: var(--g1);
+  box-shadow: 0 0 8px rgba(0,255,65,0.2);
+}
+.lec-checkbox:checked {
+  background: var(--g2);
+  border-color: var(--g1);
+  box-shadow: 0 0 10px rgba(0,255,65,0.3);
+}
+.lec-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 7px;
+  height: 11px;
+  border: 2px solid var(--bg);
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+.lec.done {
+  border-color: var(--g3);
+  opacity: 0.75;
+}
+.lec.done .lec-top {
+  background: rgba(0,255,65,0.03);
+}
+.lec.done .lec-name {
+  color: var(--text3);
+}
+.lec.done .lec-name .lnum {
+  color: var(--g3);
+}
+.done-label {
+  font-size: 11px;
+  color: var(--g2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: none;
+}
+.lec.done .done-label { display: inline; }
+
+/* Progress bar */
+.module-progress-wrap {
+  margin-bottom: 24px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.module-progress-label {
+  font-size: 12px;
+  color: var(--text3);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.module-progress-bar-bg {
+  flex: 1;
+  height: 6px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.module-progress-bar {
+  height: 100%;
+  background: var(--g2);
+  width: 0%;
+  transition: width 0.4s ease;
+  box-shadow: 0 0 8px rgba(0,255,65,0.3);
+}
+.module-progress-pct {
+  font-size: 13px;
+  color: var(--g1);
+  font-family: var(--mono);
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 38px;
+  text-align: right;
+}
+
 </style>
 </head>
 <body>
@@ -704,11 +811,18 @@ main {
     Statistical mechanics is where ML borrows most heavily from physics. The Boltzmann distribution is the mathematical ancestor of softmax. Partition functions appear throughout probabilistic modelling. Free energy minimization is what variational inference is actually doing. The entropy studied here is the same entropy that defines information content, uncertainty in predictions, and regularization in neural networks. After this module, gradient descent starts to look like a system seeking its lowest energy state — because formally, it is.
   </div>
 
+    <div class="module-progress-wrap" id="progress-stat">
+    <span class="module-progress-label">// PROGRESS</span>
+    <div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-stat"></div></div>
+    <span class="module-progress-pct" id="pct-stat">0%</span>
+  </div>
+
   <div class="lec-list">
 
     <!-- ── L1 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-1">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-1" data-lec="lec-1" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[L1]</span>Probability &amp; Entropy</span>
         <a href="https://theoreticalminimum.com/courses/statistical-mechanics/2013/spring/lecture-1" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -771,8 +885,9 @@ main {
     </div>
 
     <!-- ── L3 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-2">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-2" data-lec="lec-2" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[L3]</span>Boltzmann Distribution</span>
         <a href="https://theoreticalminimum.com/courses/statistical-mechanics/2013/spring/lecture-3" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -831,8 +946,9 @@ main {
     </div>
 
     <!-- ── L4 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-3">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-3" data-lec="lec-3" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[L4]</span>Boltzmann Distribution &amp; Partition Functions</span>
         <a href="https://theoreticalminimum.com/courses/statistical-mechanics/2013/spring/lecture-4" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -887,8 +1003,9 @@ main {
     </div>
 
     <!-- ── L5 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-4">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-4" data-lec="lec-4" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[L5]</span>Helmholtz Free Energy &amp; Ideal Gas</span>
         <a href="https://theoreticalminimum.com/courses/statistical-mechanics/2013/spring/lecture-5" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -986,11 +1103,18 @@ main {
     This is where physics and ML meet most explicitly. Shannon entropy is a direct extension of Boltzmann entropy — same formula, different domain. Cross-entropy loss, used to train almost every classification model in existence, is a direct consequence of information-theoretic reasoning. Bayesian inference, variational methods, KL divergence, the mathematics behind VAEs and diffusion models — all of it lives here. MacKay's book treats neural networks as a natural consequence of probabilistic reasoning, not a separate subject bolted on at the end.
   </div>
 
+    <div class="module-progress-wrap" id="progress-info">
+    <span class="module-progress-label">// PROGRESS</span>
+    <div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-info"></div></div>
+    <span class="module-progress-pct" id="pct-info">0%</span>
+  </div>
+
   <div class="lec-list">
 
     <!-- ── L1 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-5">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-5" data-lec="lec-5" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[L1]</span>Introduction to Information Theory</span>
         <a href="https://www.youtube.com/watch?v=BCiZc0n6COY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1041,8 +1165,9 @@ main {
     </div>
 
     <!-- ── L2 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-6">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-6" data-lec="lec-6" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[L2]</span>Entropy &amp; Data Compression (I)</span>
         <a href="https://www.youtube.com/watch?v=mBFSW9hikuY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1093,8 +1218,9 @@ main {
     </div>
 
     <!-- ── L3 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-7">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-7" data-lec="lec-7" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[L3]</span>Entropy &amp; Data Compression (II)</span>
         <a href="https://www.youtube.com/watch?v=mBFSW9hikuY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1145,8 +1271,9 @@ main {
     </div>
 
     <!-- ── L6 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-8">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-8" data-lec="lec-8" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[L6]</span>Noisy Channel Coding</span>
         <a href="https://www.youtube.com/watch?v=mBFSW9hikuY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1201,8 +1328,9 @@ main {
     </div>
 
     <!-- ── L9–10 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-9">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-9" data-lec="lec-9" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[L9–10]</span>Bayesian Inference</span>
         <a href="https://www.youtube.com/watch?v=mBFSW9hikuY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1257,8 +1385,9 @@ main {
     </div>
 
     <!-- ── L14 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-10">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-10" data-lec="lec-10" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[L14]</span>Variational Methods</span>
         <a href="https://www.youtube.com/watch?v=mBFSW9hikuY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1313,8 +1442,9 @@ main {
     </div>
 
     <!-- ── L15–16 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-11">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-11" data-lec="lec-11" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[L15–16]</span>Neural Networks &amp; Boltzmann Machines</span>
         <a href="https://www.youtube.com/watch?v=mBFSW9hikuY&list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1420,11 +1550,18 @@ main {
     Neural networks are nonlinear dynamical systems. Training is a trajectory through a high-dimensional loss landscape. Fixed points, attractors, bifurcations, and stability — these aren't metaphors for what happens during training, they describe it precisely. Recurrent networks are literally dynamical systems evolving over time. Understanding when nonlinear systems stabilize, oscillate, or go chaotic builds the intuition needed to reason about why networks fail to converge, why they escape saddle points, and what a good solution actually means geometrically.
   </div>
 
+    <div class="module-progress-wrap" id="progress-nld">
+    <span class="module-progress-label">// PROGRESS</span>
+    <div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-nld"></div></div>
+    <span class="module-progress-pct" id="pct-nld">0%</span>
+  </div>
+
   <div class="lec-list">
 
     <!-- ── 1D FLOWS ── -->
-    <div class="lec">
+    <div class="lec" id="lec-12">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-12" data-lec="lec-12" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 2]</span>Flows on the Line — 1D Systems</span>
         <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1479,8 +1616,9 @@ main {
     </div>
 
     <!-- ── BIFURCATIONS 1D ── -->
-    <div class="lec">
+    <div class="lec" id="lec-13">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-13" data-lec="lec-13" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 3]</span>Bifurcations</span>
         <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1535,8 +1673,9 @@ main {
     </div>
 
     <!-- ── 2D LINEAR ── -->
-    <div class="lec">
+    <div class="lec" id="lec-14">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-14" data-lec="lec-14" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 5–6]</span>Linear Systems &amp; Phase Plane</span>
         <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1591,8 +1730,9 @@ main {
     </div>
 
     <!-- ── LIMIT CYCLES ── -->
-    <div class="lec">
+    <div class="lec" id="lec-15">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-15" data-lec="lec-15" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 7]</span>Limit Cycles</span>
         <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1647,8 +1787,9 @@ main {
     </div>
 
     <!-- ── BIFURCATIONS REVISITED + HOPF ── -->
-    <div class="lec">
+    <div class="lec" id="lec-16">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-16" data-lec="lec-16" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 8]</span>Bifurcations Revisited — Hopf &amp; Global</span>
         <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1703,8 +1844,9 @@ main {
     </div>
 
     <!-- ── CHAOS / LORENZ ── -->
-    <div class="lec">
+    <div class="lec" id="lec-17">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-17" data-lec="lec-17" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 9–10]</span>Chaos — Lorenz Equations &amp; 1D Maps</span>
         <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1760,8 +1902,9 @@ main {
     </div>
 
     <!-- ── STRANGE ATTRACTORS ── -->
-    <div class="lec">
+    <div class="lec" id="lec-18">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-18" data-lec="lec-18" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 11–12]</span>Fractals &amp; Strange Attractors</span>
         <a href="https://www.youtube.com/watch?v=ycJEoqmQvwg&list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1859,11 +2002,18 @@ main {
     This is where physical systems thinking gets applied computationally. Time series are the observable outputs of dynamical systems — everything from climate to financial markets to neural signals. Decomposition, smoothing, ARIMA, and state-space models are all grounded in the same reasoning used to analyse physical processes evolving over time. The transition to neural forecasting (N-BEATS, TFT, foundation models) shows how deep learning enters as a generalisation of classical methods — not a replacement, but an extension of the same underlying logic. After Strogatz (Module 3), these methods stop being black boxes and start being recognisable as discretised dynamical systems.
   </div>
 
+    <div class="module-progress-wrap" id="progress-fc">
+    <span class="module-progress-label">// PROGRESS</span>
+    <div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-fc"></div></div>
+    <span class="module-progress-pct" id="pct-fc">0%</span>
+  </div>
+
   <div class="lec-list">
 
     <!-- ── Ch 1-2 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-19">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-19" data-lec="lec-19" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 1–2]</span>Getting Started &amp; Time Series Graphics</span>
         <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1907,8 +2057,9 @@ main {
     </div>
 
     <!-- ── Ch 3-4 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-20">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-20" data-lec="lec-20" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 3–4]</span>Decomposition &amp; Time Series Features</span>
         <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1953,8 +2104,9 @@ main {
     </div>
 
     <!-- ── Ch 5-6 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-21">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-21" data-lec="lec-21" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 5–6]</span>The Forecaster's Toolbox &amp; Judgmental Forecasts</span>
         <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -1998,8 +2150,9 @@ main {
     </div>
 
     <!-- ── Ch 7-8 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-22">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-22" data-lec="lec-22" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 7–8]</span>Time Series Regression &amp; Exponential Smoothing (ETS)</span>
         <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2054,8 +2207,9 @@ main {
     </div>
 
     <!-- ── Ch 9-10 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-23">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-23" data-lec="lec-23" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 9–10]</span>ARIMA Models &amp; Dynamic Regression</span>
         <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2111,8 +2265,9 @@ main {
     </div>
 
     <!-- ── Ch 11-13 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-24">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-24" data-lec="lec-24" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 11–13]</span>Hierarchical Forecasting, Advanced Methods &amp; Practical Issues</span>
         <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2167,8 +2322,9 @@ main {
     </div>
 
     <!-- ── Ch 14-15 ── -->
-    <div class="lec">
+    <div class="lec" id="lec-25">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-25" data-lec="lec-25" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 14–15]</span>Neural Networks &amp; Foundation Forecasting Models</span>
         <a href="https://www.youtube.com/playlist?list=PLyCNZ_xXGzpm7W9jLqbIyBAiSO5jDwJeE" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2260,11 +2416,18 @@ main {
     PGMs are the formal language for representing uncertainty and dependence between variables — the same concepts that appear in physical systems as conditional probabilities and joint distributions over states. Bayesian networks, Markov networks, and the EM algorithm connect directly to how modern generative models learn latent structure. Variational inference closes this module as the bridge between the free energy ideas in Module 1 and the practical machinery inside VAEs and diffusion models.
   </div>
 
+    <div class="module-progress-wrap" id="progress-pgm">
+    <span class="module-progress-label">// PROGRESS</span>
+    <div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-pgm"></div></div>
+    <span class="module-progress-pct" id="pct-pgm">0%</span>
+  </div>
+
   <div class="lec-list">
 
     <!-- ── PART I: REPRESENTATION ── -->
-    <div class="lec">
+    <div class="lec" id="lec-26">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-26" data-lec="lec-26" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 2–3]</span>Foundations &amp; Bayesian Networks</span>
         <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2319,8 +2482,9 @@ main {
     </div>
 
     <!-- ── MARKOV NETWORKS ── -->
-    <div class="lec">
+    <div class="lec" id="lec-27">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-27" data-lec="lec-27" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 4–5]</span>Undirected Graphical Models &amp; Local CPDs</span>
         <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2375,8 +2539,9 @@ main {
     </div>
 
     <!-- ── TEMPORAL + GAUSSIAN MODELS ── -->
-    <div class="lec">
+    <div class="lec" id="lec-28">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-28" data-lec="lec-28" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 6–7]</span>Temporal Models &amp; Gaussian Networks</span>
         <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2431,8 +2596,9 @@ main {
     </div>
 
     <!-- ── PART II: INFERENCE ── -->
-    <div class="lec">
+    <div class="lec" id="lec-29">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-29" data-lec="lec-29" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 9–10]</span>Exact Inference — Variable Elimination &amp; Belief Propagation</span>
         <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2488,8 +2654,9 @@ main {
     </div>
 
     <!-- ── MCMC + MAP ── -->
-    <div class="lec">
+    <div class="lec" id="lec-30">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-30" data-lec="lec-30" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 12–13]</span>Approximate Inference — MCMC &amp; MAP</span>
         <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2545,8 +2712,9 @@ main {
     </div>
 
     <!-- ── PART III: LEARNING ── -->
-    <div class="lec">
+    <div class="lec" id="lec-31">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-31" data-lec="lec-31" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 15–16]</span>Parameter Learning &amp; the EM Algorithm</span>
         <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2602,8 +2770,9 @@ main {
     </div>
 
     <!-- ── STRUCTURE LEARNING + CAUSAL ── -->
-    <div class="lec">
+    <div class="lec" id="lec-32">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-32" data-lec="lec-32" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 17–18 &amp; 20]</span>Structure Learning &amp; Causal Reasoning</span>
         <a href="https://www.youtube.com/watch?v=Ey9SMpVqOAo&list=PLBAGcD3siRDjiQ5VZQ8t0C7jkHQ8fhuq8" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2700,11 +2869,18 @@ main {
     The Hamiltonian formulation of mechanics — energy as the central object, phase space as the arena — is the conceptual ancestor of several ideas now appearing at the frontier of deep learning. Hamiltonian Monte Carlo is a direct application used in Bayesian inference. Hamiltonian Neural Networks learn to respect conservation laws in physical simulations. The Lagrangian framework, built on the principle of least action, mirrors how optimisation finds paths of minimal cost through parameter space. This module closes the loop — the physicist's toolkit becomes the ML practitioner's toolkit.
   </div>
 
+    <div class="module-progress-wrap" id="progress-ham">
+    <span class="module-progress-label">// PROGRESS</span>
+    <div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-ham"></div></div>
+    <span class="module-progress-pct" id="pct-ham">0%</span>
+  </div>
+
   <div class="lec-list">
 
     <!-- ── ENERGY + CONSERVATIVE FORCES ── -->
-    <div class="lec">
+    <div class="lec" id="lec-33">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-33" data-lec="lec-33" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 4–5]</span>Energy, Potentials &amp; Oscillations</span>
         <a href="https://theoreticalminimum.com/courses/classical-mechanics/2011/fall/lecture-1" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2764,8 +2940,9 @@ main {
     </div>
 
     <!-- ── CALCULUS OF VARIATIONS ── -->
-    <div class="lec">
+    <div class="lec" id="lec-34">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-34" data-lec="lec-34" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 6]</span>Calculus of Variations &amp; Euler–Lagrange</span>
         <a href="https://theoreticalminimum.com/courses/classical-mechanics/2011/fall/lecture-4" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2820,8 +2997,9 @@ main {
     </div>
 
     <!-- ── LAGRANGIAN MECHANICS ── -->
-    <div class="lec">
+    <div class="lec" id="lec-35">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-35" data-lec="lec-35" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 7]</span>Lagrange's Equations &amp; Generalised Coordinates</span>
         <a href="https://theoreticalminimum.com/courses/classical-mechanics/2011/fall/lecture-4" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2876,8 +3054,9 @@ main {
     </div>
 
     <!-- ── COUPLED OSCILLATORS + NORMAL MODES ── -->
-    <div class="lec">
+    <div class="lec" id="lec-36">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-36" data-lec="lec-36" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 11]</span>Coupled Oscillators &amp; Normal Modes</span>
         <a href="https://theoreticalminimum.com/courses/classical-mechanics/2011/fall/lecture-4" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2932,8 +3111,9 @@ main {
     </div>
 
     <!-- ── HAMILTONIAN MECHANICS ── -->
-    <div class="lec">
+    <div class="lec" id="lec-37">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-37" data-lec="lec-37" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 13]</span>Hamiltonian Mechanics &amp; Phase Space</span>
         <a href="https://theoreticalminimum.com/courses/classical-mechanics/2011/fall/lecture-7" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -2989,8 +3169,9 @@ main {
     </div>
 
     <!-- ── CHAOS + POINCARE ── -->
-    <div class="lec">
+    <div class="lec" id="lec-38">
       <div class="lec-top">
+        <input type="checkbox" class="lec-checkbox" id="chk-lec-38" data-lec="lec-38" onchange="toggleLec(this)" title="Mark as complete">
         <span class="lec-name"><span class="lnum">[Ch. 12]</span>Nonlinear Mechanics &amp; Chaos in Physical Systems</span>
         <a href="https://theoreticalminimum.com/courses/classical-mechanics/2011/fall/lecture-7" target="_blank" class="watch-btn">WATCH ↗</a>
       </div>
@@ -3329,6 +3510,60 @@ main {
 </main>
 
 <script>
+
+function toggleLec(cb) {
+  var lecId = cb.dataset.lec;
+  var lec = document.getElementById(lecId);
+  if (cb.checked) {
+    lec.classList.add('done');
+  } else {
+    lec.classList.remove('done');
+  }
+  // persist
+  var state = loadState();
+  state[lecId] = cb.checked;
+  saveState(state);
+  updateAllProgress();
+}
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem('rogue_progress') || '{}'); } catch(e) { return {}; }
+}
+function saveState(s) {
+  try { localStorage.setItem('rogue_progress', JSON.stringify(s)); } catch(e) {}
+}
+
+function updateAllProgress() {
+  var modules = ['stat','info','nld','fc','pgm','ham'];
+  modules.forEach(function(mid) {
+    var panel = document.getElementById('panel-' + mid);
+    if (!panel) return;
+    var lecs = panel.querySelectorAll('.lec');
+    var done = panel.querySelectorAll('.lec.done').length;
+    var total = lecs.length;
+    var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    var bar = document.getElementById('bar-' + mid);
+    var pctEl = document.getElementById('pct-' + mid);
+    if (bar) bar.style.width = pct + '%';
+    if (pctEl) pctEl.textContent = pct + '%';
+  });
+}
+
+function restoreState() {
+  var state = loadState();
+  Object.keys(state).forEach(function(lecId) {
+    if (state[lecId]) {
+      var cb = document.getElementById('chk-' + lecId);
+      var lec = document.getElementById(lecId);
+      if (cb) cb.checked = true;
+      if (lec) lec.classList.add('done');
+    }
+  });
+  updateAllProgress();
+}
+
+document.addEventListener('DOMContentLoaded', restoreState);
+
 function showTab(id) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
