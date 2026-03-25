@@ -704,6 +704,130 @@ main {
   color: var(--text3);
 }
 
+/* ─── CAPSTONE PROJECT ─── */
+.capstone {
+  background: var(--bg2);
+  border: 1px solid var(--amber);
+  border-top: 3px solid var(--amber);
+  margin-bottom: 26px;
+  position: relative;
+  overflow: hidden;
+}
+.capstone::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top right, rgba(255,180,0,0.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+.capstone-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px 12px;
+  border-bottom: 1px solid rgba(255,180,0,0.2);
+  background: rgba(255,180,0,0.04);
+}
+.capstone-badge {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--amber);
+  padding: 3px 10px;
+  font-family: var(--mono);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.capstone-title {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-shadow: 0 0 16px rgba(255,180,0,0.35);
+}
+.capstone-body {
+  padding: 18px 20px 20px;
+}
+.capstone-objective {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.8;
+  margin-bottom: 18px;
+  border-left: 2px solid rgba(255,180,0,0.3);
+  padding-left: 14px;
+}
+.capstone-objective::before {
+  content: '// OBJECTIVE';
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--amber);
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+.capstone-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 18px;
+}
+.capstone-tasks-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  opacity: 0.7;
+  margin-bottom: 2px;
+}
+.capstone-task {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-left: 2px solid rgba(255,180,0,0.4);
+  padding: 10px 13px;
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.65;
+}
+.capstone-task-num {
+  color: var(--amber);
+  font-family: var(--mono);
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  opacity: 0.85;
+}
+.capstone-deliverables {
+  background: rgba(255,180,0,0.04);
+  border: 1px solid rgba(255,180,0,0.18);
+  padding: 14px 16px;
+}
+.capstone-deliverables-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--amber);
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+.capstone-deliverable-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.capstone-del {
+  font-size: 12px;
+  color: var(--text2);
+  border: 1px solid rgba(255,180,0,0.25);
+  padding: 4px 11px;
+  letter-spacing: 0.04em;
+}
+.capstone-del::before { content: '▸ '; color: var(--amber); opacity: 0.6; }
+
 /* Progress bar */
 .module-progress-wrap {
   margin-bottom: 24px;
@@ -1071,6 +1195,49 @@ main {
     </div>
 
   </div><!-- /lec-list -->
+
+  <!-- ── CAPSTONE PROJECT 01 ── -->
+  <div class="capstone">
+    <div class="capstone-header">
+      <span class="capstone-badge">CAPSTONE_01</span>
+      <span class="capstone-title">Boltzmann Classifier &amp; Variational Free Energy</span>
+    </div>
+    <div class="capstone-body">
+      <div class="capstone-objective">
+        Synthesise the entire module by building a classification system grounded in statistical mechanics. You will derive softmax from first principles as a Boltzmann distribution, implement temperature-scaled sampling, connect the Helmholtz free energy to the VAE objective, and verify that cross-entropy loss is a thermodynamic quantity — not a borrowed heuristic.
+      </div>
+      <div class="capstone-tasks">
+        <div class="capstone-tasks-label">// TASKS</div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T1]</span>
+          <span><strong>From Partition Function to Softmax.</strong> For a 3-class system with energies E₁, E₂, E₃, derive the Boltzmann probability P(i) = e<sup>−βEᵢ</sup>/Z by maximising entropy subject to a fixed mean energy constraint (Lagrange multipliers). Verify numerically that your result is identical to softmax(−βE). Then train a simple logistic regression on MNIST using β = 1, 0.5, and 2 — observe how β controls confidence and relate it to label smoothing.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T2]</span>
+          <span><strong>Entropy as Regularisation.</strong> Take a trained classifier and compute the Shannon entropy H of its output distribution over the test set. Plot H against accuracy for models with different L2 regularisation strengths. Show empirically that higher entropy (lower-confidence models) correlates with better calibration. Derive analytically why entropy regularisation (adding −λH to the loss) is equivalent to mixing in a uniform prior — the maximum-entropy distribution.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T3]</span>
+          <span><strong>Free Energy = ELBO.</strong> Implement a 1D variational autoencoder for a mixture of two Gaussians. Write out the loss as ELBO = 𝔼<sub>q</sub>[log p(x|z)] − D<sub>KL</sub>(q‖p). Identify each term as a thermodynamic quantity: the reconstruction term is −U (negative potential energy); the KL term is −TS (negative entropy × temperature). Plot U, TS, and F = U − TS as training progresses. Confirm that the ELBO equals −F.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T4]</span>
+          <span><strong>Simulated Annealing on a Loss Landscape.</strong> Implement simulated annealing on a 2D non-convex function (e.g. the Rastrigin function). Run annealing schedules β(t) = t/T (linear), β(t) = log(t) (slow), and β(t) = t² (fast). Compare final energies and trajectories. Relate β(t) to diffusion model noise schedules: a fast β schedule is aggressive denoising, a slow one is gradual. Connect back to Schroeder §5.2: F decreases monotonically as β → ∞ only if the schedule is slow enough.</span>
+        </div>
+      </div>
+      <div class="capstone-deliverables">
+        <div class="capstone-deliverables-label">// DELIVERABLES</div>
+        <div class="capstone-deliverable-list">
+          <span class="capstone-del">Derivation: partition function → softmax (pen &amp; paper)</span>
+          <span class="capstone-del">Notebook: temperature-scaled MNIST classifier</span>
+          <span class="capstone-del">Plot: entropy vs. calibration curve</span>
+          <span class="capstone-del">Notebook: 1D VAE with F = U − TS loss decomposition</span>
+          <span class="capstone-del">Notebook: simulated annealing schedule comparison</span>
+          <span class="capstone-del">Write-up: ½ page connecting all four tasks to a single physical narrative</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="conn">
     <div class="conn-label">// AI_CONNECTIONS</div>
@@ -1517,6 +1684,48 @@ main {
     </div>
 
   </div><!-- /lec-list -->
+
+  <!-- ── CAPSTONE PROJECT 02 ── -->
+  <div class="capstone">
+    <div class="capstone-header">
+      <span class="capstone-badge">CAPSTONE_02</span>
+      <span class="capstone-title">Compression, KL Divergence &amp; the Information Bottleneck</span>
+    </div>
+    <div class="capstone-body">
+      <div class="capstone-objective">
+        Unify the module's key concepts — entropy, KL divergence, Bayesian inference, and variational methods — into a single end-to-end experiment: train a neural network, analyse it as a compression device, measure the information bottleneck it implements, and derive the regularisation strength from the evidence framework rather than grid search.
+      </div>
+      <div class="capstone-tasks">
+        <div class="capstone-tasks-label">// TASKS</div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T1]</span>
+          <span><strong>Cross-Entropy as Code Length.</strong> Train a 2-layer MLP on a toy 4-class dataset. After training, interpret − log p̂(y|x) as the per-sample code length in bits. Compute the average code length and compare it to the empirical entropy H(Y|X) of the data. Verify that a better-calibrated model approaches the Shannon limit. Plot the distribution of code lengths and show it is approximately exponential in the loss value.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T2]</span>
+          <span><strong>KL Divergence and Model Selection.</strong> Fit three candidate models (linear regression, MLP-small, MLP-large) to a noisy dataset. For each model, estimate D<sub>KL</sub>(p<sub>data</sub> ‖ p<sub>model</sub>) by computing the cross-entropy and subtracting the data entropy. Verify that AIC ≈ 2 · N · D<sub>KL</sub> and that AIC selects the same model as held-out log-likelihood. Confirm MacKay's claim: model selection = finding the shortest description of the data.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T3]</span>
+          <span><strong>The Information Bottleneck Plane.</strong> Train an MLP on MNIST and, after each epoch, compute the mutual information I(X; T) between the input and each hidden layer's representation T, and I(T; Y) between the representation and the label. Use binning or MINE (mutual information neural estimation) to estimate both quantities. Plot the I(X;T) vs. I(T;Y) plane (the information plane). Observe the compression and fitting phases. Annotate where underfitting, good generalisation, and overfitting appear on the plane.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T4]</span>
+          <span><strong>Evidence Framework for Hyperparameter Selection.</strong> For a Bayesian linear regression model, implement MacKay's evidence framework: compute the log-evidence log P(data | α, β) as a function of the regularisation strength α and noise precision β. Maximise the evidence to find the optimal α without a validation set. Compare to the α selected by 5-fold cross-validation. Reflect: why does the evidence framework automatically avoid overfitting? (Hint: compute the Occam factor term separately.)</span>
+        </div>
+      </div>
+      <div class="capstone-deliverables">
+        <div class="capstone-deliverables-label">// DELIVERABLES</div>
+        <div class="capstone-deliverable-list">
+          <span class="capstone-del">Notebook: cross-entropy loss as code length with bit analysis</span>
+          <span class="capstone-del">Plot: KL divergence vs. model complexity (AIC comparison)</span>
+          <span class="capstone-del">Notebook: information plane trajectory across training</span>
+          <span class="capstone-del">Derivation: evidence framework for Bayesian linear regression</span>
+          <span class="capstone-del">Write-up: ½ page on why compression = generalisation</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="conn">
     <div class="conn-label">// AI_CONNECTIONS</div>
@@ -1967,6 +2176,49 @@ main {
 
   </div><!-- /lec-list -->
 
+  <!-- ── CAPSTONE PROJECT 03 ── -->
+  <div class="capstone">
+    <div class="capstone-header">
+      <span class="capstone-badge">CAPSTONE_03</span>
+      <span class="capstone-title">Loss Landscape Dynamics &amp; the Edge of Stability</span>
+    </div>
+    <div class="capstone-body">
+      <div class="capstone-objective">
+        Apply the full vocabulary of nonlinear dynamics to the behaviour of a neural network during training. You will map the loss landscape as a phase portrait, locate bifurcations in learning rate space, measure Lyapunov exponents of gradient flow, and demonstrate the edge-of-chaos phenomenon in a recurrent network — translating every concept from Strogatz into a reproducible experiment.
+      </div>
+      <div class="capstone-tasks">
+        <div class="capstone-tasks-label">// TASKS</div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T1]</span>
+          <span><strong>Phase Portrait of the Loss Landscape.</strong> Train a 2-parameter model (e.g. a linear model on 2D data) and plot the gradient flow field ẋ = −∇L(x) as a phase portrait. Mark all fixed points, classify each as stable (local minimum), unstable (local maximum), or saddle. Draw several trajectories from different initialisations. Identify the basins of attraction for each stable fixed point. Overlay the contour lines of L(x) and verify that trajectories are always perpendicular to them.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T2]</span>
+          <span><strong>Learning Rate as a Bifurcation Parameter.</strong> Train a small MLP on CIFAR-10 with learning rates η = 0.001, 0.01, 0.05, 0.1, 0.2, 0.5. For each η, record the final training loss and whether training converged, oscillated, or diverged. Locate the critical η<sub>c</sub> where the transition occurs (the bifurcation point). Estimate the sharpness of the loss minimum (largest Hessian eigenvalue λ_max) and verify that the edge of stability satisfies η_c ≈ 2/λ_max. Plot a bifurcation diagram: final loss vs. η.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T3]</span>
+          <span><strong>Lyapunov Exponents and Vanishing Gradients.</strong> Implement a simple RNN with varying weight magnitudes σ (initialise W ~ N(0, σ²/n)). For each σ, estimate the Lyapunov exponent λ by running two identical sequences with a tiny perturbation and measuring |Δh_t| over time. Plot λ as a function of σ. Identify the critical σ_c where λ = 0 (the edge of chaos). Measure the gradient norm ‖∂L/∂h₀‖ for each σ and show that it vanishes for σ < σ_c and explodes for σ > σ_c.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T4]</span>
+          <span><strong>ResNets and the Manifold Hypothesis.</strong> Train both a plain 20-layer MLP and a ResNet-20 on CIFAR-10, initialising both at the same σ that causes vanishing gradients in T3. Compare training curves and final accuracy. Compute the box-counting dimension of the learned representations (t-SNE + covering number estimate) for both architectures at multiple layers. Show that ResNet representations have lower intrinsic dimension (tighter manifold) earlier in the network, consistent with the manifold hypothesis.</span>
+        </div>
+      </div>
+      <div class="capstone-deliverables">
+        <div class="capstone-deliverables-label">// DELIVERABLES</div>
+        <div class="capstone-deliverable-list">
+          <span class="capstone-del">Plot: phase portrait with basins of attraction</span>
+          <span class="capstone-del">Plot: bifurcation diagram (loss vs. learning rate)</span>
+          <span class="capstone-del">Notebook: Lyapunov exponent estimation for RNN</span>
+          <span class="capstone-del">Plot: Lyapunov exponent vs. σ with edge-of-chaos marked</span>
+          <span class="capstone-del">Comparison: MLP vs. ResNet intrinsic dimensionality</span>
+          <span class="capstone-del">Write-up: ½ page mapping each experiment to a Strogatz concept</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="conn">
     <div class="conn-label">// AI_CONNECTIONS</div>
     <div class="conn-tags">
@@ -2383,6 +2635,50 @@ main {
     </div>
 
   </div><!-- /lec-list -->
+
+  <!-- ── CAPSTONE PROJECT 04 ── -->
+  <div class="capstone">
+    <div class="capstone-header">
+      <span class="capstone-badge">CAPSTONE_04</span>
+      <span class="capstone-title">End-to-End Forecasting Pipeline — From ACF to Foundation Models</span>
+    </div>
+    <div class="capstone-body">
+      <div class="capstone-objective">
+        Build a complete, production-style forecasting pipeline on a real dataset, progressing from exploratory analysis through classical models to neural forecasters and zero-shot foundation models. Every modelling choice must be justified by a concept from the module — not by default settings. The deliverable is a reproducible benchmark with physics-motivated commentary.
+      </div>
+      <div class="capstone-tasks">
+        <div class="capstone-tasks-label">// TASKS</div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T1]</span>
+          <span><strong>Spectral Decomposition and Physics-Informed Preprocessing.</strong> Download the Australian electricity demand dataset (or any hourly series with multiple seasonalities). Run STL decomposition and extract the trend, seasonal, and remainder components. Compute the ACF and PACF of the remainder and identify the dominant frequencies. Take the Fourier transform of the seasonal component and verify that its frequency spectrum peaks exactly at the known seasonal periods (24h, 168h). Use this to set the Fourier terms for an ARIMA+Fourier model — the spectrum is your feature engineering guide.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T2]</span>
+          <span><strong>Classical Model Benchmark with Time-Series CV.</strong> Implement rolling-origin cross-validation with a 4-week test horizon. Fit ETS(A,Ad,A), SARIMA, and Holt-Winters to each training window. For each model, report MASE, RMSSE, and interval coverage at 80% and 95%. Check AIC to verify model order selection. Confirm that the SARIMA AR roots lie inside the unit circle — unstable roots (Strogatz Module 3 fixed points) indicate a misspecified model. Plot the residual ACF and run a Ljung-Box test.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T3]</span>
+          <span><strong>Neural Forecaster as a Nonlinear State-Space Model.</strong> Fit an N-BEATS model to the same series using the neuralforecast library. Examine the trend and seasonality basis outputs — these are learnable versions of the STL components from T1. Next fit a TFT and examine the attention weights over time: the attention pattern should mirror the ACF structure identified in T1 (the model has learned to look at the same lags that the ACF said were informative). Evaluate both models with the same time-series CV from T2.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T4]</span>
+          <span><strong>Zero-Shot Foundation Model and Forecast Combination.</strong> Apply Chronos (or TimeGPT) in zero-shot mode to the same series and evaluate it with the same CV protocol. Then build a forecast combination: combine ETS, SARIMA, N-BEATS, and the foundation model using equal weights, inverse-RMSSE weights, and optimal regression weights (estimated on the first half of the CV windows). Verify empirically that the combination beats the best individual model. Interpret this as Bayesian model averaging: the optimal weights estimate the posterior model probabilities.</span>
+        </div>
+      </div>
+      <div class="capstone-deliverables">
+        <div class="capstone-deliverables-label">// DELIVERABLES</div>
+        <div class="capstone-deliverable-list">
+          <span class="capstone-del">Notebook: STL + Fourier analysis with annotated spectrum</span>
+          <span class="capstone-del">Table: CV benchmark (MASE, RMSSE, coverage) for all models</span>
+          <span class="capstone-del">Plot: SARIMA unit-circle root diagram</span>
+          <span class="capstone-del">Plot: N-BEATS basis outputs vs. STL components</span>
+          <span class="capstone-del">Plot: TFT attention heatmap vs. ACF</span>
+          <span class="capstone-del">Table: forecast combination results with model weights</span>
+          <span class="capstone-del">Write-up: 1 page justifying every modelling choice with a module concept</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="conn">
     <div class="conn-label">// AI_CONNECTIONS</div>
@@ -2835,6 +3131,49 @@ main {
 
   </div><!-- /lec-list -->
 
+  <!-- ── CAPSTONE PROJECT 05 ── -->
+  <div class="capstone">
+    <div class="capstone-header">
+      <span class="capstone-badge">CAPSTONE_05</span>
+      <span class="capstone-title">Generative Model as Bayesian Network — From GMM to VAE</span>
+    </div>
+    <div class="capstone-body">
+      <div class="capstone-objective">
+        Trace the lineage from a Gaussian mixture model to a variational autoencoder, implementing each step as a graphical model with explicit inference algorithms. You will show that a VAE is EM with an amortised E-step, that its decoder is a Bayesian network, and that causal reasoning determines what the model can and cannot reliably generalise.
+      </div>
+      <div class="capstone-tasks">
+        <div class="capstone-tasks-label">// TASKS</div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T1]</span>
+          <span><strong>GMM as a Bayesian Network with EM.</strong> Implement a Gaussian mixture model on the two-moons dataset as a Bayesian network: draw the DAG (k → z → x), write out the joint P(x, z) = P(z) P(x|z), and implement the E-step (compute responsibilities r<sub>ik</sub> via Bayes' rule) and M-step (update μ, Σ, π). Track the ELBO = 𝔼<sub>q</sub>[log P(x,z)] − 𝔼<sub>q</sub>[log q(z|x)] across iterations and verify it is non-decreasing. Visualise the D-separation structure: given a cluster assignment z, are the features conditionally independent?</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T2]</span>
+          <span><strong>Belief Propagation on a Factor Graph.</strong> Model a hidden Markov model over a short sequence (e.g. 20 steps, 3 states, 5 observations) as a factor graph. Implement the sum-product algorithm to compute marginals P(z<sub>t</sub>|x<sub>1:T</sub>) and verify they match the forward-backward algorithm. Then switch to max-product and recover the Viterbi path. Finally, implement Gibbs sampling as an alternative to exact inference — compare the marginals from 10,000 Gibbs samples with the exact sum-product result and confirm convergence.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T3]</span>
+          <span><strong>VAE as Amortised EM.</strong> Implement a VAE on MNIST as the GMM's nonlinear generalisation. Annotate each component: the encoder q(z|x) is the amortised E-step; the decoder P(x|z) is the Bayesian network CPD; the prior P(z) is the cluster distribution. Train with the ELBO loss = reconstruction − β · D<sub>KL</sub>(q‖p). At β = 0, 0.5, 1, 2, examine the latent space: does it become more structured as β increases? Visualise latent traversals — do they correspond to meaningful factors? Check whether the latent dimensions are approximately independent (the factored prior P(z) = ∏ N(0,1) assumes this).</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T4]</span>
+          <span><strong>Causal Failure Mode.</strong> Train a classifier on a dataset with a known spurious correlation (e.g. coloured MNIST where colour correlates with digit in training but not test). Using the do-calculus from Koller Ch. 20, draw the causal DAG with a confounder C → (colour, digit → label). Compute P(label|do(colour)) vs. P(label|colour) and show they differ. Implement invariant risk minimisation (IRM) as an alternative training objective and demonstrate improved out-of-distribution accuracy. Annotate the v-structure that creates the spurious dependence.</span>
+        </div>
+      </div>
+      <div class="capstone-deliverables">
+        <div class="capstone-deliverables-label">// DELIVERABLES</div>
+        <div class="capstone-deliverable-list">
+          <span class="capstone-del">Notebook: GMM-EM with ELBO tracking and DAG diagram</span>
+          <span class="capstone-del">Notebook: sum-product vs. Gibbs on HMM (marginal comparison)</span>
+          <span class="capstone-del">Notebook: β-VAE with latent space visualisations</span>
+          <span class="capstone-del">Diagram: annotated VAE as Bayesian network (EM correspondence)</span>
+          <span class="capstone-del">Notebook: causal DAG + IRM vs. ERM on coloured MNIST</span>
+          <span class="capstone-del">Write-up: 1 page tracing GMM → HMM → VAE as a single graphical model family</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="conn">
     <div class="conn-label">// AI_CONNECTIONS</div>
     <div class="conn-tags">
@@ -3233,6 +3572,49 @@ main {
     </div>
 
   </div><!-- /lec-list -->
+
+  <!-- ── CAPSTONE PROJECT 06 ── -->
+  <div class="capstone">
+    <div class="capstone-header">
+      <span class="capstone-badge">CAPSTONE_06</span>
+      <span class="capstone-title">Hamiltonian Monte Carlo, Neural ODEs &amp; Geometric Optimisation</span>
+    </div>
+    <div class="capstone-body">
+      <div class="capstone-objective">
+        Close the loop on all six modules by implementing three systems where Hamiltonian mechanics is the direct engineering tool: Hamiltonian Monte Carlo for Bayesian inference, a Hamiltonian Neural Network that learns to conserve energy, and natural gradient descent as optimisation on the statistical manifold. Each task requires the Lagrangian/Hamiltonian machinery from Taylor and the phase-space intuition from Strogatz.
+      </div>
+      <div class="capstone-tasks">
+        <div class="capstone-tasks-label">// TASKS</div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T1]</span>
+          <span><strong>Implement HMC from Scratch.</strong> Define a target posterior π(θ) ∝ exp(−U(θ)) for a 2D correlated Gaussian (U = θᵀΣ⁻¹θ/2). Set the kinetic energy K(p) = p²/2 and implement the leapfrog integrator: q ← q + ε·p, then p ← p − ε·∇U(q). Run L leapfrog steps per proposal, accept/reject via Metropolis. Compare the mixing time of HMC vs. random-walk Metropolis-Hastings on the same target. Verify Liouville's theorem numerically: track the Jacobian determinant of the leapfrog map and confirm it stays ≈ 1. Show what happens if you replace leapfrog with Euler integration (Liouville's theorem breaks, acceptance rate falls).</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T2]</span>
+          <span><strong>Hamiltonian Neural Network.</strong> Generate trajectory data from a simple pendulum (q, p) pairs. Train two networks on this data: (a) a standard MLP that predicts (q_{t+1}, p_{t+1}) from (q_t, p_t), and (b) a Hamiltonian Neural Network (HNN) that learns H(q,p) and uses Hamilton's equations to generate updates. Measure the energy drift H(q_t, p_t) − H(q_0, p_0) over 1000 time steps for both models. The HNN should conserve energy by construction; the MLP will drift. Extend to a double pendulum and observe where each model's predictions diverge.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T3]</span>
+          <span><strong>Natural Gradient as Riemannian Optimisation.</strong> Train a logistic regression model on a 2-class dataset with three optimisers: vanilla gradient descent, Adam, and natural gradient descent (NGD). For NGD, compute the Fisher information matrix F at each step and update θ ← θ − η · F⁻¹∇L. Plot the loss landscape in parameter space with the actual Fisher metric ellipses overlaid. Show that NGD steps are geodesics in distribution space — they are the Brachistochrone paths from Taylor Ch. 6, minimising the KL divergence traversed per unit parameter change. Compare convergence rates and the number of loss function evaluations to reach ε = 0.01 loss.</span>
+        </div>
+        <div class="capstone-task">
+          <span class="capstone-task-num">[T4]</span>
+          <span><strong>Module Integration — The Full Thread.</strong> Build a Bayesian neural network (BNN) for a regression task and estimate the posterior over weights using HMC (T1). Then train an equivalent deterministic network and compare: (a) uncertainty estimates (does the HMC posterior give calibrated credible intervals?), (b) OOD detection (does posterior variance increase far from training data?), (c) the ELBO from Module 2 vs. the HMC log-likelihood estimate. Write a 1-page commentary tracing the chain: Boltzmann distribution (Module 1) → KL divergence and ELBO (Module 2) → posterior as stable fixed point (Module 3) → Kalman filter as Gaussian BNN (Module 4) → Bayesian network structure (Module 5) → HMC sampling of the posterior (Module 6). Every step should cite a specific lecture and problem.</span>
+        </div>
+      </div>
+      <div class="capstone-deliverables">
+        <div class="capstone-deliverables-label">// DELIVERABLES</div>
+        <div class="capstone-deliverable-list">
+          <span class="capstone-del">Notebook: HMC from scratch with leapfrog vs. Euler comparison</span>
+          <span class="capstone-del">Plot: Liouville's theorem numerical verification</span>
+          <span class="capstone-del">Notebook: HNN vs. MLP energy conservation on pendulum</span>
+          <span class="capstone-del">Plot: natural gradient geodesics on Fisher manifold</span>
+          <span class="capstone-del">Notebook: BNN posterior via HMC with calibration &amp; OOD analysis</span>
+          <span class="capstone-del">Write-up: 1 page threading all six modules into a single narrative</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="conn">
     <div class="conn-label">// AI_CONNECTIONS</div>
