@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROGUE ACADEMY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #000000;
+      --bg2:       #020d02;
+      --green:     #00ff41;
+      --green-dim: #00cc33;
+      --green-low: #008f23;
+      --green-out: #003d10;
+      --text:      #c8ffc8;
+      --dim:       #4a7a4a;
+      --border:    #003d10;
+      --scan:      rgba(0,255,65,0.03);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    /* ── SCANLINES ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        var(--scan) 2px,
+        var(--scan) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── VIGNETTE ──  */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.85) 100%);
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    .noise {
+      position: fixed;
+      inset: 0;
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 9997;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    /* ── LAYOUT ── */
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ── HEADER ──  */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+    }
+
+    .header-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0.35rem 2rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--dim);
+    }
+
+    .header-top-bar a.home-link {
+      color: var(--green-low);
+      text-decoration: none;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: color 0.2s, text-shadow 0.2s;
+      border: 1px solid var(--green-out);
+      padding: 0.1rem 0.5rem;
+    }
+
+    .header-top-bar a.home-link:hover {
+      color: var(--green);
+      text-shadow: 0 0 6px var(--green);
+      border-color: var(--green-low);
+    }
+
+    .header-top-bar a.home-link::before { content: '↩ '; }
+
+    .nav-inner-wrap {
+      padding: 0.75rem 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .nav-logo {
+      color: var(--green);
+      font-family: 'VT323', monospace;
+      font-size: 1.4rem;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--dim); }
+
+    nav a {
+      color: var(--dim);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      margin-left: 2rem;
+      transition: color 0.2s;
+      text-transform: uppercase;
+    }
+
+    nav a:hover { color: var(--green); }
+
+    .blink {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 5rem 0 3rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .ascii-art {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(3px, 1.1vw, 10px);
+      line-height: 1.2;
+      color: var(--green);
+      white-space: pre;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 8px var(--green);
+      animation: flicker 8s infinite;
+      overflow-x: auto;
+    }
+
+    @keyframes flicker {
+      0%, 95%, 100%  { opacity: 1; }
+      96%            { opacity: 0.7; }
+      97%            { opacity: 1; }
+      98%            { opacity: 0.5; }
+      99%            { opacity: 1; }
+    }
+
+    .hero-tagline {
+      margin-top: 2rem;
+      color: var(--dim);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-tagline em {
+      color: var(--green-dim);
+      font-style: normal;
+    }
+
+    .hero-badges {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--bg2);
+      border: 1px solid var(--green-out);
+      color: var(--green-low);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      padding: 0.2rem 0.6rem;
+      text-transform: uppercase;
+    }
+
+    .badge.active { color: var(--green); border-color: var(--green-low); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+      position: relative;
+    }
+
+    .divider::before {
+      content: attr(data-label);
+      position: absolute;
+      top: -0.6rem;
+      left: 0;
+      background: var(--bg);
+      padding: 0 0.8rem 0 0;
+      color: var(--dim);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTION HEADER ── */
+    .sec-head {
+      color: var(--green);
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+
+    .sec-head::before { content: '> '; color: var(--dim); }
+
+    /* ── ABOUT ── */
+    .about p {
+      color: var(--text);
+      font-size: 0.88rem;
+      line-height: 1.9;
+      margin-bottom: 1rem;
+      max-width: 72ch;
+    }
+
+    .about p strong {
+      color: var(--green);
+      font-weight: normal;
+    }
+
+    /* ── COURSES GRID ── */
+    .courses {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .course-card {
+      display: block;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 1.5rem;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,255,65,0.04) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .course-card:hover {
+      border-color: var(--green-low);
+      transform: translateY(-2px);
+    }
+
+    .course-card:hover::before { opacity: 1; }
+
+    .course-id {
+      color: var(--dim);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .course-title {
+      color: var(--green);
+      font-family: 'VT323', monospace;
+      font-size: 1.6rem;
+      letter-spacing: 0.06em;
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 0 6px rgba(0,255,65,0.4);
+    }
+
+    .course-desc {
+      color: var(--text);
+      font-size: 0.78rem;
+      line-height: 1.75;
+      opacity: 0.8;
+    }
+
+    .course-tag {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--green-low);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      border: 1px solid var(--green-out);
+      padding: 0.15rem 0.5rem;
+    }
+
+    .course-arrow {
+      position: absolute;
+      bottom: 1.2rem;
+      right: 1.2rem;
+      color: var(--green-out);
+      font-size: 1.2rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .course-card:hover .course-arrow {
+      color: var(--green);
+      transform: translate(3px, -3px);
+    }
+
+    .course-card.locked {
+      opacity: 0.45;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+
+    .course-card.locked .course-id::after {
+      content: ' [LOCKED]';
+      color: var(--green-out);
+    }
+
+    /* ── TERMINAL BLOCK ── */
+    .terminal {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 1.2rem 1.5rem;
+      font-size: 0.78rem;
+      color: var(--dim);
+      line-height: 1.9;
+      margin-top: 1.5rem;
+      position: relative;
+    }
+
+    .terminal::before {
+      content: '● ● ●';
+      display: block;
+      color: var(--green-out);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      margin-bottom: 0.8rem;
+    }
+
+    .terminal .prompt { color: var(--green); }
+    .terminal .out    { color: var(--text); opacity: 0.7; }
+    .terminal .dim    { color: var(--dim); }
+
+    /* ── PHILOSOPHY GRID ── */
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .principle {
+      border-left: 2px solid var(--green-out);
+      padding: 0.6rem 1rem;
+    }
+
+    .principle h4 {
+      color: var(--green-dim);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .principle p {
+      color: var(--dim);
+      font-size: 0.75rem;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      margin-top: 5rem;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    footer p {
+      color: var(--dim);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      line-height: 2;
+    }
+
+    footer a {
+      color: var(--green-low);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: var(--green); }
+
+    .footer-logo {
+      font-family: 'VT323', monospace;
+      font-size: 1.1rem;
+      color: var(--green-out);
+      letter-spacing: 0.2em;
+      margin-bottom: 0.8rem;
+    }
+
+    /* ── GLITCH TEXT ── */
+    .glitch {
+      position: relative;
+      display: inline-block;
+    }
+
+    .glitch:hover::before,
+    .glitch:hover::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .glitch:hover::before {
+      color: #ff003c;
+      animation: glitch-top 0.3s steps(2) infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    }
+
+    .glitch:hover::after {
+      color: #00f0ff;
+      animation: glitch-bot 0.3s steps(2) infinite;
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    }
+
+    @keyframes glitch-top {
+      0%   { transform: translate(-2px, -1px); }
+      50%  { transform: translate(2px,  1px); }
+      100% { transform: translate(-1px, 2px); }
+    }
+
+    @keyframes glitch-bot {
+      0%   { transform: translate(2px,  1px); }
+      50%  { transform: translate(-2px,-1px); }
+      100% { transform: translate(1px, -2px); }
+    }
+
+    /* ── TYPEWRITER INTRO ── */
+    #typewriter {
+      color: var(--green);
+      font-size: 0.78rem;
+      min-height: 1.2em;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── SCROLL OFFSET (accounts for sticky header) ── */
+    section[id] {
+      scroll-margin-top: 70px;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar       { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--green-out); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--green-low); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .ascii-art { font-size: 2px; }
+      nav a { display: none; }
+    }
+
+    /* ── SKULL BUTTON ── */
+    #skull-btn {
+      position: fixed;
+      top: 14px;
+      right: 18px;
+      z-index: 10000;
+      background: none;
+      border: 1px solid var(--green-out);
+      color: var(--green-low);
+      font-size: 1.25rem;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, text-shadow 0.2s, box-shadow 0.2s;
+      padding: 0;
+      line-height: 1;
+      animation: skull-pulse 4s ease-in-out infinite;
+    }
+
+    #skull-btn:hover {
+      color: var(--green);
+      border-color: var(--green);
+      text-shadow: 0 0 10px var(--green);
+      box-shadow: 0 0 12px rgba(0,255,65,0.25);
+    }
+
+    @keyframes skull-pulse {
+      0%, 90%, 100% { opacity: 0.4; }
+      95% { opacity: 1; text-shadow: 0 0 8px var(--green); }
+    }
+
+    /* ── SKULL MODAL OVERLAY ── */
+    #skull-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10001;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(3px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    #skull-overlay.open { display: flex; }
+
+    #skull-modal {
+      background: var(--bg2);
+      border: 1px solid var(--green-low);
+      max-width: 580px;
+      width: 90%;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 0 40px rgba(0,255,65,0.12);
+      animation: modal-in 0.2s ease both;
+    }
+
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    #skull-modal::before {
+      content: '● ● ●';
+      display: block;
+      color: var(--green-out);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      margin-bottom: 1rem;
+    }
+
+    .skull-modal-title {
+      font-family: 'VT323', monospace;
+      font-size: 1.4rem;
+      color: var(--green);
+      letter-spacing: 0.14em;
+      margin-bottom: 0.4rem;
+      text-shadow: 0 0 8px rgba(0,255,65,0.5);
+    }
+
+    .skull-modal-sub {
+      color: var(--dim);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 1.4rem;
+    }
+
+    .skull-code-block {
+      background: #000;
+      border: 1px solid var(--border);
+      padding: 1rem 1.2rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.73rem;
+      color: var(--text);
+      line-height: 1.85;
+      white-space: pre;
+      overflow-x: auto;
+      margin-bottom: 1.4rem;
+    }
+
+    .skull-code-block .kw  { color: #00cc33; }
+    .skull-code-block .fn  { color: var(--green); }
+    .skull-code-block .cm  { color: var(--dim); }
+    .skull-code-block .nm  { color: #c8ffc8; }
+
+    .skull-input-row {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .skull-prompt-label {
+      color: var(--green);
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    #skull-answer {
+      flex: 1;
+      background: #000;
+      border: 1px solid var(--green-out);
+      color: var(--green);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.88rem;
+      padding: 0.3rem 0.7rem;
+      outline: none;
+      transition: border-color 0.2s;
+      caret-color: var(--green);
+    }
+
+    #skull-answer:focus { border-color: var(--green-low); }
+
+    #skull-submit {
+      background: none;
+      border: 1px solid var(--green-low);
+      color: var(--green);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+
+    #skull-submit:hover {
+      background: rgba(0,255,65,0.08);
+      box-shadow: 0 0 8px rgba(0,255,65,0.2);
+    }
+
+    #skull-msg {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      min-height: 1.2em;
+      transition: color 0.2s;
+    }
+
+    #skull-msg.err  { color: #ff003c; }
+    #skull-msg.ok   { color: var(--green); }
+
+    #skull-close {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.8rem;
+      background: none;
+      border: none;
+      color: var(--dim);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem;
+      cursor: pointer;
+      letter-spacing: 0.08em;
+      padding: 0;
+      transition: color 0.2s;
+    }
+
+    #skull-close:hover { color: var(--green); }
+  </style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<!-- ── SKULL EASTER EGG ── -->
+<button id="skull-btn" title="???" aria-label="Hidden challenge">💀</button>
+
+<div id="skull-overlay" role="dialog" aria-modal="true">
+  <div id="skull-modal">
+    <button id="skull-close" aria-label="Close">[ ESC ]</button>
+    <div class="skull-modal-title">☠ ACCESS CHALLENGE ☠</div>
+    <p class="skull-modal-sub">// solve to unlock restricted content · output the result</p>
+    <div class="skull-code-block"><span class="kw">def</span> <span class="fn">process</span>(nums):
+    nums = <span class="fn">list</span>(<span class="fn">set</span>(nums))
+    nums.<span class="fn">sort</span>()
+    nums = [n <span class="kw">for</span> n <span class="kw">in</span> nums <span class="kw">if</span> n >= <span class="nm">6</span>]
+    <span class="kw">return</span> nums[<span class="nm">0</span>] * nums[<span class="nm">-1</span>]
+
+numbers = [<span class="nm">1,3,6,7,2,3,5,6,4,2,7,8,9</span>]
+result = <span class="fn">process</span>(numbers)
+<span class="fn">print</span>(result)  <span class="cm"># &gt;&gt;&gt; ???</span></div>
+    <div class="skull-input-row">
+      <span class="skull-prompt-label">$ result =</span>
+      <input id="skull-answer" type="text" autocomplete="off" spellcheck="false" placeholder="your answer..." />
+      <button id="skull-submit">EXECUTE</button>
+    </div>
+    <div id="skull-msg"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
+<header>
+  <div class="header-top-bar">
+    <span>ROGUE_ACADEMY :: HOMEPAGE</span>
+  </div>
+  <div class="nav-inner-wrap">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">ROGUE<span>_</span>ACADEMY<span class="blink">█</span></a>
+    <nav>
+      <a href="#" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'}); return false;">Courses</a>
+      <a href="#" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'}); return false;">About</a>
+      <a href="#" onclick="document.getElementById('philosophy').scrollIntoView({behavior:'smooth'}); return false;">Philosophy</a>
+      <a href="https://github.com/guilhermertp" target="_blank">GitHub ↗</a>
+    </nav>
+  </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════ HERO ════════════════════════════════ -->
+<section class="hero">
+  <div class="wrap">
+    <pre class="ascii-art">██████╗  ██████╗  ██████╗ ██╗   ██╗███████╗     █████╗  ██████╗ █████╗ ██████╗ ███████╗███╗   ███╗██╗   ██╗
+██╔══██╗██╔═══██╗██╔════╝ ██║   ██║██╔════╝    ██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝████╗ ████║╚██╗ ██╔╝
+██████╔╝██║   ██║██║  ███╗██║   ██║█████╗      ███████║██║     ███████║██║  ██║█████╗  ██╔████╔██║ ╚████╔╝ 
+██╔══██╗██║   ██║██║   ██║██║   ██║██╔══╝      ██╔══██║██║     ██╔══██║██║  ██║██╔══╝  ██║╚██╔╝██║  ╚██╔╝  
+██║  ██║╚██████╔╝╚██████╔╝╚██████╔╝███████╗    ██║  ██║╚██████╗██║  ██║██████╔╝███████╗██║ ╚═╝ ██║   ██║   
+╚═╝  ╚═╝ ╚═════╝  ╚═════╝  ╚═════╝ ╚══════╝    ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝     ╚═╝   ╚═╝</pre>
+
+    <p class="hero-tagline">
+      <em>"Knowledge is a weapon. Curated, focused, and free —<br>learn it. Own it. Use it to shape the future of AI."</em>
+    </p>
+
+    <div class="hero-badges">
+      <span class="badge active">STATUS :: IN DEVELOPMENT</span>
+      <span class="badge active">RESOURCES :: FREE FIRST</span>
+      <span class="badge">LICENSE :: MIT</span>
+    </div>
+
+    <div class="terminal" style="margin-top:2.5rem; text-align:left; max-width:600px; margin-left:auto; margin-right:auto;">
+      <div><span class="prompt">$ </span><span class="out">init rogue_academy --mode=open_source</span></div>
+      <div><span class="dim">// loading curriculum matrix...</span></div>
+      <div><span class="prompt">$ </span><span id="typewriter"></span><span class="blink">█</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ COURSES ══════════════════════════════ -->
+<section id="courses">
+  <div class="wrap">
+    <hr class="divider" data-label="// curriculum" />
+    <h2 class="sec-head">AVAILABLE COURSES</h2>
+
+    <div class="courses">
+
+      <a class="course-card" href="https://guilhermeptor.github.io/Rogue-Academy/physics_as_a_lens_for_ai.html">
+        <div class="course-id">COURSE_01</div>
+        <div class="course-title glitch" data-text="PHYSICS → AI">PHYSICS → AI</div>
+        <p class="course-desc">
+          The unconventional path in. Entropy, energy landscapes, phase
+          transitions, dynamical systems — formalized in physics, repurposed
+          for machine learning. Build intuition that transfers.
+        </p>
+        <span class="course-tag">THERMODYNAMICS · STAT MECH · DEEP LEARNING</span>
+        <span class="course-arrow">↗</span>
+      </a>
+
+      <a class="course-card" href="https://guilhermeptor.github.io/Rogue-Academy/stanford_curriculum.html">
+        <div class="course-id">COURSE_02</div>
+        <div class="course-title glitch" data-text="STANFORD CS/AI">STANFORD CS/AI</div>
+        <p class="course-desc">
+          The academic backbone. CS221, CS229, CS231n, CS224n — the most
+          rigorous, freely available AI education on the planet, curated
+          and sequenced for maximum signal.
+        </p>
+        <span class="course-tag">ML · VISION · NLP · REINFORCEMENT LEARNING</span>
+        <span class="course-arrow">↗</span>
+      </a>
+
+      <a class="course-card" href="https://guilhermeptor.github.io/Rogue-Academy/mlops_roadmap_study_guide.html">
+        <div class="course-id">COURSE_03</div>
+        <div class="course-title glitch" data-text="MLOPS_ROADMAP">MLOPS_ROADMAP</div>
+        <p class="course-desc">
+          From training to deployment. MLOps, LLMOps, RAG, agents — the full
+          stack for shipping AI in production. A 12-month structured roadmap
+          for engineers who build real systems. Free-first, curated for depth.
+        </p>
+        <span class="course-tag">MLOPS · LLMOPS · RAG · AGENTS · DEPLOYMENT</span>
+        <span class="course-arrow">↗</span>
+      </a>
+
+      <a class="course-card" href="https://guilhermeptor.github.io/Rogue-Academy/ml_production_resources.html">
+        <div class="course-title glitch" data-text="ML_PRODUCTION_GUIDE">ML_PRODUCTION_GUIDE</div>
+        <p class="course-desc">
+          The resource index. MLOps, LLMOps, RAG systems, agents, finetuning,
+          monitoring — hand-picked references and tools for every layer of the
+          production AI stack. Curated for engineers, not spectators.
+        </p>
+        <span class="course-tag">DATA DRIFT · FEATURE STORES · RETRAINING · LATENCY · MONITORING · EVAL FRAMEWORKS</span>
+        <span class="course-arrow">↗</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ ABOUT ═══════════════════════════════ -->
+<section id="about">
+  <div class="wrap">
+    <hr class="divider" data-label="// about" />
+    <h2 class="sec-head">WHAT IS ROGUE ACADEMY?</h2>
+    <div class="about">
+      <p>
+        Rogue Academy is a self-directed AI learning initiative — built in the
+        open, from the ground up. It started as a personal project: a way to
+        learn the foundational knowledge that actually underlies AI and deep
+        learning — not surface-level tutorials, not API wrappers, but the
+        <strong>real mathematical and physical intuitions</strong> that make
+        these systems make sense.
+      </p>
+      <p>
+        In its first form, Rogue Academy is <strong>a website for curated AI
+        learning resources</strong> — a hand-picked collection of the best
+        freely available material on the web, organized to take you from first
+        principles to the frontier. No paywalls. No fluff. No filler.
+      </p>
+      <p>
+        Eventually it will grow into a platform that helps others explore
+        specialized AI topics and contribute meaningfully to the field.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ PHILOSOPHY ════════════════════════════ -->
+<section id="philosophy">
+  <div class="wrap">
+    <hr class="divider" data-label="// core directives" />
+    <h2 class="sec-head">CORE DIRECTIVES</h2>
+
+    <div class="principles">
+      <div class="principle">
+        <h4>Free First</h4>
+        <p>Every resource listed is freely accessible. Knowledge should not be gated by ability to pay.</p>
+      </div>
+      <div class="principle">
+        <h4>First Principles</h4>
+        <p>Skip the wrappers. Learn the math, the physics, the geometry underneath — before the frameworks.</p>
+      </div>
+      <div class="principle">
+        <h4>Curated, Not Aggregated</h4>
+        <p>Not a link dump. Every resource is chosen for signal density and depth of intuition.</p>
+      </div>
+      <div class="principle">
+        <h4>Open Source</h4>
+        <p>Built in public. Fork it, improve it, add to it. The curriculum should evolve with the field.</p>
+      </div>
+    </div>
+
+    <div class="terminal" style="margin-top:2rem;">
+      <div><span class="prompt">$ </span><span class="out">cat curriculum.txt</span></div>
+      <div style="margin-top:0.5rem; line-height:1.9; font-size:0.78rem; font-family:'Share Tech Mono',monospace;">
+        <div style="color:#00cc33;">// ROGUE_ACADEMY :: COURSE_01 :: PHYSICS_AS_A_LENS_FOR_AI</div>
+        <div style="color:#c8ffc8; opacity:0.7;">// The ideas powering modern AI didn't appear from nowhere.</div>
+        <div style="color:#c8ffc8; opacity:0.7;">// Entropy, equilibrium, energy landscapes — physics first.</div>
+        <div style="color:#c8ffc8; opacity:0.7;">// Build intuition that transfers when the frameworks change.</div>
+        <div style="color:#4a7a4a;">//</div>
+        <div style="color:#00cc33;">// ROGUE_ACADEMY :: COURSE_02 :: STANFORD_CS_AI</div>
+        <div style="color:#c8ffc8; opacity:0.7;">// The academic backbone. CS221, CS229, CS231n, CS224n.</div>
+        <div style="color:#c8ffc8; opacity:0.7;">// The most rigorous freely available AI education on the planet,</div>
+        <div style="color:#c8ffc8; opacity:0.7;">// curated and sequenced for maximum signal.</div>
+        <div style="color:#4a7a4a;">//</div>
+        <div style="color:#00cc33;">// ROGUE_ACADEMY :: COURSE_03 :: ML_PRODUCTION</div>
+        <div style="color:#c8ffc8; opacity:0.7;">// From training to deployment. MLOps, LLMOps, RAG, agents.</div>
+        <div style="color:#c8ffc8; opacity:0.7;">// The full stack for shipping AI in production — free-first,</div>
+        <div style="color:#c8ffc8; opacity:0.7;">// curated for engineers who build real systems.</div>
+        <div style="color:#4a7a4a;">//</div>
+        <div style="color:#00cc33;">// ROGUE_ACADEMY :: COURSE_04 :: ML_PRODUCTION_GUIDE</div>
+        <div style="color:#c8ffc8; opacity:0.7;">// The resource index. Every tool, paper, and reference</div>
+        <div style="color:#c8ffc8; opacity:0.7;">// for the production AI stack — hand-picked, no filler.</div>
+        <div style="color:#c8ffc8; opacity:0.7;">// Curated for engineers who ship, not spectators.</div>
+        <div style="color:#4a7a4a;">//</div>
+        <div style="color:#4a7a4a;">// STATUS :: 4 courses active · more loading...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">ROGUE_ACADEMY █</div>
+    <p>MIT LICENSE · BUILT IN THE OPEN · FREE FOREVER</p>
+    <p style="margin-top:0.4rem;">
+      <a href="https://github.com/guilhermertp" target="_blank">GitHub ↗</a>
+      &nbsp;·&nbsp;
+      <a href="#" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'}); return false;">Courses</a>
+      &nbsp;·&nbsp;
+      <a href="#" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'}); return false;">About</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  /* ── SKULL CHALLENGE ── */
+  const skullBtn     = document.getElementById('skull-btn');
+  const skullOverlay = document.getElementById('skull-overlay');
+  const skullClose   = document.getElementById('skull-close');
+  const skullAnswer  = document.getElementById('skull-answer');
+  const skullSubmit  = document.getElementById('skull-submit');
+  const skullMsg     = document.getElementById('skull-msg');
+
+  const SECRET_ANSWER = '42';
+  const TARGET_URL    = 'https://guilhermeptor.github.io/Rogue-Academy/bhp_study_guide_v7.html'; 
+
+  function openSkull() {
+    skullOverlay.classList.add('open');
+    skullAnswer.value = '';
+    skullMsg.textContent = '';
+    skullMsg.className = '';
+    skullSubmit.disabled = false;
+    setTimeout(() => skullAnswer.focus(), 200);
+  }
+
+  function closeSkull() {
+    skullOverlay.classList.remove('open');
+  }
+
+  function checkAnswer() {
+    const val = skullAnswer.value.trim();
+    if (val === SECRET_ANSWER) {
+      skullMsg.textContent = '// ACCESS GRANTED · redirecting...';
+      skullMsg.className = 'ok';
+      skullSubmit.disabled = true;
+      skullAnswer.disabled = true;
+      setTimeout(() => window.location.href = TARGET_URL, 800);
+    } else {
+      skullMsg.textContent = '// ACCESS DENIED · wrong output · try again';
+      skullMsg.className = 'err';
+      skullAnswer.select();
+    }
+  }
+
+  skullBtn.addEventListener('click', openSkull);
+  skullClose.addEventListener('click', closeSkull);
+  skullSubmit.addEventListener('click', checkAnswer);
+  skullAnswer.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') checkAnswer();
+  });
+  skullOverlay.addEventListener('click', (e) => {
+    if (e.target === skullOverlay) closeSkull();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeSkull();
+  });
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+      skullAnswer.disabled  = false;
+      skullSubmit.disabled  = false;
+      skullAnswer.value     = '';
+      skullMsg.textContent  = '';
+      skullMsg.className    = '';
+      skullOverlay.classList.remove('open');
+    }
+  });
+  const lines = [
+    'accessing knowledge_base...',
+    'loading physics_to_ai module...',
+    'loading stanford_curriculum...',
+    'loading mlops_roadmap module...',
+    'loading ml_production_guide...',
+    'all systems nominal. ready.',
+  ];
+  let li = 0, ci = 0;
+  const el = document.getElementById('typewriter');
+
+  function type() {
+    if (li >= lines.length) { li = lines.length - 1; return; }
+    if (ci < lines[li].length) {
+      el.textContent += lines[li][ci++];
+      setTimeout(type, 38 + Math.random() * 30);
+    } else {
+      setTimeout(() => {
+        el.textContent = '';
+        ci = 0;
+        li++;
+        setTimeout(type, 200);
+      }, li < lines.length - 1 ? 900 : 0);
+    }
+  }
+  setTimeout(type, 800);
+
+  /* ── CARD ENTRY ANIMATION  ── */
+  const cards = document.querySelectorAll('.course-card:not(.locked)');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.animation = `fadeIn 0.4s ease ${i * 0.12}s both`;
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  cards.forEach(c => { c.style.opacity = '0'; obs.observe(c); });
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  `;
+  document.head.appendChild(style);
+</script>
+</body>
+</html>
