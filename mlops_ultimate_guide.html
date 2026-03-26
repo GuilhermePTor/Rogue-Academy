@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROGUE ACADEMY // MLOPS ULTIMATE GUIDE</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#020503;--bg2:#050c07;--bg3:#081009;--panel:#040a05;
+  --border:#0f2211;--border2:#1a3d1f;
+  --g0:#00ff41;--g1:#00cc33;--g2:#00a827;--g3:#006b1a;--g4:#002d0b;
+  --gdim:rgba(0,255,65,0.07);--gdim2:rgba(0,255,65,0.03);--glow:rgba(0,255,65,0.25);
+  --amber:#ffb400;--amber2:rgba(255,180,0,0.15);
+  --red:#ff3c3c;--red2:rgba(255,60,60,0.1);
+  --yellow:#ffe156;--yellow2:rgba(255,225,86,0.1);
+  --blue:#00cfff;--blue2:rgba(0,207,255,0.1);
+  --purple:#c084fc;--purple2:rgba(192,132,252,0.1);
+  --cyan:#00e5cc;--cyan2:rgba(0,229,204,0.1);
+  --text:#a8ffb8;--text2:#5aaa6e;--text3:#336b42;
+  --mono:'Share Tech Mono','Courier New',monospace;
+  --display:'Orbitron',monospace;
+  --vt:'VT323',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:16px;line-height:1.75;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px);pointer-events:none;z-index:9999;}
+body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,0.65) 100%);pointer-events:none;z-index:9998;}
+
+/* ── HEADER ── */
+header{padding:40px 40px 36px;border-bottom:1px solid var(--border2);position:relative;background:linear-gradient(180deg,rgba(0,255,65,0.05) 0%,transparent 100%);}
+.header-top-bar{font-family:var(--mono);font-size:13px;color:var(--text3);letter-spacing:0.08em;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border2);padding-bottom:12px;}
+.header-top-bar .blink{color:var(--g0);animation:blink 1.2s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.header-inner{max-width:1040px;margin:0 auto;}
+.ascii-logo{font-family:var(--mono);font-size:10px;line-height:1.2;color:var(--g2);white-space:pre;}
+h1{font-family:var(--display);font-size:clamp(24px,4vw,42px);font-weight:900;letter-spacing:0.05em;color:var(--g0);text-transform:uppercase;margin-bottom:8px;text-shadow:0 0 30px var(--glow),0 0 60px rgba(0,255,65,0.1);}
+.header-tagline{font-family:var(--vt);font-size:24px;color:var(--text2);letter-spacing:0.08em;margin-bottom:28px;}
+.header-tagline span{color:var(--amber);}
+.workflow-bar{display:inline-flex;align-items:center;gap:0;border:1px solid var(--border2);background:var(--bg2);overflow:hidden;}
+.wf-step{padding:9px 18px;font-size:13px;color:var(--text2);letter-spacing:0.05em;}
+.wf-step .n{color:var(--g0);}
+.wf-sep{color:var(--text3);padding:9px 4px;font-size:12px;}
+
+/* ── MAIN NAV ── */
+nav{position:sticky;top:0;z-index:1000;background:rgba(2,5,3,0.98);border-bottom:2px solid var(--border2);backdrop-filter:blur(8px);box-shadow:0 2px 20px rgba(0,0,0,0.6);}
+.nav-bar{display:flex;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;max-width:1040px;margin:0 auto;padding:0 40px;}
+.nav-bar::-webkit-scrollbar{height:3px;}
+.nav-bar::-webkit-scrollbar-thumb{background:var(--g3);}
+.tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--text2);font-family:var(--mono);font-size:13px;letter-spacing:0.06em;padding:17px 16px 15px;cursor:pointer;white-space:nowrap;text-transform:uppercase;transition:color 0.15s,border-color 0.15s,text-shadow 0.15s;}
+.tab:hover{color:var(--g1);text-shadow:0 0 8px rgba(0,204,51,0.4);}
+.tab.active{color:var(--g0);border-bottom-color:var(--g0);text-shadow:0 0 12px var(--glow);}
+.tab .idx{font-size:10px;color:var(--g3);margin-right:4px;}
+.tab.special{color:var(--amber);opacity:0.85;}
+.tab.special:hover{color:var(--amber);opacity:1;text-shadow:0 0 8px rgba(255,180,0,0.4);}
+.tab.special.active{color:var(--amber);border-bottom-color:var(--amber);text-shadow:0 0 12px rgba(255,180,0,0.5);}
+.tab.cloud-tab{color:var(--blue);}
+.tab.cloud-tab.active{border-bottom-color:var(--blue);text-shadow:0 0 12px rgba(0,207,255,0.5);}
+.tab.sec-tab{color:var(--red);}
+.tab.sec-tab.active{border-bottom-color:var(--red);text-shadow:0 0 12px rgba(255,60,60,0.5);}
+.tab.llm-tab{color:var(--purple);}
+.tab.llm-tab.active{border-bottom-color:var(--purple);text-shadow:0 0 12px rgba(192,132,252,0.5);}
+
+/* ── MAIN ── */
+main{max-width:1040px;margin:0 auto;padding:48px 40px 80px;}
+.panel{display:none;}
+.panel.active{display:block;animation:fadeUp 0.25s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SECTION HEADER ── */
+.sh{margin-bottom:36px;border-left:3px solid var(--g0);padding-left:18px;}
+.sh.blue-sh{border-left-color:var(--blue);}
+.sh.purple-sh{border-left-color:var(--purple);}
+.sh.red-sh{border-left-color:var(--red);}
+.sh-idx{font-size:12px;color:var(--g2);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:6px;}
+.sh h2{font-family:var(--display);font-size:26px;font-weight:700;color:var(--g0);text-transform:uppercase;letter-spacing:0.06em;text-shadow:0 0 24px var(--glow);}
+.sh.blue-sh h2{color:var(--blue);text-shadow:0 0 24px rgba(0,207,255,0.4);}
+.sh.purple-sh h2{color:var(--purple);text-shadow:0 0 24px rgba(192,132,252,0.4);}
+.sh.red-sh h2{color:var(--red);text-shadow:0 0 24px rgba(255,60,60,0.4);}
+.sh-sub{font-size:14px;color:var(--text2);margin-top:6px;letter-spacing:0.04em;}
+.sh-sub .accent{color:var(--amber);}
+
+/* ── SUBNAV (inside Zoomcamp panel) ── */
+.subnav{display:flex;overflow-x:auto;gap:0;background:var(--bg2);border:1px solid var(--border2);margin-bottom:36px;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;}
+.subnav::-webkit-scrollbar{height:3px;}
+.subtab{background:none;border:none;border-right:1px solid var(--border);border-bottom:2px solid transparent;color:var(--text3);font-family:var(--mono);font-size:12px;letter-spacing:0.06em;padding:12px 16px 10px;cursor:pointer;white-space:nowrap;text-transform:uppercase;transition:all 0.15s;}
+.subtab:hover{color:var(--text2);background:var(--gdim);}
+.subtab.active{color:var(--g0);border-bottom-color:var(--g0);background:var(--gdim);}
+
+.subpanel{display:none;}
+.subpanel.active{display:block;animation:fadeUp 0.2s ease;}
+
+/* ── SKILL HEADER ── */
+.skill-header{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg2);border:1px solid var(--border2);border-left:3px solid var(--g2);margin-bottom:0;}
+.skill-num{font-size:11px;color:var(--g2);letter-spacing:0.2em;flex-shrink:0;}
+.skill-title{font-family:var(--display);font-size:15px;font-weight:700;color:var(--g0);letter-spacing:0.06em;text-transform:uppercase;}
+.skill-tools{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
+.stool{font-size:11px;padding:2px 9px;background:var(--gdim);border:1px solid var(--border2);color:var(--text2);letter-spacing:0.06em;white-space:nowrap;}
+.skill-group{margin-bottom:36px;}
+
+/* ── WHY BOX ── */
+.why{background:var(--gdim2);border:1px solid var(--border2);border-left:3px solid var(--g2);padding:20px 22px;margin-bottom:28px;font-size:15px;color:var(--text2);line-height:1.85;position:relative;}
+.why::before{content:'// WHY THIS PHASE';display:block;font-size:11px;color:var(--g2);letter-spacing:0.2em;margin-bottom:12px;}
+
+/* ── TIME BAR ── */
+.time-bar{display:inline-flex;align-items:center;gap:12px;background:var(--bg2);border:1px solid var(--border2);padding:8px 16px;margin-bottom:28px;font-size:13px;}
+.time-label{color:var(--text3);letter-spacing:0.12em;}
+.time-val{color:var(--g0);font-weight:700;letter-spacing:0.05em;}
+.time-note{color:var(--text3);font-size:12px;}
+
+/* ── PROGRESS ── */
+.module-progress-wrap{margin-bottom:24px;background:var(--bg2);border:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;gap:16px;}
+.module-progress-label{font-size:12px;color:var(--text3);letter-spacing:0.15em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
+.module-progress-bar-bg{flex:1;height:6px;background:var(--bg3);border:1px solid var(--border);overflow:hidden;}
+.module-progress-bar{height:100%;background:var(--g2);width:0%;transition:width 0.4s ease;box-shadow:0 0 8px rgba(0,255,65,0.3);}
+.module-progress-pct{font-size:13px;color:var(--g1);font-family:var(--mono);white-space:nowrap;flex-shrink:0;min-width:38px;text-align:right;}
+
+/* ── LECTURE CARDS ── */
+.lec-list{display:flex;flex-direction:column;gap:10px;margin-bottom:26px;}
+.lec{background:var(--bg2);border:1px solid var(--border);overflow:hidden;transition:border-color 0.15s;}
+.lec:hover{border-color:var(--g3);}
+.lec.zc-primary{border-left:3px solid var(--g2);}
+.lec.zc-supplement{border-left:3px solid var(--blue);opacity:0.92;}
+.lec-top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:15px 18px;border-bottom:1px solid var(--border);}
+.lec-name{font-size:15px;color:var(--text);}
+.lec-name .lnum{color:var(--g2);margin-right:10px;font-size:13px;}
+.zc-badge{font-size:10px;padding:2px 8px;background:rgba(0,255,65,0.12);color:var(--g0);border:1px solid rgba(0,255,65,0.3);letter-spacing:0.06em;margin-left:8px;}
+.sup-badge{font-size:10px;padding:2px 8px;background:var(--blue2);color:var(--blue);border:1px solid rgba(0,207,255,0.3);letter-spacing:0.06em;margin-left:8px;}
+.watch-btn{flex-shrink:0;font-family:var(--mono);font-size:13px;color:var(--g1);text-decoration:none;border:1px solid var(--g3);padding:6px 14px;letter-spacing:0.08em;text-transform:uppercase;transition:all 0.15s;white-space:nowrap;}
+.watch-btn:hover{background:var(--gdim);border-color:var(--g1);box-shadow:0 0 8px rgba(0,255,65,0.2);}
+.watch-btn.amber-btn{color:var(--amber);border-color:rgba(255,180,0,0.35);}
+.watch-btn.amber-btn:hover{background:var(--amber2);border-color:var(--amber);}
+.watch-btn.blue-btn{color:var(--blue);border-color:rgba(0,207,255,0.35);}
+.watch-btn.blue-btn:hover{background:var(--blue2);border-color:var(--blue);}
+.lec-detail{padding:0 18px 18px;display:flex;flex-direction:column;gap:0;}
+.lec-section-label{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--g2);padding:13px 0 8px;border-top:1px solid var(--border);display:block;}
+.lec-reads{display:flex;flex-direction:column;gap:6px;margin-bottom:2px;}
+.lec-read-item{display:flex;gap:10px;font-size:14px;color:var(--text2);line-height:1.55;align-items:flex-start;}
+.lec-read-item .r-sec{color:var(--g1);white-space:nowrap;flex-shrink:0;font-size:13px;}
+.lec-read-item .r-why{color:var(--text2);font-size:13px;line-height:1.55;}
+.lec-probs{display:flex;flex-direction:column;gap:7px;margin-bottom:2px;}
+.lec-prob{background:var(--bg3);border:1px solid var(--border);border-left:2px solid var(--g3);padding:9px 13px;}
+.lec-prob.ml-hot{border-left-color:var(--amber);}
+.lec-prob.info-hot{border-left-color:var(--blue);}
+.lec-prob-head{display:flex;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap;}
+.lec-prob-num{font-size:13px;color:var(--text);font-family:var(--mono);}
+.ml-badge{font-size:10px;padding:2px 8px;background:rgba(255,180,0,0.1);color:var(--amber);border:1px solid rgba(255,180,0,0.25);letter-spacing:0.06em;white-space:nowrap;}
+.info-badge{font-size:10px;padding:2px 8px;background:rgba(0,207,255,0.1);color:var(--blue);border:1px solid rgba(0,207,255,0.25);letter-spacing:0.06em;white-space:nowrap;}
+.hard-badge{font-size:10px;padding:2px 8px;background:rgba(255,60,60,0.1);color:var(--red);border:1px solid rgba(255,60,60,0.25);letter-spacing:0.06em;white-space:nowrap;}
+.lec-prob-desc{font-size:13px;color:var(--text3);line-height:1.65;}
+
+/* ── CALLOUTS ── */
+.lec-ml-callout{margin-top:6px;background:rgba(0,207,255,0.04);border:1px solid rgba(0,207,255,0.14);border-left:2px solid var(--blue);padding:12px 15px;}
+.lec-ml-callout-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:7px;opacity:0.8;}
+.lec-ml-callout-text{font-size:13px;color:var(--text2);line-height:1.75;}
+.lec-zc-callout{margin-top:6px;background:rgba(0,255,65,0.03);border:1px solid rgba(0,255,65,0.12);border-left:2px solid var(--g2);padding:12px 15px;}
+.lec-zc-callout-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--g1);margin-bottom:7px;opacity:0.8;}
+.lec-zc-callout-text{font-size:13px;color:var(--text2);line-height:1.75;}
+
+/* ── CAPSTONE ── */
+.capstone{background:var(--bg2);border:1px solid var(--amber);border-top:3px solid var(--amber);margin-bottom:26px;position:relative;overflow:hidden;}
+.capstone::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(255,180,0,0.05) 0%,transparent 65%);pointer-events:none;}
+.capstone-header{display:flex;align-items:center;gap:14px;padding:14px 20px 12px;border-bottom:1px solid rgba(255,180,0,0.2);background:rgba(255,180,0,0.04);}
+.capstone-badge{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--bg);background:var(--amber);padding:3px 10px;font-family:var(--mono);white-space:nowrap;flex-shrink:0;}
+.capstone-title{font-family:var(--display);font-size:16px;font-weight:700;color:var(--amber);letter-spacing:0.06em;text-transform:uppercase;text-shadow:0 0 16px rgba(255,180,0,0.35);}
+.capstone-body{padding:18px 20px 20px;}
+.capstone-objective{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:18px;border-left:2px solid rgba(255,180,0,0.3);padding-left:14px;}
+.capstone-objective::before{content:'// OBJECTIVE';display:block;font-size:10px;letter-spacing:0.2em;color:var(--amber);opacity:0.7;margin-bottom:6px;}
+.capstone-tasks{display:flex;flex-direction:column;gap:9px;margin-bottom:18px;}
+.capstone-tasks-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);opacity:0.7;margin-bottom:2px;}
+.capstone-task{display:flex;gap:12px;align-items:flex-start;background:var(--bg3);border:1px solid var(--border);border-left:2px solid rgba(255,180,0,0.4);padding:10px 13px;font-size:13px;color:var(--text2);line-height:1.65;}
+.capstone-task-num{color:var(--amber);font-family:var(--mono);font-size:12px;flex-shrink:0;margin-top:1px;opacity:0.85;}
+.capstone-deliverables{background:rgba(255,180,0,0.04);border:1px solid rgba(255,180,0,0.18);padding:14px 16px;}
+.capstone-deliverables-label{font-size:10px;letter-spacing:0.2em;color:var(--amber);opacity:0.7;margin-bottom:10px;}
+.capstone-deliverable-list{display:flex;flex-wrap:wrap;gap:7px;}
+.capstone-del{font-size:12px;color:var(--text2);border:1px solid rgba(255,180,0,0.25);padding:4px 11px;letter-spacing:0.04em;}
+.capstone-del::before{content:'▸ ';color:var(--amber);opacity:0.6;}
+
+/* ── MILESTONE ── */
+.milestone{background:var(--bg2);border:1px solid var(--g2);border-left:3px solid var(--g0);padding:16px 20px;margin-top:28px;margin-bottom:28px;}
+.milestone::before{content:'// PHASE_MILESTONE';display:block;font-size:11px;color:var(--g2);letter-spacing:0.18em;margin-bottom:10px;}
+.milestone-text{font-size:15px;color:var(--text);line-height:1.75;}
+.milestone-text strong{color:var(--g0);}
+
+/* ── ITEM CHECKBOXES ── */
+.item-checkbox{appearance:none;-webkit-appearance:none;width:14px;height:14px;border:1px solid var(--g3);background:var(--bg3);cursor:pointer;position:relative;flex-shrink:0;transition:border-color 0.15s,background 0.15s,box-shadow 0.15s;margin-top:2px;}
+.item-checkbox:hover{border-color:var(--g1);box-shadow:0 0 6px rgba(0,255,65,0.25);}
+.item-checkbox:checked{background:var(--g3);border-color:var(--g2);box-shadow:0 0 6px rgba(0,255,65,0.2);}
+.item-checkbox:checked::after{content:'';position:absolute;left:3px;top:0px;width:5px;height:8px;border:1.5px solid var(--g0);border-top:none;border-left:none;transform:rotate(45deg);}
+.lec-read-item.item-done{opacity:0.5;}
+.lec-read-item.item-done .r-sec,.lec-read-item.item-done .r-why{text-decoration:line-through;text-decoration-color:var(--g3);color:var(--text3);}
+.lec-prob.item-done{opacity:0.5;}
+.lec-prob.item-done .lec-prob-num{text-decoration:line-through;text-decoration-color:var(--g3);color:var(--text3);}
+
+/* ── CONNECTIONS ── */
+.conn{background:var(--bg2);border:1px solid var(--border2);padding:16px 20px;margin-bottom:32px;}
+.conn-label{font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
+.conn-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.ctag{font-size:13px;padding:5px 14px;background:var(--blue2);color:var(--blue);border:1px solid rgba(0,207,255,0.2);letter-spacing:0.04em;}
+.ptag{font-size:13px;padding:5px 14px;background:var(--purple2);color:var(--purple);border:1px solid rgba(192,132,252,0.2);letter-spacing:0.04em;}
+.gtag{font-size:13px;padding:5px 14px;background:var(--gdim);color:var(--g1);border:1px solid rgba(0,255,65,0.2);letter-spacing:0.04em;}
+.rtag{font-size:13px;padding:5px 14px;background:var(--red2);color:var(--red);border:1px solid rgba(255,60,60,0.2);letter-spacing:0.04em;}
+
+/* ── RESOURCES ── */
+.res-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+.res-card{background:var(--bg2);border:1px solid var(--border);overflow:hidden;transition:border-color 0.15s;}
+.res-card:hover{border-color:var(--border2);}
+.res-card-head{display:flex;gap:14px;align-items:flex-start;padding:16px 18px 12px;border-bottom:1px solid var(--border);}
+.res-icon{font-size:24px;flex-shrink:0;}
+.res-meta{flex:1;}
+.res-title{font-family:var(--display);font-size:14px;font-weight:700;color:var(--g0);letter-spacing:0.04em;margin-bottom:4px;}
+.res-sub{font-size:13px;color:var(--text2);margin-bottom:8px;}
+.res-badges{display:flex;gap:7px;flex-wrap:wrap;}
+.rbadge{font-size:11px;padding:2px 9px;letter-spacing:0.06em;}
+.rb-free{background:rgba(0,255,65,0.08);color:#00cc33;border:1px solid rgba(0,255,65,0.25);}
+.rb-paid{background:var(--yellow2);color:var(--yellow);border:1px solid rgba(255,225,86,0.25);}
+.rb-cert{background:var(--purple2);color:var(--purple);border:1px solid rgba(192,132,252,0.25);}
+.rb-plat{background:transparent;color:var(--text2);border:1px solid var(--border2);}
+.rb-core{background:rgba(0,255,65,0.12);color:var(--g0);border:1px solid rgba(0,255,65,0.4);}
+.rb-cloud{background:var(--blue2);color:var(--blue);border:1px solid rgba(0,207,255,0.25);}
+.rb-sec{background:var(--red2);color:var(--red);border:1px solid rgba(255,60,60,0.25);}
+.res-card-body{padding:14px 18px;}
+.res-desc{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:12px;}
+.res-links{display:flex;gap:8px;flex-wrap:wrap;}
+.rl{font-family:var(--mono);font-size:12px;text-decoration:none;padding:7px 14px;letter-spacing:0.05em;text-transform:uppercase;transition:all 0.15s;}
+.rl.pri{background:var(--g0);color:var(--bg);font-weight:600;}
+.rl.pri:hover{background:var(--g1);box-shadow:0 0 16px var(--glow);}
+.rl.sec{background:transparent;color:var(--text2);border:1px solid var(--border2);}
+.rl.sec:hover{border-color:var(--text2);color:var(--text);}
+
+/* ── OVERVIEW CARDS ── */
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:36px;}
+.ov-card{background:var(--bg2);border:1px solid var(--border2);padding:22px 20px;position:relative;overflow:hidden;transition:border-color 0.2s;}
+.ov-card:hover{border-color:var(--g2);}
+.ov-card-track{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:12px;}
+.ov-card-track.zc{color:var(--g1);}
+.ov-card-track.cloud{color:var(--blue);}
+.ov-card-track.llm{color:var(--purple);}
+.ov-card-track.sec{color:var(--red);}
+.ov-card h3{font-family:var(--display);font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
+.ov-card.zc-card h3{color:var(--g0);}
+.ov-card.cloud-card h3{color:var(--blue);}
+.ov-card.llm-card h3{color:var(--purple);}
+.ov-card.sec-card h3{color:var(--red);}
+.ov-card p{font-size:13px;color:var(--text2);line-height:1.7;}
+.ov-card .ov-meta{margin-top:14px;font-size:12px;color:var(--text3);border-top:1px solid var(--border);padding-top:10px;}
+.ov-card .ov-meta span{color:var(--amber);}
+.lp-row{display:flex;align-items:stretch;gap:0;margin-bottom:24px;overflow-x:auto;}
+.lp-node{background:var(--bg2);border:1px solid var(--border2);padding:14px 18px;flex:1;min-width:120px;}
+.lp-arrow{display:flex;align-items:center;padding:0 8px;color:var(--g3);font-size:18px;flex-shrink:0;}
+.lp-phase{font-size:10px;letter-spacing:0.18em;color:var(--text3);margin-bottom:4px;}
+.lp-name{font-size:13px;color:var(--g0);font-family:var(--display);font-weight:700;text-transform:uppercase;}
+.lp-time{font-size:11px;color:var(--text3);margin-top:4px;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--g3);border-radius:2px;}
+
+/* ── LINKS ── */
+.lnk{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:13px;color:var(--g1);text-decoration:none;border:1px solid var(--g3);padding:9px 16px;margin-bottom:8px;letter-spacing:0.05em;transition:all 0.15s;text-transform:uppercase;}
+.lnk:hover{background:var(--gdim);border-color:var(--g1);color:var(--g0);box-shadow:0 0 12px rgba(0,255,65,0.15);}
+.lnks{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;}
+
+/* ── RES SECTION HEADER ── */
+.res-section-title{font-family:var(--display);font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:32px 0 14px;padding:10px 14px;border-left:3px solid var(--g2);}
+.res-section-title.blue{color:var(--blue);border-left-color:var(--blue);}
+.res-section-title.purple{color:var(--purple);border-left-color:var(--purple);}
+.res-section-title.red{color:var(--red);border-left-color:var(--red);}
+.res-section-title.green{color:var(--g0);}
+
+@media(max-width:680px){
+  header,main{padding-left:16px;padding-right:16px;}
+  .nav-bar{padding:0 12px;}
+  h1{font-size:22px;}
+  .lec-top{flex-direction:column;align-items:flex-start;}
+  .ascii-logo{display:none;}
+  .skill-tools{display:none;}
+  .overview-grid{grid-template-columns:1fr;}
+  .lp-row{flex-direction:column;}
+  .lp-arrow{transform:rotate(90deg);padding:4px 0;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-top-bar">
+      <span>ROGUE_ACADEMY :: COURSE_03 :: MLOPS_ULTIMATE_GUIDE :: ZOOMCAMP + CLOUD + SECURITY :: v3.0</span>
+      <span style="display:flex;align-items:center;gap:1.2rem;">
+        <span><span class="blink">█</span> ACTIVE</span>
+        <a href="https://guilhermeptor.github.io/Rogue-Academy/" style="color:var(--text3);text-decoration:none;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--border2);padding:2px 10px;transition:color 0.2s,border-color 0.2s;" onmouseover="this.style.color='var(--g0)';this.style.borderColor='var(--g3)';" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)';">↩ Homepage</a>
+      </span>
+    </div>
+    <div class="ascii-logo"> __  __ _     ___  ____  ____
+|  \/  | |   / _ \|  _ \/ ___|
+| |\/| | |  | | | | |_) \___ \
+| |  | | |__| |_| |  __/ ___) |
+|_|  |_|_____\___/|_|   |____/  ULTIMATE GUIDE // ZOOMCAMP + CLOUD + SECURITY // 12-MONTH PRODUCTION AI ENGINEER</div>
+    <h1>MLOps Ultimate Guide</h1>
+    <div class="header-tagline">"Zoomcamp core. <span>Cloud scale. Security depth.</span> The complete stack — own it."</div>
+    <div class="workflow-bar">
+      <div class="wf-step"><span class="n">01</span> ZOOMCAMP_CORE</div>
+      <div class="wf-sep">▶</div>
+      <div class="wf-step"><span class="n">02</span> CLOUD_SCALE</div>
+      <div class="wf-sep">▶</div>
+      <div class="wf-step"><span class="n">03</span> LLMOPS_RAG</div>
+      <div class="wf-sep">▶</div>
+      <div class="wf-step"><span class="n">04</span> SECURITY_GOV</div>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-bar">
+    <button class="tab active" onclick="showTab('overview',event)"><span class="idx">00/</span>OVERVIEW</button>
+    <button class="tab" onclick="showTab('zoomcamp',event)"><span class="idx">01/</span>ZOOMCAMP</button>
+    <button class="tab cloud-tab" onclick="showTab('cloud',event)"><span class="idx">02/</span>CLOUD_ML</button>
+    <button class="tab llm-tab" onclick="showTab('llmops',event)"><span class="idx">03/</span>LLMOPS_RAG</button>
+    <button class="tab sec-tab" onclick="showTab('security',event)"><span class="idx">04/</span>SECURITY_GOV</button>
+    <button class="tab special" onclick="showTab('resources',event)">RESOURCES</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ════ PANEL 00: OVERVIEW ════ -->
+<div id="panel-overview" class="panel active">
+  <div class="sh">
+    <div class="sh-idx">GUIDE_00 // START HERE</div>
+    <h2>The Ultimate MLOps Learning Path</h2>
+    <div class="sh-sub">Four tracks. One complete engineer. All free resources. — <span class="accent">12 months to senior-level</span></div>
+  </div>
+
+  <div class="why" style="border-left-color:var(--amber);">
+    <span style="content:'';display:block;font-size:11px;color:var(--amber);letter-spacing:0.2em;margin-bottom:12px;">// THE COMPLETE PICTURE</span>
+    This guide merges two complementary learning tracks into one master curriculum. Track A follows the <strong style="color:var(--g0)">DataTalksClub MLOps Zoomcamp</strong> — the best free structured course for production ML foundations. Track B adds what the Zoomcamp doesn't cover in depth: <strong style="color:var(--blue)">Cloud-Native ML Infrastructure</strong>, <strong style="color:var(--purple)">LLMOps &amp; RAG systems</strong>, and <strong style="color:var(--red)">AI Security &amp; Governance</strong>. Together they produce a complete senior-level MLOps engineer. Every resource linked is free or has a significant free tier.
+  </div>
+
+  <div style="font-size:12px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase;margin-bottom:14px;">// 12-MONTH LEARNING PATH</div>
+  <div class="lp-row">
+    <div class="lp-node">
+      <div class="lp-phase">MONTHS 1–2</div>
+      <div class="lp-name" style="color:var(--g0);">Zoomcamp</div>
+      <div class="lp-time">M1→M6 · 40–60 hrs total</div>
+    </div>
+    <div class="lp-arrow">▶</div>
+    <div class="lp-node">
+      <div class="lp-phase">MONTHS 3–5</div>
+      <div class="lp-name" style="color:var(--blue);">Cloud ML Infra</div>
+      <div class="lp-time">SageMaker/Azure + Terraform + IaC</div>
+    </div>
+    <div class="lp-arrow">▶</div>
+    <div class="lp-node">
+      <div class="lp-phase">MONTHS 6–9</div>
+      <div class="lp-name" style="color:var(--purple);">LLMOps &amp; RAG</div>
+      <div class="lp-time">Embeddings · RAG · Agents · Eval</div>
+    </div>
+    <div class="lp-arrow">▶</div>
+    <div class="lp-node">
+      <div class="lp-phase">MONTHS 10–12</div>
+      <div class="lp-name" style="color:var(--red);">Security &amp; Gov</div>
+      <div class="lp-time">OWASP LLM · Fairness · EU AI Act</div>
+    </div>
+  </div>
+
+  <div class="overview-grid">
+    <div class="ov-card zc-card">
+      <div class="ov-card-track zc">// TRACK A — FOUNDATION</div>
+      <h3>MLOps Zoomcamp</h3>
+      <p>The DataTalksClub Zoomcamp is the best free structured course for production ML. Six modules covering experiment tracking, pipeline orchestration, deployment modes, monitoring, and software engineering best practices. Built around the NYC Taxi dataset — a clean, real example that forces you to handle real production problems.</p>
+      <div class="ov-meta">Duration: <span>6–8 weeks · 40–60 hrs</span> · Modules: <span>M1–M6</span></div>
+    </div>
+    <div class="ov-card cloud-card">
+      <div class="ov-card-track cloud">// TRACK B — SCALE</div>
+      <h3>Cloud-Native ML</h3>
+      <p>Everything the Zoomcamp delegates to "use a cloud service." SageMaker end-to-end pipelines, IaC with Terraform, Kubernetes for ML workloads, auto-scaling inference, and cloud cost optimisation. Targeting an AWS/Azure associate certification as a hard milestone.</p>
+      <div class="ov-meta">Duration: <span>3 months</span> · Target: <span>AWS ML Specialty cert</span></div>
+    </div>
+    <div class="ov-card llm-card">
+      <div class="ov-card-track llm">// TRACK C — LLM STACK</div>
+      <h3>LLMOps &amp; RAG</h3>
+      <p>The emerging discipline that is 60% of senior MLOps job descriptions in 2025–2026. Embeddings, vector databases, hybrid retrieval, advanced RAG patterns, agent orchestration with LangGraph, evaluation with RAGAS, and cost monitoring with Langfuse. All built on free-tier tools.</p>
+      <div class="ov-meta">Duration: <span>4 months</span> · Stack: <span>LangChain · RAGAS · Langfuse</span></div>
+    </div>
+    <div class="ov-card sec-card">
+      <div class="ov-card-track sec">// TRACK D — GOVERNANCE</div>
+      <h3>Security &amp; AI Gov</h3>
+      <p>The layer that separates senior from mid-level engineers. Adversarial ML attacks, OWASP LLM Top 10, data privacy in ML pipelines, fairness auditing, EU AI Act compliance, and model governance frameworks. Rare skills that command the top of the salary range.</p>
+      <div class="ov-meta">Duration: <span>3 months</span> · Focus: <span>Senior/Staff differentiator</span></div>
+    </div>
+  </div>
+
+  <div class="conn">
+    <div class="conn-label">// HOW THE TRACKS CONNECT</div>
+    <div class="conn-tags">
+      <span class="gtag">Zoomcamp M2 (MLflow) → Cloud (SageMaker Model Registry)</span>
+      <span class="gtag">Zoomcamp M3 (Prefect) → Cloud (SageMaker Pipelines / Vertex AI)</span>
+      <span class="gtag">Zoomcamp M4 (deployment) → LLMOps (LLM serving patterns)</span>
+      <span class="gtag">Zoomcamp M5 (Evidently) → Security (drift as a security signal)</span>
+      <span class="ctag">Cloud IaC → Security (network isolation, IAM, encryption at rest)</span>
+      <span class="ptag">RAG pipelines → Security (prompt injection, guardrails, PII redaction)</span>
+      <span class="rtag">All capstones → Security audit + fairness review</span>
+    </div>
+  </div>
+
+  <div class="milestone">
+    <div class="milestone-text">
+      <strong>// HOW TO USE THIS GUIDE:</strong> Start with the Zoomcamp (Tab 01) and complete all six modules end-to-end using the NY Taxi project. Then move to Cloud ML (Tab 02) to scale that project to a real cloud. Add LLMOps/RAG (Tab 03) as a parallel track or sequel — most topics are independent. Finish with Security &amp; Governance (Tab 04). Use the RESOURCES tab at any point to find the best free materials for each phase.
+    </div>
+  </div>
+</div>
+
+<!-- ════ PANEL 01: ZOOMCAMP ════ -->
+<div id="panel-zoomcamp" class="panel">
+  <div class="sh">
+    <div class="sh-idx">TRACK_A // MONTHS 1–2 // DATATALKSC.LUB MLOPS ZOOMCAMP</div>
+    <h2>MLOps Zoomcamp — Core Curriculum</h2>
+    <div class="sh-sub">Six modules. One project. The production ML foundation. — <span class="accent">40–60 hrs total</span></div>
+  </div>
+
+  <div class="subnav">
+    <button class="subtab active" onclick="showSubTab('m1',event)">M1 / INTRO</button>
+    <button class="subtab" onclick="showSubTab('m2',event)">M2 / EXP_TRACKING</button>
+    <button class="subtab" onclick="showSubTab('m3',event)">M3 / ORCHESTRATION</button>
+    <button class="subtab" onclick="showSubTab('m4',event)">M4 / DEPLOYMENT</button>
+    <button class="subtab" onclick="showSubTab('m5',event)">M5 / MONITORING</button>
+    <button class="subtab" onclick="showSubTab('m6',event)">M6 / BEST_PRACTICES</button>
+  </div>
+
+  <!-- M1: INTRO -->
+  <div id="sub-m1" class="subpanel active">
+    <div class="sh" style="border-left-color:var(--g1);margin-bottom:20px;">
+      <div class="sh-idx">MODULE_01 // WEEK 1</div>
+      <h2 style="font-size:20px;">Introduction to MLOps</h2>
+      <div class="sh-sub">What MLOps is, why it exists, getting your environment ready — <span class="accent">~4–6 hrs</span></div>
+    </div>
+    <div class="why">This module answers the question most engineers skip: <em>what problem does MLOps actually solve?</em> You'll learn the MLOps maturity model — the five levels from "notebook chaos" to "fully automated production" — and understand where most real companies sit (level 1–2). The running example throughout the Zoomcamp is predicting NYC taxi trip duration: a clean, real dataset that forces you to deal with the same problems production engineers face. Get your environment right here — every module builds on it.</div>
+    <div class="time-bar"><span class="time-label">// TIME_COMMITMENT</span><span class="time-val">4–6 HRS</span><span class="time-note">· WEEK 1</span></div>
+    <div class="module-progress-wrap"><span class="module-progress-label">// MODULE_01 PROGRESS</span><div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-m1"></div></div><span class="module-progress-pct" id="pct-m1">0%</span></div>
+    <div class="skill-group">
+      <div class="skill-header"><span class="skill-num">SKILL_01</span><span class="skill-title">MLOps Concepts &amp; Maturity Model</span><div class="skill-tools"><span class="stool">CONCEPTS</span><span class="stool">FRAMEWORKS</span></div></div>
+      <div class="lec-list">
+        <div class="lec zc-primary" id="lec-m1-1">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M1.1]</span>What Is MLOps? <span class="zc-badge">ZOOMCAMP</span></span><a href="https://github.com/DataTalksClub/mlops-zoomcamp/tree/main/01-intro" target="_blank" class="watch-btn">GITHUB ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">The ML lifecycle: data → training → evaluation → deployment → monitoring → retraining. Understand where each phase breaks in the real world</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">MLOps maturity levels 0–4: from ad-hoc scripts to fully automated ML platforms. Know where your current project sits and what level 2 looks like at a real company</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">The three-axis problem: data quality + model quality + serving quality. All three must be maintained continuously — not just at launch</span></div>
+            </div>
+            <div class="lec-section-label">// BUILD</div>
+            <div class="lec-probs">
+              <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Set up the Zoomcamp environment</span><span class="zc-badge">ZOOMCAMP EXERCISE</span></div><div class="lec-prob-desc">Fork the Zoomcamp repo, set up your Conda environment, download the NY Taxi parquet files, and run the baseline notebook end-to-end. Confirm you get the expected RMSE. This is your baseline — every module builds on this model.</div></div>
+            </div>
+            <div class="lec-zc-callout"><div class="lec-zc-callout-label">// ZOOMCAMP VIDEO</div><div class="lec-zc-callout-text"><strong>Module 1: Introduction</strong> — watch the full intro lecture by Alexey Grigorev. Pay attention to the "why MLOps" framing — it will orient every decision you make in later modules. <a href="https://www.youtube.com/playlist?list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK" target="_blank" style="color:var(--g1)">↗ YouTube Playlist (Free)</a></div></div>
+          </div>
+        </div>
+        <div class="lec zc-supplement" id="lec-m1-2">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M1.2]</span>Maturity Model Deep-Dive <span class="sup-badge">SUPPLEMENT</span></span><a href="https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning" target="_blank" class="watch-btn blue-btn">GOOGLE ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Google's MLOps maturity model — the most widely cited industry framework. Read the full document to understand what "level 2 MLOps" looks like in a real org</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Microsoft's MLOps maturity model — a complementary lens focused on DevOps integration and team structure. Compare with Google's framework</span></div>
+            </div>
+            <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>Google Cloud — MLOps: Continuous delivery and automation pipelines in ML</strong> — the canonical industry reference for the MLOps maturity model. <a href="https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning" target="_blank" style="color:var(--g1)">↗ cloud.google.com (Free)</a><br><br><strong>Microsoft — MLOps Maturity Model</strong> — Azure's five-level framework. Useful for understanding org structure at each level. <a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/mlops-maturity-model" target="_blank" style="color:var(--g1)">↗ learn.microsoft.com (Free)</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="milestone"><div class="milestone-text"><strong>// MODULE 01 MILESTONE:</strong> You can explain the five MLOps maturity levels from memory, your environment is set up and reproducible, and you've run the baseline NY taxi model end-to-end. You know what you're building towards.</div></div>
+  </div>
+
+  <!-- M2: EXPERIMENT TRACKING -->
+  <div id="sub-m2" class="subpanel">
+    <div class="sh" style="border-left-color:var(--g1);margin-bottom:20px;">
+      <div class="sh-idx">MODULE_02 // WEEKS 2–3</div>
+      <h2 style="font-size:20px;">Experiment Tracking &amp; Model Management</h2>
+      <div class="sh-sub">MLflow, model registry, and data versioning — <span class="accent">~8–10 hrs</span></div>
+    </div>
+    <div class="why">Six months from now, you will not remember which hyperparameters produced your best model. Without experiment tracking, every training run is a snowflake — unreproducible, unauditable, and unteachable to the next engineer. This module gives you the infrastructure to make training systematic: every run logged, every artifact stored, every model registered. The Zoomcamp covers MLflow in depth. The supplements add DVC for data versioning and W&amp;B as an alternative for teams that prefer a hosted solution.</div>
+    <div class="time-bar"><span class="time-label">// TIME_COMMITMENT</span><span class="time-val">8–10 HRS</span><span class="time-note">· WEEKS 2–3</span></div>
+    <div class="module-progress-wrap"><span class="module-progress-label">// MODULE_02 PROGRESS</span><div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-m2"></div></div><span class="module-progress-pct" id="pct-m2">0%</span></div>
+    <div class="skill-group">
+      <div class="skill-header"><span class="skill-num">SKILL_02</span><span class="skill-title">MLflow — Experiment Tracking &amp; Registry</span><div class="skill-tools"><span class="stool">MLFLOW</span><span class="stool">DVC</span><span class="stool">SKLEARN</span></div></div>
+      <div class="lec-list">
+        <div class="lec zc-primary" id="lec-m2-1">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M2.1]</span>Tracking Server, Runs &amp; Experiments <span class="zc-badge">ZOOMCAMP</span></span><a href="https://github.com/DataTalksClub/mlops-zoomcamp/tree/main/02-experiment-tracking" target="_blank" class="watch-btn">GITHUB ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Runs, Experiments, Artifacts: the three-level hierarchy. A Run is a single training execution. An Experiment groups related runs. An Artifact is any file output (model, plot, confusion matrix)</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">mlflow.start_run() context manager: everything inside gets logged atomically. Parameters, metrics at each step, and the final model artifact</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Autologging — mlflow.sklearn.autolog() and mlflow.xgboost.autolog() capture hyperparameters and metrics automatically. Use autolog to start; add custom logs for what it misses</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Backend and artifact stores: the MLflow tracking server separates metadata (SQLite/PostgreSQL) from artifacts (local/S3). Understand this split before containerising your tracking server</span></div>
+            </div>
+            <div class="lec-section-label">// BUILD</div>
+            <div class="lec-probs">
+              <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Instrument the taxi model with MLflow</span><span class="zc-badge">ZOOMCAMP EXERCISE</span></div><div class="lec-prob-desc">Add mlflow.start_run() to your baseline. Log all hyperparameters, RMSE at each epoch, and the trained model artifact. Run at least 5 experiments with different configurations. Compare runs in the MLflow UI — identify which hyperparameter matters most.</div></div>
+            </div>
+            <div class="lec-zc-callout"><div class="lec-zc-callout-label">// ZOOMCAMP VIDEO</div><div class="lec-zc-callout-text"><strong>Module 2 — Experiment Tracking with MLflow</strong>: Alexey walks through setting up a local MLflow server, running experiments on the taxi dataset, and comparing runs. Follow along in your own environment. <a href="https://www.youtube.com/playlist?list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK" target="_blank" style="color:var(--g1)">↗ YouTube Playlist (Free)</a></div></div>
+          </div>
+        </div>
+        <div class="lec zc-primary" id="lec-m2-2">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M2.2]</span>MLflow Model Registry <span class="zc-badge">ZOOMCAMP</span></span><a href="https://mlflow.org/docs/latest/model-registry.html" target="_blank" class="watch-btn">DOCS ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Staging → Production → Archived lifecycle: a model never goes to production without going through staging. This forces a review step and creates an audit trail</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Model flavors — mlflow.sklearn, mlflow.pyfunc, mlflow.onnx: understand what a "flavor" is and why pyfunc is the universal serving format</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Transitioning model versions programmatically via the MlflowClient API — how a promotion pipeline works without touching the UI</span></div>
+            </div>
+            <div class="lec-section-label">// BUILD</div>
+            <div class="lec-probs">
+              <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Register and promote the best taxi model</span><span class="zc-badge">ZOOMCAMP EXERCISE</span></div><div class="lec-prob-desc">From your 5+ experiment runs, register the best model in the Model Registry. Transition it to Staging. Write a Python script that loads the model from the registry using MlflowClient and runs it on a batch of test inputs without importing sklearn directly.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="lec zc-supplement" id="lec-m2-3">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M2.3]</span>DVC — Data Version Control <span class="sup-badge">SUPPLEMENT</span></span><a href="https://dvc.org/doc/start" target="_blank" class="watch-btn blue-btn">DOCS ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Git for code, DVC for data: DVC stores large files in remote storage (S3, GCS) and keeps only a pointer in Git. Full reproducibility requires versioning both</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">DVC pipelines: define stages as a DAG in dvc.yaml. Each stage has inputs, outputs, and a command. DVC runs only changed stages — like Make for ML</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">dvc repro and dvc params diff — reproduce any historical run and compare parameter changes across versions</span></div>
+            </div>
+            <div class="lec-section-label">// BUILD</div>
+            <div class="lec-probs">
+              <div class="lec-prob"><div class="lec-prob-head"><span class="lec-prob-num">Version the taxi dataset with DVC</span><span class="sup-badge">DEEP-DIVE PROJECT</span></div><div class="lec-prob-desc">Add DVC to your taxi project. Track the parquet files with dvc add, push to a local DVC remote, and define a dvc.yaml pipeline that runs preprocessing → training → evaluation. Confirm dvc repro reproduces your MLflow-logged metrics exactly.</div></div>
+            </div>
+            <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>DVC Official "Get Started" Docs</strong> — the official tutorial covering dvc init, dvc add, remotes, and pipelines. Complete the "Get Started: Data Pipelines" section. <a href="https://dvc.org/doc/start/data-pipelines" target="_blank" style="color:var(--g1)">↗ dvc.org/doc/start (Free)</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="milestone"><div class="milestone-text"><strong>// MODULE 02 MILESTONE:</strong> Every training run is logged. Your best model is registered and version-controlled. You can reproduce any historical experiment in under 5 minutes using dvc repro. Data and code changes are tracked separately.</div></div>
+  </div>
+
+  <!-- M3: ORCHESTRATION -->
+  <div id="sub-m3" class="subpanel">
+    <div class="sh" style="border-left-color:var(--g1);margin-bottom:20px;">
+      <div class="sh-idx">MODULE_03 // WEEKS 4–5</div>
+      <h2 style="font-size:20px;">Pipeline Orchestration</h2>
+      <div class="sh-sub">Prefect, Airflow, and workflow automation — <span class="accent">~8–10 hrs</span></div>
+    </div>
+    <div class="why">A Jupyter notebook is not a pipeline. This module teaches you to transform ad-hoc training scripts into scheduled, observable, retried workflows. The Zoomcamp uses Prefect — the best free-tier orchestrator for ML because it requires zero infrastructure to start (cloud execution is free for small workloads). The supplement covers Airflow for teams that need Kubernetes-native DAGs. The mental model is identical; the syntax differs.</div>
+    <div class="time-bar"><span class="time-label">// TIME_COMMITMENT</span><span class="time-val">8–10 HRS</span><span class="time-note">· WEEKS 4–5</span></div>
+    <div class="module-progress-wrap"><span class="module-progress-label">// MODULE_03 PROGRESS</span><div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-m3"></div></div><span class="module-progress-pct" id="pct-m3">0%</span></div>
+    <div class="skill-group">
+      <div class="skill-header"><span class="skill-num">SKILL_03</span><span class="skill-title">Prefect — Workflow Orchestration</span><div class="skill-tools"><span class="stool">PREFECT</span><span class="stool">AIRFLOW</span><span class="stool">TASKS</span></div></div>
+      <div class="lec-list">
+        <div class="lec zc-primary" id="lec-m3-1">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M3.1]</span>Prefect Flows &amp; Tasks <span class="zc-badge">ZOOMCAMP</span></span><a href="https://github.com/DataTalksClub/mlops-zoomcamp/tree/main/03-orchestration" target="_blank" class="watch-btn">GITHUB ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">@flow and @task decorators: any Python function becomes a tracked, retriable pipeline step with a single decorator. No DSL, no YAML, just Python</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Retries and retry delays: configure retries=3 and retry_delay_seconds=60 on tasks that touch external systems (cloud APIs, databases). Transient failures should never require manual restarts</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Prefect UI and run history: every flow run has a visual execution graph, logs, and state history. This replaces "did the cron job run?" with a real audit trail</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Parameterised flows: accept parameters at runtime (e.g., training month, model config). This turns your training flow into a reusable API — call it from CI, a schedule, or manually</span></div>
+            </div>
+            <div class="lec-section-label">// BUILD</div>
+            <div class="lec-probs">
+              <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Orchestrate the full taxi training pipeline</span><span class="zc-badge">ZOOMCAMP EXERCISE</span></div><div class="lec-prob-desc">Wrap your taxi preprocessing + training + registration pipeline in a Prefect @flow. Each logical step is a @task. Add retry logic on the data download step. Schedule it to run on the 1st of each month using a Prefect Deployment. Confirm you see the run history in the Prefect UI.</div></div>
+            </div>
+            <div class="lec-zc-callout"><div class="lec-zc-callout-label">// ZOOMCAMP VIDEO</div><div class="lec-zc-callout-text"><strong>Module 3 — Workflow Orchestration</strong>: Alexey converts the taxi training script into a full Prefect pipeline with scheduling. Follow the 03-orchestration notebook exactly, then extend it with retries. <a href="https://www.youtube.com/playlist?list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK" target="_blank" style="color:var(--g1)">↗ YouTube Playlist (Free)</a></div></div>
+          </div>
+        </div>
+        <div class="lec zc-supplement" id="lec-m3-2">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M3.2]</span>Apache Airflow for ML DAGs <span class="sup-badge">SUPPLEMENT</span></span><a href="https://airflow.apache.org/docs/apache-airflow/stable/index.html" target="_blank" class="watch-btn blue-btn">DOCS ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">DAGs, operators, and sensors: Airflow's core model. A DAG is a directed acyclic graph of Tasks. Sensors wait for external conditions (file arrival, API response) before proceeding</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">TaskFlow API (@task decorator): modern Airflow looks more like Prefect — Python functions become tasks with automatic XCom passing. Prefer this over the old operator syntax</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Airflow vs Prefect: Airflow is battle-tested at massive scale (Airbnb, LinkedIn) but requires Kubernetes to run properly. Prefect is faster to start with free cloud. Know when each is appropriate</span></div>
+            </div>
+            <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>Astronomer — Airflow Guide (Free)</strong> — the best free Airflow learning resource. The "Intro to Airflow" and "DAG authoring best practices" guides are essential. <a href="https://www.astronomer.io/guides/" target="_blank" style="color:var(--g1)">↗ astronomer.io/guides (Free)</a><br><br><strong>Prefect Docs — Getting Started</strong> — official free tutorial. Work through Flows, Tasks, Deployments, and Schedules. <a href="https://docs.prefect.io/latest/get-started/" target="_blank" style="color:var(--g1)">↗ docs.prefect.io (Free)</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="milestone"><div class="milestone-text"><strong>// MODULE 03 MILESTONE:</strong> Your taxi training pipeline runs on a schedule without manual intervention. Every run is logged with inputs, outputs, and timing. Failures retry automatically and alert you. A colleague can trigger a re-run with a different month parameter from the Prefect UI.</div></div>
+  </div>
+
+  <!-- M4: DEPLOYMENT -->
+  <div id="sub-m4" class="subpanel">
+    <div class="sh" style="border-left-color:var(--g1);margin-bottom:20px;">
+      <div class="sh-idx">MODULE_04 // WEEKS 6–7</div>
+      <h2 style="font-size:20px;">Model Deployment</h2>
+      <div class="sh-sub">Online, batch, and streaming — three deployment modes — <span class="accent">~10–12 hrs</span></div>
+    </div>
+    <div class="why">Deployment is not "put it in Flask and call it done." There are three fundamentally different patterns: online serving (real-time, low latency), batch scoring (scheduled, high throughput), and streaming (event-driven, near-real-time). Each has different cost, latency, and operational profiles. The Zoomcamp teaches all three using the taxi model. After this module, you'll be able to choose the right pattern for any use case and defend your choice in a system design interview.</div>
+    <div class="time-bar"><span class="time-label">// TIME_COMMITMENT</span><span class="time-val">10–12 HRS</span><span class="time-note">· WEEKS 6–7</span></div>
+    <div class="module-progress-wrap"><span class="module-progress-label">// MODULE_04 PROGRESS</span><div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-m4"></div></div><span class="module-progress-pct" id="pct-m4">0%</span></div>
+    <div class="skill-group">
+      <div class="skill-header"><span class="skill-num">SKILL_04</span><span class="skill-title">Online Serving + Batch + Streaming</span><div class="skill-tools"><span class="stool">FLASK</span><span class="stool">FASTAPI</span><span class="stool">KINESIS</span><span class="stool">LAMBDA</span></div></div>
+      <div class="lec-list">
+        <div class="lec zc-primary" id="lec-m4-1">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M4.1]</span>Online Serving — Flask &amp; Docker <span class="zc-badge">ZOOMCAMP</span></span><a href="https://github.com/DataTalksClub/mlops-zoomcamp/tree/main/04-deployment/web-service" target="_blank" class="watch-btn">GITHUB ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Loading a model from the MLflow registry inside a Flask app — the pattern for serving a versioned model without hardcoding a local file path</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Containerising the serving app: the Dockerfile loads the model at startup, not per-request. Understand the cold-start vs warm-start latency difference</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Gunicorn workers: Flask's development server handles one request at a time. Gunicorn spawns multiple worker processes; set workers = 2 × CPUs + 1</span></div>
+            </div>
+            <div class="lec-section-label">// BUILD</div>
+            <div class="lec-probs">
+              <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Serve the taxi model as a Flask API</span><span class="zc-badge">ZOOMCAMP EXERCISE</span></div><div class="lec-prob-desc">Load your registered taxi model from MLflow and expose a /predict endpoint. Containerise it with Docker. Run a load test with locust or hey to confirm it handles 100 concurrent requests at p99 &lt; 200ms.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="lec zc-supplement" id="lec-m4-2">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M4.2]</span>FastAPI &amp; Async Serving Patterns <span class="sup-badge">SUPPLEMENT</span></span><a href="https://fastapi.tiangolo.com/" target="_blank" class="watch-btn blue-btn">DOCS ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">FastAPI vs Flask for ML: FastAPI's Pydantic request validation catches malformed inputs before they reach the model — eliminates an entire class of production errors</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Pydantic schemas for request/response validation — enforce input contracts, catch bad data before it reaches your model</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Lifespan events: load your model once at startup using FastAPI's @asynccontextmanager lifespan, store it in app.state. This avoids reloading the model on every request</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Health check endpoints (/health, /ready) — Kubernetes liveness and readiness probes depend on these</span></div>
+            </div>
+            <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>FastAPI Official Tutorial</strong> — Sebastián Ramírez's tutorial is the single best resource; covers async, Pydantic v2, background tasks, lifespan, and dependency injection with no paywalls. <a href="https://fastapi.tiangolo.com/tutorial/" target="_blank" style="color:var(--g1)">↗ fastapi.tiangolo.com/tutorial (Free)</a><br><br><strong>BentoML Docs — Serving Guide</strong> — higher-level alternative to raw FastAPI for model serving; includes adaptive batching. <a href="https://docs.bentoml.com/" target="_blank" style="color:var(--g1)">↗ docs.bentoml.com (Free)</a></div></div>
+          </div>
+        </div>
+        <div class="lec zc-primary" id="lec-m4-3">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M4.3]</span>Batch Scoring &amp; Streaming (Kinesis + Lambda) <span class="zc-badge">ZOOMCAMP</span></span><a href="https://github.com/DataTalksClub/mlops-zoomcamp/tree/main/04-deployment" target="_blank" class="watch-btn">GITHUB ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Batch scoring pattern: load model → read partition → score → write predictions to storage → schedule. No latency requirement, high throughput, cheapest compute option</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Event-driven inference with Kinesis + Lambda: a record arrives on a stream → Lambda wakes → model scores → prediction written to output stream. Near-real-time without a persistent server</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Cold starts and container reuse in Lambda: the model must load fast. Load the model outside the handler function — this is critical for latency</span></div>
+            </div>
+            <div class="lec-section-label">// BUILD</div>
+            <div class="lec-probs">
+              <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Three deployment modes — one model</span><span class="zc-badge">ZOOMCAMP CAPSTONE</span></div><div class="lec-prob-desc">Deploy the same registered taxi model in all three modes: online (FastAPI), batch (Prefect monthly job), and streaming (Kinesis + Lambda tested with Localstack). Write a one-page decision document explaining when you'd choose each in a real product.</div></div>
+            </div>
+            <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE TOOL</div><div class="lec-ml-callout-text"><strong>Localstack</strong> — emulates AWS services (Kinesis, Lambda, S3) locally in Docker. Free open-source tier. Develop the entire streaming pipeline without spending on AWS. <a href="https://docs.localstack.cloud/getting-started/" target="_blank" style="color:var(--g1)">↗ localstack.cloud (Free tier)</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="milestone"><div class="milestone-text"><strong>// MODULE 04 MILESTONE:</strong> The taxi model is deployed in all three modes. You can explain the latency-cost-complexity trade-offs of each in a system design interview without notes. API p99 latency &lt; 200ms. Streaming tested with 100+ events via Localstack.</div></div>
+  </div>
+
+  <!-- M5: MONITORING -->
+  <div id="sub-m5" class="subpanel">
+    <div class="sh" style="border-left-color:var(--g1);margin-bottom:20px;">
+      <div class="sh-idx">MODULE_05 // WEEK 8</div>
+      <h2 style="font-size:20px;">Model Monitoring</h2>
+      <div class="sh-sub">Data drift, concept drift, Evidently, Grafana, Prometheus — <span class="accent">~8–10 hrs</span></div>
+    </div>
+    <div class="why">Deploying a model is not the end — it's the beginning of a different problem. Models degrade silently. Your input data distribution drifts. User behaviour changes. New categories appear that your model has never seen. Without monitoring, you find out the model is broken when someone complains. With monitoring, you find out three days before anyone notices. The Zoomcamp covers Evidently for drift detection and Grafana + Prometheus for dashboards.</div>
+    <div class="time-bar"><span class="time-label">// TIME_COMMITMENT</span><span class="time-val">8–10 HRS</span><span class="time-note">· WEEK 8</span></div>
+    <div class="module-progress-wrap"><span class="module-progress-label">// MODULE_05 PROGRESS</span><div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-m5"></div></div><span class="module-progress-pct" id="pct-m5">0%</span></div>
+    <div class="skill-group">
+      <div class="skill-header"><span class="skill-num">SKILL_05</span><span class="skill-title">Drift Detection &amp; Monitoring Dashboards</span><div class="skill-tools"><span class="stool">EVIDENTLY</span><span class="stool">GRAFANA</span><span class="stool">PROMETHEUS</span></div></div>
+      <div class="lec-list">
+        <div class="lec zc-primary" id="lec-m5-1">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M5.1]</span>Evidently — Data Quality &amp; Drift Reports <span class="zc-badge">ZOOMCAMP</span></span><a href="https://github.com/DataTalksClub/mlops-zoomcamp/tree/main/05-monitoring" target="_blank" class="watch-btn">GITHUB ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Reference vs current dataset: Evidently compares your current production batch against a reference dataset (the training distribution). The distance between them is your drift signal</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Drift detection tests: Jensen-Shannon divergence for distributions, Wasserstein distance for continuous features, chi-squared for categorical. Know which applies to which feature type</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Evidently Report vs Test Suite: Reports are human-readable HTML; Test Suites return pass/fail for automation. Use Test Suites in pipelines, Reports for debugging</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Data quality metrics: missing values, value range violations, schema changes. Run these before drift detection — a schema change is often more urgent than statistical drift</span></div>
+            </div>
+            <div class="lec-section-label">// BUILD</div>
+            <div class="lec-probs">
+              <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Monthly drift report + automated alert</span><span class="zc-badge">ZOOMCAMP EXERCISE</span></div><div class="lec-prob-desc">Generate an Evidently drift report comparing January 2024 taxi data (reference) against each subsequent month. Add an Evidently Test Suite to your Prefect batch pipeline that fails the run if DatasetDriftShare exceeds 0.2. Metrics flow to a PostgreSQL database.</div></div>
+            </div>
+            <div class="lec-zc-callout"><div class="lec-zc-callout-label">// ZOOMCAMP VIDEO</div><div class="lec-zc-callout-text"><strong>Module 5 — Monitoring with Evidently and Grafana</strong>: covers setting up Evidently Test Suites, writing metrics to PostgreSQL, and visualising them in a Grafana dashboard. The docker-compose in the 05-monitoring folder wires everything together. <a href="https://www.youtube.com/playlist?list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK" target="_blank" style="color:var(--g1)">↗ YouTube Playlist (Free)</a></div></div>
+          </div>
+        </div>
+        <div class="lec zc-supplement" id="lec-m5-2">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M5.2]</span>Grafana + Prometheus Observability Stack <span class="sup-badge">SUPPLEMENT</span></span><a href="https://grafana.com/docs/grafana/latest/getting-started/" target="_blank" class="watch-btn blue-btn">DOCS ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Prometheus scrape model: Prometheus pulls metrics from your model server's /metrics endpoint at a configurable interval. Your server needs prometheus_client instrumented; Prometheus handles collection</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">The four golden signals for ML: latency (p50/p99 inference time), traffic (requests/sec), errors (4xx/5xx rate), and saturation (GPU/CPU utilisation). Alert on all four</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Alertmanager rules: configure threshold-based alerts for drift score, error rate, and latency. Route alerts to Slack or PagerDuty — production models need 24/7 alerting</span></div>
+            </div>
+            <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>Grafana + Prometheus Docker Compose Tutorial</strong> — run the full stack locally with docker-compose. The Zoomcamp's 05-monitoring folder has a ready-made compose file for the taxi project. <a href="https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/" target="_blank" style="color:var(--g1)">↗ grafana.com (Free)</a><br><br><strong>OpenTelemetry for ML Systems</strong> — vendor-neutral observability standard. Instruments traces, metrics, and logs in one SDK. <a href="https://opentelemetry.io/docs/what-is-opentelemetry/" target="_blank" style="color:var(--g1)">↗ opentelemetry.io (Free)</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="milestone"><div class="milestone-text"><strong>// MODULE 05 MILESTONE:</strong> Your deployed model has a live Grafana dashboard showing drift score, latency, and error rate. When a drift threshold is crossed, an alert fires automatically. You can diagnose which features are drifting and quantify the impact before your users notice.</div></div>
+  </div>
+
+  <!-- M6: BEST PRACTICES -->
+  <div id="sub-m6" class="subpanel">
+    <div class="sh" style="border-left-color:var(--g1);margin-bottom:20px;">
+      <div class="sh-idx">MODULE_06 // WEEKS 9–10</div>
+      <h2 style="font-size:20px;">Software Engineering Best Practices</h2>
+      <div class="sh-sub">Testing, linting, CI/CD, IaC — <span class="accent">~10–12 hrs</span></div>
+    </div>
+    <div class="why">The gap between a data scientist who codes and a production ML engineer is software engineering discipline. This module adds the practices that make your code reviewable, testable, deployable, and maintainable: unit tests, pre-commit hooks, Makefiles, CI/CD pipelines, and infrastructure as code with Terraform. After this module, your taxi project will feel like a real software product, not a research experiment.</div>
+    <div class="time-bar"><span class="time-label">// TIME_COMMITMENT</span><span class="time-val">10–12 HRS</span><span class="time-note">· WEEKS 9–10</span></div>
+    <div class="module-progress-wrap"><span class="module-progress-label">// MODULE_06 PROGRESS</span><div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-m6"></div></div><span class="module-progress-pct" id="pct-m6">0%</span></div>
+    <div class="skill-group">
+      <div class="skill-header"><span class="skill-num">SKILL_06</span><span class="skill-title">Testing, Linting &amp; CI/CD</span><div class="skill-tools"><span class="stool">PYTEST</span><span class="stool">PRE-COMMIT</span><span class="stool">GITHUB ACTIONS</span><span class="stool">TERRAFORM</span></div></div>
+      <div class="lec-list">
+        <div class="lec zc-primary" id="lec-m6-1">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M6.1]</span>Unit Tests + Pre-commit Hooks <span class="zc-badge">ZOOMCAMP</span></span><a href="https://github.com/DataTalksClub/mlops-zoomcamp/tree/main/06-best-practices" target="_blank" class="watch-btn">GITHUB ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">What to unit test in ML: preprocessing functions, feature engineering logic, data validation — not the model weights. A unit test for preprocessing takes milliseconds; a training test takes hours</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Mocking external services: use unittest.mock to replace S3 reads and MLflow calls. Your unit tests must run offline — no network calls, no cloud dependencies</span></div>
+              <div class="lec-read-item"><span class="r-sec">TOOL</span><span class="r-why">Black + isort + flake8 + pre-commit: run code formatters and linters on every git commit. Bad code never enters the repo history</span></div>
+            </div>
+            <div class="lec-section-label">// BUILD</div>
+            <div class="lec-probs">
+              <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Test suite + pre-commit for taxi project</span><span class="zc-badge">ZOOMCAMP EXERCISE</span></div><div class="lec-prob-desc">Write pytest unit tests for every preprocessing function. Include edge cases: null pickup time, negative duration, missing columns. Target 80% coverage. Configure .pre-commit-config.yaml with black, isort, flake8, and detect-private-key. Confirm pre-commit blocks a deliberately malformatted commit.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="lec zc-primary" id="lec-m6-2">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M6.2]</span>GitHub Actions CI/CD Pipeline <span class="zc-badge">ZOOMCAMP</span></span><a href="https://docs.github.com/en/actions" target="_blank" class="watch-btn">DOCS ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">CI pipeline anatomy: trigger → checkout → setup Python → install deps → lint → test → build image → push to registry. Each step should fail fast and clearly</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">GitHub Actions secrets: never hardcode AWS credentials or API keys. Store in repository secrets, reference as ${{ secrets.AWS_ACCESS_KEY }}. The pre-commit hook catches accidental hardcoding locally</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Caching dependencies: cache ~/.cache/pip between runs. A cold pip install takes 3–5 minutes; a cached install takes 15 seconds. This compounds at scale</span></div>
+            </div>
+            <div class="lec-section-label">// BUILD</div>
+            <div class="lec-probs">
+              <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Full CI/CD pipeline for the taxi project</span><span class="zc-badge">ZOOMCAMP EXERCISE</span></div><div class="lec-prob-desc">Write a .github/workflows/ci.yml that: runs on every PR to main, sets up Python, runs make lint and make test, builds the serving Docker image, and pushes to Docker Hub (or ECR) on merge to main. Confirm the pipeline goes green on a clean PR.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="lec zc-supplement" id="lec-m6-3">
+          <div class="lec-top"><span class="lec-name"><span class="lnum">[M6.3]</span>Infrastructure as Code — Terraform <span class="sup-badge">SUPPLEMENT</span></span><a href="https://developer.hashicorp.com/terraform/tutorials/aws-get-started" target="_blank" class="watch-btn blue-btn">DOCS ↗</a></div>
+          <div class="lec-detail">
+            <div class="lec-section-label">// LEARN</div>
+            <div class="lec-reads">
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Infrastructure as Code principle: your cloud resources (S3 buckets, EC2 instances, VPCs, IAM roles) are defined in version-controlled files — not clicked through the console</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Terraform state: Terraform tracks what it created in a state file. Store state in S3 + DynamoDB for team collaboration. Never commit state to Git</span></div>
+              <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">terraform plan → apply → destroy lifecycle: plan shows what will change before touching anything. This is your safety check — read the plan output every time</span></div>
+            </div>
+            <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>HashiCorp Terraform Tutorials — AWS Get Started</strong> — official free interactive tutorials. Complete the "Get Started — AWS" path to build real infrastructure. <a href="https://developer.hashicorp.com/terraform/tutorials/aws-get-started" target="_blank" style="color:var(--g1)">↗ developer.hashicorp.com (Free)</a><br><br><strong>TechWorld with Nana — Terraform Tutorial for Beginners</strong> — best free YouTube Terraform crash course. Covers variables, modules, and state management. <a href="https://www.youtube.com/watch?v=7xngnjfIlK4" target="_blank" style="color:var(--g1)">↗ YouTube (Free)</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="capstone">
+      <div class="capstone-header"><span class="capstone-badge">ZOOMCAMP FINAL CAPSTONE</span><span class="capstone-title">The Complete Production ML System</span></div>
+      <div class="capstone-body">
+        <div class="capstone-objective">The finished Zoomcamp taxi project should be a complete, reviewable production system. A stranger should be able to clone your repo, run one command, and reproduce your best experiment result — including the same data, the same preprocessing, the same training run, and the deployed endpoint.</div>
+        <div class="capstone-tasks-label">// DELIVERABLES</div>
+        <div class="capstone-tasks">
+          <div class="capstone-task"><span class="capstone-task-num">01</span>Dockerfile + docker-compose.yml: model server + MLflow tracking server running locally</div>
+          <div class="capstone-task"><span class="capstone-task-num">02</span>DVC pipeline with versioned raw data, processed features, trained model, and evaluation metrics</div>
+          <div class="capstone-task"><span class="capstone-task-num">03</span>MLflow experiment log with ≥5 tracked runs; best model registered in Model Registry as Production</div>
+          <div class="capstone-task"><span class="capstone-task-num">04</span>Prefect orchestrated training + monthly batch scoring jobs</div>
+          <div class="capstone-task"><span class="capstone-task-num">05</span>GitHub Actions CI/CD: lint → test → build image → deploy</div>
+          <div class="capstone-task"><span class="capstone-task-num">06</span>Evidently drift monitoring with Grafana dashboard and automated alerts</div>
+        </div>
+        <div class="capstone-deliverables">
+          <div class="capstone-deliverables-label">// MILESTONE ACHIEVED WHEN</div>
+          <div class="capstone-deliverable-list">
+            <span class="capstone-del">git clone → dvc repro → working endpoint in &lt;5 min</span>
+            <span class="capstone-del">All CI tests green on GitHub</span>
+            <span class="capstone-del">Grafana dashboard showing drift + latency</span>
+            <span class="capstone-del">Three deployment modes documented</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ PANEL 02: CLOUD ML INFRA ════ -->
+<div id="panel-cloud" class="panel">
+  <div class="sh blue-sh">
+    <div class="sh-idx">TRACK_B // MONTHS 3–5 // CLOUD-NATIVE AI INFRASTRUCTURE</div>
+    <h2>Cloud-Native ML at Scale</h2>
+    <div class="sh-sub">SageMaker · Azure ML · Terraform · Kubernetes · Spot Training — <span class="accent">12–15 hrs/week · AIM FOR CERT</span></div>
+  </div>
+  <div class="why" style="border-left-color:var(--blue);">Local pipelines are prototypes. This phase is where you learn to operate at cloud scale: hundreds of training runs, terabytes of data, auto-scaling inference, and infrastructure that can be torn down and rebuilt in minutes. Cloud proficiency + IaC is one of the highest-ROI resume signals for ML roles in 2025–2026. An associate cloud certification here adds a hard differentiator. Pick one cloud and go deep — breadth follows depth.</div>
+  <div class="time-bar"><span class="time-label">// TIME_COMMITMENT</span><span class="time-val">12–15 HRS/WEEK</span><span class="time-note">· 3 MONTHS · AIM FOR ASSOCIATE CERT</span></div>
+  <div class="module-progress-wrap"><span class="module-progress-label">// CLOUD PHASE PROGRESS</span><div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-cloud"></div></div><span class="module-progress-pct" id="pct-cloud">0%</span></div>
+
+  <div class="skill-group">
+    <div class="skill-header" style="border-left-color:var(--blue);"><span class="skill-num" style="color:var(--blue);">SKILL_C1</span><span class="skill-title" style="color:var(--blue);">AWS SageMaker — Managed ML at Scale</span><div class="skill-tools"><span class="stool">SAGEMAKER</span><span class="stool">S3</span><span class="stool">ECR</span></div></div>
+    <div class="lec-list">
+      <div class="lec" id="lec-c1">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[C1.1]</span>SageMaker Training Jobs, Pipelines &amp; Endpoints</span><a href="https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html" target="_blank" class="watch-btn">DOCS ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">SageMaker Training Jobs — submit containerised training to managed compute; understand spot instance training for 70% cost reduction</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">SageMaker Endpoints — real-time vs. batch inference; blue/green deployments; endpoint auto-scaling policies</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">SageMaker Pipelines — a native DAG orchestrator; compare with Prefect (Zoomcamp); understand when to use each</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">SageMaker Model Monitor — data drift detection, model quality monitoring; configure a baseline and thresholds. Connects directly to your Zoomcamp Evidently work</span></div>
+          </div>
+          <div class="lec-section-label">// BUILD</div>
+          <div class="lec-probs">
+            <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Migrate your Zoomcamp project to SageMaker</span><span class="ml-badge">CORE PROJECT</span></div><div class="lec-prob-desc">Store taxi data in S3, run training as a SageMaker Training Job using Spot Instances (70% cheaper), register the model in SageMaker Model Registry, deploy to a real-time endpoint with auto-scaling. Compare cost vs. always-on EC2.</div></div>
+          </div>
+          <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>AWS Skill Builder — Machine Learning on AWS (Free Tier)</strong> — official AWS learning path covering SageMaker end-to-end with free interactive sandbox environments. <a href="https://skillbuilder.aws/search?searchText=sagemaker&page=1" target="_blank" style="color:var(--g1)">↗ skillbuilder.aws (Free)</a><br><br><strong>SageMaker Immersion Day</strong> — free self-paced workshop covering Training Jobs, Pipelines, Model Monitor, and endpoints. Works on the AWS Free Tier. <a href="https://catalog.workshops.aws/sagemaker-immersion-day/en-US" target="_blank" style="color:var(--g1)">↗ AWS Workshops (Free)</a><br><br><strong>AWS MLU-Explain</strong> — free visual, interactive explainers for ML concepts underlying SageMaker features. <a href="https://mlu-explain.github.io/" target="_blank" style="color:var(--g1)">↗ mlu-explain.github.io (Free)</a></div></div>
+        </div>
+      </div>
+      <div class="lec" id="lec-c2">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[C1.2]</span>Azure ML — Alternative Cloud Track</span><a href="https://learn.microsoft.com/en-us/azure/machine-learning/" target="_blank" class="watch-btn blue-btn">DOCS ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Azure ML Workspaces: the top-level resource that groups datasets, experiments, models, and compute. The equivalent of SageMaker Studio</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Azure ML Pipelines with components — reusable YAML-defined pipeline steps. Closer to Airflow DAGs than SageMaker Pipelines</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Azure ML Model Registry + endpoints — managed online endpoints with blue/green traffic splitting built in</span></div>
+          </div>
+          <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>Microsoft Learn — Azure ML Learning Path</strong> — official free interactive modules for Azure ML end-to-end. No credit card required for the learning path; uses sandbox environments. <a href="https://learn.microsoft.com/en-us/training/paths/introduction-machine-learn-azure/" target="_blank" style="color:var(--g1)">↗ learn.microsoft.com (Free)</a></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-group">
+    <div class="skill-header" style="border-left-color:var(--blue);"><span class="skill-num" style="color:var(--blue);">SKILL_C2</span><span class="skill-title" style="color:var(--blue);">Infrastructure as Code — Terraform for ML</span><div class="skill-tools"><span class="stool">TERRAFORM</span><span class="stool">IAM</span><span class="stool">VPC</span></div></div>
+    <div class="lec-list">
+      <div class="lec" id="lec-c3">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[C2.1]</span>Terraform for ML Infrastructure</span><a href="https://developer.hashicorp.com/terraform/tutorials/aws-get-started" target="_blank" class="watch-btn">DOCS ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Terraform modules for ML: S3 buckets with versioning + encryption, ECR repos, SageMaker execution roles, VPC with private subnets for training. Write once, deploy to dev/staging/prod with different tfvars</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">IAM least-privilege for ML: SageMaker training roles should have S3 read for data, S3 write for artifacts, ECR pull only. Never use AdministratorAccess in production</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Terraform remote state with S3 + DynamoDB locking: enables team collaboration without state conflicts. The first IaC best practice to implement</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">terraform plan in CI: run terraform plan on every PR. Block merges that would destroy production resources without a forced approval step</span></div>
+          </div>
+          <div class="lec-section-label">// BUILD</div>
+          <div class="lec-probs">
+            <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">IaC your ML infrastructure</span><span class="ml-badge">CORE PROJECT</span></div><div class="lec-prob-desc">Write Terraform modules for: (1) S3 bucket for data + artifacts, (2) ECR repository for model images, (3) SageMaker execution role with least-privilege IAM, (4) VPC with private subnets for training. Deploy to a dev environment. Tear down and redeploy in under 5 minutes.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-group">
+    <div class="skill-header" style="border-left-color:var(--blue);"><span class="skill-num" style="color:var(--blue);">SKILL_C3</span><span class="skill-title" style="color:var(--blue);">Kubernetes for ML Workloads</span><div class="skill-tools"><span class="stool">K8S</span><span class="stool">HELM</span><span class="stool">KARPENTER</span></div></div>
+    <div class="lec-list">
+      <div class="lec" id="lec-c4">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[C3.1]</span>Kubernetes Serving + Autoscaling</span><a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/" target="_blank" class="watch-btn">DOCS ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Pods, Deployments, Services, ConfigMaps, Secrets — the six objects you'll touch every week as an MLOps engineer deploying models to K8s</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">HPA (Horizontal Pod Autoscaler) for inference: scale model replicas based on CPU utilisation or custom metrics (requests/sec). Set minReplicas=2 for high availability</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Resource requests vs limits for GPU pods: always set both. A pod without limits can starve other pods. GPU limits prevent sharing — one pod per GPU unless using MIG</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Helm charts for ML serving: package your model deployment + service + HPA as a Helm chart. Parameterise image tag, replica count, resource limits. Deploy new versions with helm upgrade</span></div>
+          </div>
+          <div class="lec-section-label">// BUILD</div>
+          <div class="lec-probs">
+            <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Deploy model to K8s with HPA</span><span class="ml-badge">CORE PROJECT</span></div><div class="lec-prob-desc">Package your FastAPI model server as a Helm chart. Deploy to a local Minikube cluster. Configure HPA to scale from 1→5 replicas when CPU &gt; 70%. Run a locust load test and watch the HPA scale up. Capture the kubectl get hpa output during load.</div></div>
+          </div>
+          <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>Kubernetes Interactive Tutorials</strong> — official browser-based labs; no cluster required. Complete all six beginner tutorials. <a href="https://kubernetes.io/docs/tutorials/" target="_blank" style="color:var(--g1)">↗ kubernetes.io/docs/tutorials (Free)</a><br><br><strong>TechWorld with Nana — Kubernetes Tutorial for Beginners</strong> — 4-hour free YouTube course covering Deployments, Services, Helm, and Ingress. <a href="https://www.youtube.com/watch?v=X48VuDVv0do" target="_blank" style="color:var(--g1)">↗ YouTube (Free)</a></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone">
+    <div class="capstone-header"><span class="capstone-badge">CLOUD CAPSTONE</span><span class="capstone-title">Fully Cloud-Native ML Platform</span></div>
+    <div class="capstone-body">
+      <div class="capstone-objective">Migrate your Zoomcamp taxi project to a fully cloud-native stack. Everything should be reproducible from scratch using Terraform — a new engineer should be able to run terraform apply and have the full infrastructure running in 15 minutes.</div>
+      <div class="capstone-tasks-label">// DELIVERABLES</div>
+      <div class="capstone-tasks">
+        <div class="capstone-task"><span class="capstone-task-num">01</span>Terraform modules: S3, ECR, IAM roles, VPC, SageMaker domain — all version-controlled</div>
+        <div class="capstone-task"><span class="capstone-task-num">02</span>SageMaker Training Job (Spot): submit from CI, output artifact to S3, register in SageMaker Registry</div>
+        <div class="capstone-task"><span class="capstone-task-num">03</span>SageMaker endpoint with auto-scaling: scale out on high traffic, scale to zero on no traffic</div>
+        <div class="capstone-task"><span class="capstone-task-num">04</span>SageMaker Model Monitor: baseline set, drift alerts firing to CloudWatch</div>
+        <div class="capstone-task"><span class="capstone-task-num">05</span>Cost dashboard: track spend by service; training Spot savings documented</div>
+      </div>
+      <div class="capstone-deliverables">
+        <div class="capstone-deliverables-label">// MILESTONE ACHIEVED WHEN</div>
+        <div class="capstone-deliverable-list">
+          <span class="capstone-del">terraform apply builds full infra in &lt;15 min</span>
+          <span class="capstone-del">Training job runs on Spot Instances</span>
+          <span class="capstone-del">Endpoint auto-scales under load test</span>
+          <span class="capstone-del">Model Monitor drift alert fires</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ PANEL 03: LLMOPS / RAG ════ -->
+<div id="panel-llmops" class="panel">
+  <div class="sh purple-sh">
+    <div class="sh-idx">TRACK_C // MONTHS 6–9 // LLMOPS &amp; RAG ENGINEERING</div>
+    <h2>LLMOps &amp; RAG Systems</h2>
+    <div class="sh-sub">Embeddings · Vector DBs · Advanced RAG · Evaluation · Cost Observability — <span class="accent">4 months</span></div>
+  </div>
+  <div class="why" style="border-left-color:var(--purple);">This is the emerging discipline that represents 60% of senior MLOps job descriptions in 2025–2026. MLOps for classical ML (the Zoomcamp) gives you the foundation; LLMOps gives you the stack that's actually being hired for right now. Embeddings, vector databases, retrieval-augmented generation, agent orchestration, evaluation frameworks, and cost monitoring — built on free-tier tools with production-grade patterns throughout.</div>
+  <div class="time-bar"><span class="time-label">// TIME_COMMITMENT</span><span class="time-val">12 HRS/WEEK</span><span class="time-note">· 4 MONTHS</span></div>
+  <div class="module-progress-wrap"><span class="module-progress-label">// LLMOPS PHASE PROGRESS</span><div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-llm"></div></div><span class="module-progress-pct" id="pct-llm">0%</span></div>
+
+  <div class="skill-group">
+    <div class="skill-header" style="border-left-color:var(--purple);"><span class="skill-num" style="color:var(--purple);">SKILL_L1</span><span class="skill-title" style="color:var(--purple);">Embeddings &amp; Vector Databases</span><div class="skill-tools"><span class="stool">PGVECTOR</span><span class="stool">QDRANT</span><span class="stool">SENTENCE-TRANSFORMERS</span></div></div>
+    <div class="lec-list">
+      <div class="lec" id="lec-l1">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[L1.1]</span>Embeddings, ANN Indices &amp; Hybrid Search</span><a href="https://www.deeplearning.ai/short-courses/vector-databases-embeddings-applications/" target="_blank" class="watch-btn" style="color:var(--purple);border-color:rgba(192,132,252,0.35);">COURSE ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Dense vs sparse retrieval: dense embeddings capture semantic meaning (similar concepts cluster together); sparse BM25 captures keyword matches. Neither alone is optimal — combine them</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">HNSW index: the ANN algorithm powering pgvector, Qdrant, and Pinecone. Understand the M and ef_construction parameters — they control the speed/recall trade-off</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Chunking strategy — fixed-size, semantic, and hierarchical chunking. Chunk size has the single largest impact on RAG quality; experiment systematically with different sizes</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Metadata filtering — combine semantic search with structured filters. Filter before ANN for massive speed gains (reduces search space before expensive vector comparison)</span></div>
+          </div>
+          <div class="lec-section-label">// BUILD</div>
+          <div class="lec-probs">
+            <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Hybrid search pipeline</span><span class="ml-badge">CORE PROJECT</span></div><div class="lec-prob-desc">Index a corpus of ≥500 documents using pgvector (free, runs locally). Implement: dense retrieval, sparse BM25, and hybrid fusion (RRF). Compare retrieval quality at different chunk sizes using a small golden set of query-answer pairs.</div></div>
+          </div>
+          <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>DeepLearning.AI — "Vector Databases: from Embeddings to Applications"</strong> — free short course. Covers embeddings, ANN indices, HNSW, and metadata filtering with hands-on code. <a href="https://www.deeplearning.ai/short-courses/vector-databases-embeddings-applications/" target="_blank" style="color:var(--g1)">↗ deeplearning.ai (Free)</a><br><br><strong>pgvector GitHub + Docs</strong> — the only vector store you need locally. Open source, runs in PostgreSQL, zero infra cost. <a href="https://github.com/pgvector/pgvector" target="_blank" style="color:var(--g1)">↗ github.com/pgvector (Free)</a><br><br><strong>Pinecone Learning Center</strong> — free guides on chunking strategies, hybrid search, and re-ranking. Conceptually rich even if you use pgvector. <a href="https://www.pinecone.io/learn/" target="_blank" style="color:var(--g1)">↗ pinecone.io/learn (Free)</a></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-group">
+    <div class="skill-header" style="border-left-color:var(--purple);"><span class="skill-num" style="color:var(--purple);">SKILL_L2</span><span class="skill-title" style="color:var(--purple);">Advanced RAG Patterns</span><div class="skill-tools"><span class="stool">LANGCHAIN</span><span class="stool">LANGGRAPH</span><span class="stool">HYDE</span></div></div>
+    <div class="lec-list">
+      <div class="lec" id="lec-l2">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[L2.1]</span>Advanced RAG: HyDE, Re-ranking &amp; Self-RAG</span><a href="https://python.langchain.com/docs/tutorials/rag/" target="_blank" class="watch-btn" style="color:var(--purple);border-color:rgba(192,132,252,0.35);">DOCS ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">PATTERN</span><span class="r-why">HyDE (Hypothetical Document Embeddings) — generate a hypothetical answer, embed it, search. Dramatically improves sparse queries where the question uses different vocabulary than the answer</span></div>
+            <div class="lec-read-item"><span class="r-sec">PATTERN</span><span class="r-why">Query decomposition — break complex multi-hop questions into sub-queries; aggregate answers with a fusion step</span></div>
+            <div class="lec-read-item"><span class="r-sec">PATTERN</span><span class="r-why">Contextual compression — filter retrieved chunks to only the relevant sentences before sending to the LLM; reduces hallucination and cost significantly</span></div>
+            <div class="lec-read-item"><span class="r-sec">PATTERN</span><span class="r-why">Self-RAG — the LLM decides when to retrieve and critiques its own output; state-of-the-art accuracy but higher latency and complexity</span></div>
+          </div>
+          <div class="lec-section-label">// BUILD</div>
+          <div class="lec-probs">
+            <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Production RAG application</span><span class="ml-badge">CORE PROJECT</span></div><div class="lec-prob-desc">Build a document Q&A system using pgvector + LangChain. Implement: (1) basic dense RAG as baseline, (2) hybrid search, (3) HyDE for hard queries, (4) contextual compression. Measure each against a 50-question golden set.</div></div>
+          </div>
+          <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>DeepLearning.AI — "Building and Evaluating Advanced RAG"</strong> — free short course covering HyDE, query rewriting, and contextual compression. <a href="https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/" target="_blank" style="color:var(--g1)">↗ deeplearning.ai (Free)</a><br><br><strong>Full Stack LLM Bootcamp</strong> — best free course for the full LLM production stack: embeddings, RAG, agents, evaluation, deployment. 2023 cohort videos are freely available. <a href="https://fullstackdeeplearning.com/llm-bootcamp/" target="_blank" style="color:var(--g1)">↗ fullstackdeeplearning.com (Free)</a></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-group">
+    <div class="skill-header" style="border-left-color:var(--purple);"><span class="skill-num" style="color:var(--purple);">SKILL_L3</span><span class="skill-title" style="color:var(--purple);">RAG Evaluation + Guardrails</span><div class="skill-tools"><span class="stool">RAGAS</span><span class="stool">TRULENS</span><span class="stool">GUARDRAILS-AI</span></div></div>
+    <div class="lec-list">
+      <div class="lec" id="lec-l3">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[L3.1]</span>RAGAS Evaluation + CI Gating</span><a href="https://docs.ragas.io/" target="_blank" class="watch-btn" style="color:var(--purple);border-color:rgba(192,132,252,0.35);">DOCS ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">METRIC</span><span class="r-why">Faithfulness — does the answer contradict the retrieved context? The primary anti-hallucination signal. Target ≥ 0.80 in production</span></div>
+            <div class="lec-read-item"><span class="r-sec">METRIC</span><span class="r-why">Answer Relevancy — does the answer actually address the question? Catches irrelevant but factually correct responses</span></div>
+            <div class="lec-read-item"><span class="r-sec">METRIC</span><span class="r-why">Context Recall &amp; Precision — measures retrieval quality; the diagnostic for when RAG fails at the retrieval step vs. generation step</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">LLM-as-a-judge evaluation — using a stronger model (GPT-4/Claude) to score responses; understand calibration bias and when to trust LLM judges vs human evaluation</span></div>
+          </div>
+          <div class="lec-section-label">// BUILD</div>
+          <div class="lec-probs">
+            <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">RAG evaluation harness in CI</span><span class="ml-badge">CORE PROJECT</span></div><div class="lec-prob-desc">Build a 50-question golden dataset. Run RAGAS evaluation on every code change via GitHub Actions — fail CI if faithfulness drops below 0.80 or answer relevancy below 0.75. Store metric history in MLflow.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="lec" id="lec-l4">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[L3.2]</span>LLMOps Observability — Langfuse &amp; Cost Tracking</span><a href="https://langfuse.com/docs" target="_blank" class="watch-btn" style="color:var(--purple);border-color:rgba(192,132,252,0.35);">DOCS ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Token-based cost tracking — calculate cost per request, per user, per pipeline stage; set budget alerts with LiteLLM proxy</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Trace-level observability with Langfuse — capture full traces (input, retrieval, LLM call, output) for debugging slow or failing requests</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Latency profiling — identify whether bottleneck is retrieval (embedding + ANN), LLM generation, or post-processing; optimise accordingly</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Prompt drift detection — track embedding distance of incoming queries over time; alert when query distribution shifts from training distribution</span></div>
+          </div>
+          <div class="lec-section-label">// BUILD</div>
+          <div class="lec-probs">
+            <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">LLM observability dashboard</span><span class="ml-badge">CORE PROJECT</span></div><div class="lec-prob-desc">Instrument your RAG app with Langfuse: log every trace. Build a Grafana dashboard showing: cost per day, p50/p99 latency breakdown (retrieval vs. LLM), RAGAS faithfulness score trend, error rate by guardrail type, and top queries by token cost.</div></div>
+          </div>
+          <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>Langfuse Docs — Self-host Guide</strong> — Langfuse is open-source and self-hostable for free on Docker. Full observability with zero subscription cost. <a href="https://langfuse.com/docs/deployment/self-host" target="_blank" style="color:var(--g1)">↗ langfuse.com/docs (Free, self-hosted)</a><br><br><strong>LiteLLM Docs — Proxy for cost tracking</strong> — open-source LLM proxy that tracks cost, adds rate limiting, and normalises APIs across OpenAI/Anthropic/Gemini. <a href="https://docs.litellm.ai/" target="_blank" style="color:var(--g1)">↗ docs.litellm.ai (Free)</a></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone">
+    <div class="capstone-header"><span class="capstone-badge">LLMOPS CAPSTONE</span><span class="capstone-title">Production RAG: Monitored, Grounded &amp; Safe</span></div>
+    <div class="capstone-body">
+      <div class="capstone-objective">Build and deploy a full production-grade RAG application — an internal knowledge base chatbot, document Q&A system, or semantic search engine. It must be deployed with CI/CD, evaluated continuously, guarded, and fully observable.</div>
+      <div class="capstone-tasks-label">// DELIVERABLES</div>
+      <div class="capstone-tasks">
+        <div class="capstone-task"><span class="capstone-task-num">01</span>Ingestion pipeline: document loading → chunking → embedding → pgvector, versioned with DVC</div>
+        <div class="capstone-task"><span class="capstone-task-num">02</span>Hybrid retrieval (dense + sparse + re-ranking) with HyDE for hard queries</div>
+        <div class="capstone-task"><span class="capstone-task-num">03</span>Input + output guardrails: PII detection, topic restriction, faithfulness validation</div>
+        <div class="capstone-task"><span class="capstone-task-num">04</span>RAGAS evaluation in CI — faithfulness and answer relevancy gated on every PR</div>
+        <div class="capstone-task"><span class="capstone-task-num">05</span>Langfuse + Grafana: full trace logging, cost dashboard, latency breakdown, query drift alerts</div>
+      </div>
+      <div class="capstone-deliverables">
+        <div class="capstone-deliverables-label">// MILESTONE ACHIEVED WHEN</div>
+        <div class="capstone-deliverable-list">
+          <span class="capstone-del">RAGAS faithfulness ≥ 0.80 on golden set</span>
+          <span class="capstone-del">Cost dashboard shows per-query cost</span>
+          <span class="capstone-del">Guardrails logging real-world triggers</span>
+          <span class="capstone-del">CI eval gate blocks regressions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ PANEL 04: SECURITY & GOVERNANCE ════ -->
+<div id="panel-security" class="panel">
+  <div class="sh red-sh">
+    <div class="sh-idx">TRACK_D // MONTHS 10–12 // AI SECURITY &amp; GOVERNANCE</div>
+    <h2>Security, Governance &amp; Senior-Level Polish</h2>
+    <div class="sh-sub">OWASP LLM · Adversarial ML · Fairness · EU AI Act · System Design — <span class="accent">Senior/Staff differentiator</span></div>
+  </div>
+  <div class="why" style="border-left-color:var(--red);">Security and governance are the layer that separates mid-level MLOps engineers from senior and principal engineers. They are also the areas companies fail at most spectacularly in public. At this phase you've built the full stack; now you're learning to defend it, audit it, and explain the trade-offs at an architectural level. The combination of production MLOps experience + AI governance knowledge is genuinely rare — it commands the top of the salary range.</div>
+  <div class="time-bar"><span class="time-label">// TIME_COMMITMENT</span><span class="time-val">10–12 HRS/WEEK</span><span class="time-note">· 3 MONTHS · SENIOR-LEVEL CONTENT</span></div>
+  <div class="module-progress-wrap"><span class="module-progress-label">// SECURITY PHASE PROGRESS</span><div class="module-progress-bar-bg"><div class="module-progress-bar" id="bar-sec"></div></div><span class="module-progress-pct" id="pct-sec">0%</span></div>
+
+  <div class="skill-group">
+    <div class="skill-header" style="border-left-color:var(--red);"><span class="skill-num" style="color:var(--red);">SKILL_S1</span><span class="skill-title" style="color:var(--red);">Adversarial ML &amp; Attack Surfaces</span><div class="skill-tools"><span class="stool">OWASP LLM</span><span class="stool">IBM ART</span><span class="stool">PROMPT INJECTION</span></div></div>
+    <div class="lec-list">
+      <div class="lec" id="lec-s1">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[S1.1]</span>OWASP LLM Top 10 &amp; Prompt Injection</span><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" class="watch-btn" style="color:var(--red);border-color:rgba(255,60,60,0.35);">OWASP ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">THREAT</span><span class="r-why">LLM01: Prompt Injection — attacker injects instructions into user input or retrieved context to override system prompt behaviour. The most exploited LLM vulnerability in production</span></div>
+            <div class="lec-read-item"><span class="r-sec">THREAT</span><span class="r-why">LLM02: Insecure Output Handling — LLM output rendered as HTML or executed as code without sanitisation. Leads to XSS, SSRF, and RCE in agent systems</span></div>
+            <div class="lec-read-item"><span class="r-sec">THREAT</span><span class="r-why">LLM06: Sensitive Information Disclosure — LLM reveals training data, PII, system prompt, or confidential documents from its context window. Read GDPR implications</span></div>
+            <div class="lec-read-item"><span class="r-sec">THREAT</span><span class="r-why">Indirect prompt injection via RAG — malicious content in retrieved documents injects instructions into the LLM context. Your RAG system's attack surface is every document in your knowledge base</span></div>
+          </div>
+          <div class="lec-section-label">// BUILD</div>
+          <div class="lec-probs">
+            <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Security audit your RAG capstone</span><span class="hard-badge">SECURITY EXERCISE</span></div><div class="lec-prob-desc">Run a structured threat model against your LLMOps capstone application using the OWASP LLM Top 10 as a checklist. For each applicable threat: (1) test if it works, (2) document the exploit, (3) implement a mitigation, (4) confirm mitigation blocks the attack. Log all findings in a security report.</div></div>
+          </div>
+          <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>OWASP LLM Top 10</strong> — the industry reference document for LLM security. Read it cover-to-cover before building any production LLM system. <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" style="color:var(--g1)">↗ owasp.org (Free)</a><br><br><strong>IBM Adversarial Robustness Toolbox (ART)</strong> — open-source library for adversarial ML attacks and defences. Implement evasion and poisoning attacks on classical ML models. <a href="https://github.com/Trusted-AI/adversarial-robustness-toolbox" target="_blank" style="color:var(--g1)">↗ github.com/Trusted-AI/ART (Free)</a></div></div>
+        </div>
+      </div>
+      <div class="lec" id="lec-s2">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[S1.2]</span>Data Privacy in ML Pipelines</span><a href="https://github.com/OpenMined/PySyft" target="_blank" class="watch-btn" style="color:var(--red);border-color:rgba(255,60,60,0.35);">GITHUB ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">PII detection and redaction in ML pipelines — use presidio (Microsoft, free) to detect names, emails, SSNs in training data and inference inputs before they hit the model</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Differential privacy basics — adding calibrated noise to model gradients (DP-SGD) to limit membership inference attacks. Understand the privacy budget ε and what it means in practice</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Membership inference attacks — given a model and a data point, can an attacker determine if it was in the training set? This is the attack that makes GDPR "right to be forgotten" expensive for ML</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Secure feature stores — encrypt sensitive features at rest (AES-256), use column-level encryption in PostgreSQL/Snowflake, implement row-level security for multi-tenant ML platforms</span></div>
+          </div>
+          <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>Microsoft Presidio</strong> — open-source PII detection and anonymisation library. Detects 50+ PII entity types. Integrate into your ingestion pipeline as a preprocessing step. <a href="https://microsoft.github.io/presidio/" target="_blank" style="color:var(--g1)">↗ microsoft.github.io/presidio (Free)</a><br><br><strong>Google Privacy on Beam / TF Privacy</strong> — open-source DP training libraries. TensorFlow Privacy implements DP-SGD. Free, production-grade. <a href="https://github.com/google/differential-privacy" target="_blank" style="color:var(--g1)">↗ github.com/google/differential-privacy (Free)</a></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-group">
+    <div class="skill-header" style="border-left-color:var(--red);"><span class="skill-num" style="color:var(--red);">SKILL_S2</span><span class="skill-title" style="color:var(--red);">Fairness, Bias Auditing &amp; EU AI Act</span><div class="skill-tools"><span class="stool">FAIRLEARN</span><span class="stool">MODEL CARDS</span><span class="stool">EU AI ACT</span></div></div>
+    <div class="lec-list">
+      <div class="lec" id="lec-s3">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[S2.1]</span>Bias Auditing with Fairlearn</span><a href="https://fairlearn.org/v0.10/user_guide/" target="_blank" class="watch-btn" style="color:var(--red);border-color:rgba(255,60,60,0.35);">DOCS ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">METRIC</span><span class="r-why">Demographic parity, equalized odds, and predictive parity — understand the impossibility results; you can't satisfy all three simultaneously. Know which metric your use case requires</span></div>
+            <div class="lec-read-item"><span class="r-sec">METRIC</span><span class="r-why">Disaggregated evaluation — always evaluate model performance sliced by protected attributes; never report only aggregate metrics. This is a regulatory requirement in high-risk AI applications</span></div>
+            <div class="lec-read-item"><span class="r-sec">TOOL</span><span class="r-why">Fairlearn's MetricFrame — compute and visualise fairness metrics across groups; integrate into your model evaluation CI step. The tool is free; the skill is rare</span></div>
+          </div>
+          <div class="lec-section-label">// BUILD</div>
+          <div class="lec-probs">
+            <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Fairness audit in CI</span><span class="ml-badge">CORE PROJECT</span></div><div class="lec-prob-desc">Add a Fairlearn MetricFrame step to your CI pipeline. Fail the pipeline if equalized odds violation exceeds a threshold. Log the full fairness report (all subgroups, all metrics) to MLflow as an artifact on every training run.</div></div>
+          </div>
+          <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>Fairlearn Docs + Notebooks</strong> — comprehensive free documentation with worked examples on real datasets. <a href="https://fairlearn.org/" target="_blank" style="color:var(--g1)">↗ fairlearn.org (Free)</a><br><br><strong>Google — "Introduction to ML Fairness"</strong> — free Crash Course module covering types of bias and fairness metrics with interactive examples. <a href="https://developers.google.com/machine-learning/crash-course/fairness/video-lecture" target="_blank" style="color:var(--g1)">↗ developers.google.com (Free)</a></div></div>
+        </div>
+      </div>
+      <div class="lec" id="lec-s4">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[S2.2]</span>EU AI Act Compliance + Model Cards</span><a href="https://artificialintelligenceact.eu/" target="_blank" class="watch-btn" style="color:var(--red);border-color:rgba(255,60,60,0.35);">EU AI ACT ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Risk tiers (Unacceptable / High / Limited / Minimal) — know which tier your use case falls into and what obligations apply. High-risk AI requires conformity assessment and post-market monitoring</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">Technical documentation requirements for High-risk AI: system architecture, training methodology, performance metrics by demographic, limitations, and human oversight mechanisms</span></div>
+            <div class="lec-read-item"><span class="r-sec">CONCEPT</span><span class="r-why">GDPR + AI Act intersection: right to explanation (Recital 71), data minimisation in training (Article 5), lawful basis for automated decision-making (Article 22). Know these cold for enterprise interviews</span></div>
+          </div>
+          <div class="lec-section-label">// BUILD</div>
+          <div class="lec-probs">
+            <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Model Card + EU AI Act Risk Assessment</span><span class="hard-badge">DELIVERABLE</span></div><div class="lec-prob-desc">Write a Model Card (Google's format) for your main project model. Include: intended use, out-of-scope uses, training data documentation, evaluation results by subgroup, known limitations, and an EU AI Act risk tier assessment with rationale. This becomes a portfolio document.</div></div>
+          </div>
+          <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>EU AI Act Full Text</strong> — the actual regulation. Read the risk classification articles and the obligations for High-risk AI providers. <a href="https://artificialintelligenceact.eu/" target="_blank" style="color:var(--g1)">↗ artificialintelligenceact.eu (Free)</a><br><br><strong>Google Model Cards Toolkit</strong> — open-source Python library for generating structured model cards. <a href="https://github.com/google/model-card-toolkit" target="_blank" style="color:var(--g1)">↗ github.com/google/model-card-toolkit (Free)</a><br><br><strong>Hugging Face Model Cards Guide</strong> — best practical guide for writing model cards that comply with regulatory documentation requirements. <a href="https://huggingface.co/docs/hub/model-cards" target="_blank" style="color:var(--g1)">↗ huggingface.co/docs (Free)</a></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-group">
+    <div class="skill-header" style="border-left-color:var(--red);"><span class="skill-num" style="color:var(--red);">SKILL_S3</span><span class="skill-title" style="color:var(--red);">ML System Design for Senior Interviews</span><div class="skill-tools"><span class="stool">TRADE-OFFS</span><span class="stool">SLOs</span><span class="stool">RUNBOOKS</span></div></div>
+    <div class="lec-list">
+      <div class="lec" id="lec-s5">
+        <div class="lec-top"><span class="lec-name"><span class="lnum">[S3.1]</span>ML System Design Trade-offs</span><a href="https://huyenchip.com/machine-learning-systems-design/toc.html" target="_blank" class="watch-btn" style="color:var(--red);border-color:rgba(255,60,60,0.35);">FREE BOOK ↗</a></div>
+        <div class="lec-detail">
+          <div class="lec-section-label">// LEARN</div>
+          <div class="lec-reads">
+            <div class="lec-read-item"><span class="r-sec">FRAMEWORK</span><span class="r-why">The 4-axis trade-off: accuracy vs. latency vs. cost vs. maintainability. Every system design answer must address all four explicitly — examiners notice when one axis is missing</span></div>
+            <div class="lec-read-item"><span class="r-sec">PATTERN</span><span class="r-why">Online vs. batch vs. near-real-time inference — know the exact latency, cost, and freshness profile of each pattern; when to use each; how to migrate between them</span></div>
+            <div class="lec-read-item"><span class="r-sec">PATTERN</span><span class="r-why">Shadow deployment &amp; canary releases — de-risk model updates; run new model on copy of production traffic before full cutover. The pattern every senior MLOps engineer is expected to know</span></div>
+            <div class="lec-read-item"><span class="r-sec">PATTERN</span><span class="r-why">Multi-model serving — model ensemble, A/B test infrastructure, champion/challenger pattern with traffic splitting. Design an SLO framework: latency p99 &lt; X, error rate &lt; Y</span></div>
+          </div>
+          <div class="lec-section-label">// BUILD</div>
+          <div class="lec-probs">
+            <div class="lec-prob ml-hot"><div class="lec-prob-head"><span class="lec-prob-num">Design docs for all 3 capstone projects</span><span class="ml-badge">INTERVIEW PREP</span></div><div class="lec-prob-desc">Write a 2-page system design document for each of your three capstone projects. For each: (1) requirements and constraints, (2) architecture diagram, (3) key design decisions and alternatives considered, (4) scalability plan, (5) failure modes and mitigations. These become your interview talking points.</div></div>
+          </div>
+          <div class="lec-ml-callout"><div class="lec-ml-callout-label">// FREE RESOURCES</div><div class="lec-ml-callout-text"><strong>Chip Huyen — ML System Design (Free Web Version)</strong> — the best free ML system design resource. Read alongside this phase. <a href="https://huyenchip.com/machine-learning-systems-design/toc.html" target="_blank" style="color:var(--g1)">↗ huyenchip.com (Free)</a><br><br><strong>Made With ML — MLOps Course</strong> — free comprehensive MLOps course from Goku Mohandas covering system design, testing, and deployment patterns. <a href="https://madewithml.com/" target="_blank" style="color:var(--g1)">↗ madewithml.com (Free)</a></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone">
+    <div class="capstone-header"><span class="capstone-badge">FINAL CAPSTONE</span><span class="capstone-title">The Secured, Audited, Governed ML Platform</span></div>
+    <div class="capstone-body">
+      <div class="capstone-objective">Apply security and governance principles to your entire portfolio. Every capstone project should pass a structured security review, have documented fairness metrics, and be accompanied by a system design document that covers trade-offs at a senior-engineer level.</div>
+      <div class="capstone-tasks-label">// DELIVERABLES</div>
+      <div class="capstone-tasks">
+        <div class="capstone-task"><span class="capstone-task-num">01</span>OWASP LLM threat model for the RAG capstone — exploit tested, mitigation documented, blocked</div>
+        <div class="capstone-task"><span class="capstone-task-num">02</span>Fairlearn fairness report in CI for the classical ML capstone — equalized odds tracked on every run</div>
+        <div class="capstone-task"><span class="capstone-task-num">03</span>Model Card with EU AI Act risk tier assessment for your primary model</div>
+        <div class="capstone-task"><span class="capstone-task-num">04</span>System design docs (2 pages each) for all three capstones — your interview talking points</div>
+        <div class="capstone-task"><span class="capstone-task-num">05</span>Runbooks: incident response procedures for model degradation, data drift, and security incidents</div>
+      </div>
+      <div class="capstone-deliverables">
+        <div class="capstone-deliverables-label">// THE COMPLETE ENGINEER</div>
+        <div class="capstone-deliverable-list">
+          <span class="capstone-del">Zoomcamp: reproducible ML pipeline ✓</span>
+          <span class="capstone-del">Cloud: SageMaker + Terraform ✓</span>
+          <span class="capstone-del">LLMOps: production RAG ✓</span>
+          <span class="capstone-del">Security: audited + governed ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ RESOURCES PANEL ════ -->
+<div id="panel-resources" class="panel">
+  <div class="sh">
+    <div class="sh-idx">GUIDE_RESOURCES // BEST FREE MATERIALS</div>
+    <h2>Ultimate Resource Library</h2>
+    <div class="sh-sub">Every high-quality free resource across all four tracks — <span class="accent">all free or free-tier</span></div>
+  </div>
+
+  <div class="res-section-title green">// TRACK A — ZOOMCAMP CORE</div>
+  <div class="res-grid">
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">🎓</div><div class="res-meta"><div class="res-title">DataTalksClub MLOps Zoomcamp</div><div class="res-sub">Alexey Grigorev — DataTalksClub</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-core">CORE COURSE</span><span class="rbadge rb-plat">GITHUB + YOUTUBE</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">The backbone of Track A. Six modules covering experiment tracking, orchestration, deployment, monitoring, and best practices. Built around the NY Taxi dataset. The GitHub repo contains all notebooks, code, and homework. The YouTube playlist has all lectures. Free forever.</div><div class="res-links"><a href="https://github.com/DataTalksClub/mlops-zoomcamp" target="_blank" class="rl pri">↗ GitHub Repo (Free)</a><a href="https://www.youtube.com/playlist?list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK" target="_blank" class="rl sec">↗ YouTube Playlist</a></div></div>
+    </div>
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">🔬</div><div class="res-meta"><div class="res-title">MLflow Documentation</div><div class="res-sub">Databricks / MLflow Open Source</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-plat">MLFLOW.ORG</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">The primary reference for Module 2. Read the "Tracking", "Projects", "Models", and "Model Registry" sections in full before Module 2 of the Zoomcamp. The MLflow API is the industry standard for experiment tracking at companies that don't use W&B.</div><div class="res-links"><a href="https://mlflow.org/docs/latest/index.html" target="_blank" class="rl pri">↗ MLflow Docs (Free)</a><a href="https://dvc.org/doc/start" target="_blank" class="rl sec">↗ DVC Docs</a></div></div>
+    </div>
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">📊</div><div class="res-meta"><div class="res-title">Evidently AI Documentation</div><div class="res-sub">Evidently AI — Open Source</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-plat">EVIDENTLYAI.COM</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">The monitoring toolkit for Module 5. Evidently's documentation is excellent. Focus on the "Data Drift" and "Test Suites" sections — these are what you'll use in the Zoomcamp and in production. The self-hosted Evidently UI is also free.</div><div class="res-links"><a href="https://docs.evidentlyai.com/" target="_blank" class="rl pri">↗ Evidently Docs (Free)</a></div></div>
+    </div>
+  </div>
+
+  <div class="res-section-title blue">// TRACK B — CLOUD ML INFRASTRUCTURE</div>
+  <div class="res-grid">
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">☁️</div><div class="res-meta"><div class="res-title">AWS Skill Builder — Machine Learning Path</div><div class="res-sub">Amazon Web Services</div><div class="res-badges"><span class="rbadge rb-free">FREE TIER</span><span class="rbadge rb-cert">CERT PREP</span><span class="rbadge rb-cloud">AWS</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">AWS Skill Builder has a free "Machine Learning on AWS" learning path with hands-on labs in sandbox environments. Directly prepares you for the AWS ML Specialty certification. Do cloud labs here to avoid spending on your own account. The SageMaker Immersion Day workshop is free and hands-on.</div><div class="res-links"><a href="https://skillbuilder.aws/" target="_blank" class="rl pri">↗ AWS Skill Builder (Free)</a><a href="https://catalog.workshops.aws/sagemaker-immersion-day/en-US" target="_blank" class="rl sec">↗ SageMaker Immersion Day</a></div></div>
+    </div>
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">🔷</div><div class="res-meta"><div class="res-title">Microsoft Learn — Azure ML</div><div class="res-sub">Microsoft</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-cert">CERT PREP</span><span class="rbadge rb-cloud">AZURE</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">Microsoft Learn has Azure ML free interactive modules with sandbox environments. No credit card required for the learning path. Directly prepares for the Azure AI Engineer Associate certification. The Azure ML SDK v2 documentation is also excellent and free.</div><div class="res-links"><a href="https://learn.microsoft.com/en-us/training/paths/introduction-machine-learn-azure/" target="_blank" class="rl pri">↗ Microsoft Learn (Free)</a></div></div>
+    </div>
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">🏗️</div><div class="res-meta"><div class="res-title">HashiCorp Terraform Tutorials</div><div class="res-sub">HashiCorp</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-plat">DEVELOPER.HASHICORP.COM</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">The official Terraform tutorials are the best free IaC learning resource. The AWS Get Started path walks you through real infrastructure from scratch. TechWorld with Nana's YouTube Terraform course is the best free video supplement (4 hours, covers modules and state).</div><div class="res-links"><a href="https://developer.hashicorp.com/terraform/tutorials/aws-get-started" target="_blank" class="rl pri">↗ Terraform Tutorials (Free)</a><a href="https://www.youtube.com/watch?v=7xngnjfIlK4" target="_blank" class="rl sec">↗ TechWorld Terraform (YouTube)</a></div></div>
+    </div>
+  </div>
+
+  <div class="res-section-title purple">// TRACK C — LLMOPS &amp; RAG</div>
+  <div class="res-grid">
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">📊</div><div class="res-meta"><div class="res-title">Full Stack LLM Bootcamp</div><div class="res-sub">Charles Frye &amp; Sergey Karayev — The Full Stack</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-plat">FULLSTACKDEEPLEARNING.COM</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">The best free course for the LLM production stack. Covers embeddings, RAG, agents, evaluation, and deployment. The 2023 cohort videos are freely available and directly practical. Combine with the LangChain docs for implementation details.</div><div class="res-links"><a href="https://fullstackdeeplearning.com/llm-bootcamp/" target="_blank" class="rl pri">↗ Full Stack LLM (Free)</a></div></div>
+    </div>
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">🤖</div><div class="res-meta"><div class="res-title">LangChain / LangGraph Documentation</div><div class="res-sub">LangChain Inc.</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-plat">LANGCHAIN.COM</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">The primary implementation reference for Track C. Focus on the LangGraph documentation for agent/RAG orchestration and the LCEL (LangChain Expression Language) reference for building composable retrieval chains. Skip the high-level abstractions; understand the primitives.</div><div class="res-links"><a href="https://python.langchain.com/docs/introduction/" target="_blank" class="rl pri">↗ LangChain Docs (Free)</a><a href="https://langchain-ai.github.io/langgraph/" target="_blank" class="rl sec">↗ LangGraph</a></div></div>
+    </div>
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">🔬</div><div class="res-meta"><div class="res-title">RAGAS + Langfuse</div><div class="res-sub">Exploding Gradients / Langfuse OSS</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-plat">OPEN SOURCE</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">RAGAS is the evaluation framework for RAG systems — faithfulness, answer relevancy, context recall. Langfuse is the observability platform (self-hostable, free). Together they give you the complete eval + observability stack for LLM production systems.</div><div class="res-links"><a href="https://docs.ragas.io/" target="_blank" class="rl pri">↗ RAGAS Docs (Free)</a><a href="https://langfuse.com/docs/deployment/self-host" target="_blank" class="rl sec">↗ Langfuse Self-Host</a></div></div>
+    </div>
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">🎓</div><div class="res-meta"><div class="res-title">DeepLearning.AI Short Courses</div><div class="res-sub">Andrew Ng / DeepLearning.AI</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-plat">DEEPLEARNING.AI</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">Andrew Ng's team produces free short courses on practical LLM topics. Most relevant: "Vector Databases: from Embeddings to Applications" (Weaviate), "Building and Evaluating Advanced RAG" (LlamaIndex), "LangChain for LLM Application Development". All free with code notebooks.</div><div class="res-links"><a href="https://www.deeplearning.ai/short-courses/" target="_blank" class="rl pri">↗ DeepLearning.AI Courses (Free)</a></div></div>
+    </div>
+  </div>
+
+  <div class="res-section-title red">// TRACK D — SECURITY &amp; GOVERNANCE</div>
+  <div class="res-grid">
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">🔒</div><div class="res-meta"><div class="res-title">OWASP LLM Top 10</div><div class="res-sub">OWASP Foundation</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-sec">SECURITY</span><span class="rbadge rb-plat">OWASP.ORG</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">The industry reference document for LLM security. Read it cover-to-cover before building guardrails. Pair with the IBM Adversarial Robustness Toolbox (ART) documentation for hands-on adversarial testing on classical ML models.</div><div class="res-links"><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" class="rl pri">↗ OWASP LLM Top 10 (Free)</a><a href="https://github.com/Trusted-AI/adversarial-robustness-toolbox" target="_blank" class="rl sec">↗ IBM ART (GitHub)</a></div></div>
+    </div>
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">⚖️</div><div class="res-meta"><div class="res-title">EU AI Act + NIST AI RMF</div><div class="res-sub">European Commission / NIST</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-sec">GOVERNANCE</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">The EU AI Act is the primary regulatory framework for AI in Europe (and increasingly globally). The NIST AI Risk Management Framework (AI RMF 1.0) is the US counterpart — free PDF, essential for enterprise ML governance interviews. Both are free to access.</div><div class="res-links"><a href="https://artificialintelligenceact.eu/" target="_blank" class="rl pri">↗ EU AI Act (Free)</a><a href="https://www.nist.gov/system/files/documents/2023/01/26/AI%20RMF%201.0.pdf" target="_blank" class="rl sec">↗ NIST AI RMF (Free PDF)</a></div></div>
+    </div>
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">📋</div><div class="res-meta"><div class="res-title">Chip Huyen — ML System Design</div><div class="res-sub">Chip Huyen — Free Web Resource</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-plat">HUYENCHIP.COM</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">The best available interview prep for senior MLOps roles. Free online version covers system design trade-offs, deployment patterns, and production ML architectures. Read alongside Track D. Supplement with "Designing ML Systems" (same author, ~$50) for the book version.</div><div class="res-links"><a href="https://huyenchip.com/machine-learning-systems-design/toc.html" target="_blank" class="rl pri">↗ Free Online (huyenchip.com)</a></div></div>
+    </div>
+    <div class="res-card">
+      <div class="res-card-head"><div class="res-icon">🎯</div><div class="res-meta"><div class="res-title">Made With ML — MLOps Course</div><div class="res-sub">Goku Mohandas</div><div class="res-badges"><span class="rbadge rb-free">FREE</span><span class="rbadge rb-plat">MADEWITHML.COM</span></div></div></div>
+      <div class="res-card-body"><div class="res-desc">Free comprehensive MLOps course covering the full lifecycle: design, data, model, serving, testing, reproducibility, and production. Excellent complement to the Zoomcamp — covers software engineering practices and system design in more depth. All code is open source on GitHub.</div><div class="res-links"><a href="https://madewithml.com/" target="_blank" class="rl pri">↗ Made With ML (Free)</a></div></div>
+    </div>
+  </div>
+
+  <div class="conn">
+    <div class="conn-label">// COMPLETE RESOURCE → PHASE MAPPING</div>
+    <div class="conn-tags">
+      <span class="gtag">Track A → MLOps Zoomcamp (GitHub + YouTube)</span>
+      <span class="gtag">Track A → MLflow docs</span>
+      <span class="gtag">Track A → DVC docs</span>
+      <span class="gtag">Track A → Evidently docs</span>
+      <span class="ctag">Track B → AWS Skill Builder (free)</span>
+      <span class="ctag">Track B → SageMaker Immersion Day (free)</span>
+      <span class="ctag">Track B → Microsoft Learn Azure ML (free)</span>
+      <span class="ctag">Track B → Terraform Tutorials (free)</span>
+      <span class="ptag">Track C → Full Stack LLM Bootcamp (free)</span>
+      <span class="ptag">Track C → LangChain / LangGraph docs (free)</span>
+      <span class="ptag">Track C → RAGAS docs (free)</span>
+      <span class="ptag">Track C → Langfuse self-hosted (free)</span>
+      <span class="ptag">Track C → DeepLearning.AI short courses (free)</span>
+      <span class="rtag">Track D → OWASP LLM Top 10 (free)</span>
+      <span class="rtag">Track D → IBM ART library (free)</span>
+      <span class="rtag">Track D → EU AI Act (free)</span>
+      <span class="rtag">Track D → NIST AI RMF (free PDF)</span>
+      <span class="rtag">Track D → Chip Huyen system design (free)</span>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ── MAIN TAB NAVIGATION ──
+function showTab(id, event) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  if (event && event.currentTarget) event.currentTarget.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── SUB TAB NAVIGATION (Zoomcamp modules) ──
+function showSubTab(id, event) {
+  document.querySelectorAll('.subpanel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.subtab').forEach(b => b.classList.remove('active'));
+  document.getElementById('sub-' + id).classList.add('active');
+  if (event && event.currentTarget) event.currentTarget.classList.add('active');
+}
+
+// ── PROGRESS TRACKING ──
+var ALL_PANELS = ['m1','m2','m3','m4','m5','m6','cloud','llm','sec'];
+
+function toggleItem(cb) {
+  var itemId = cb.dataset.itemId;
+  var parent = cb.closest('.lec-read-item') || cb.closest('.lec-prob');
+  if (parent) {
+    if (cb.checked) parent.classList.add('item-done');
+    else parent.classList.remove('item-done');
+  }
+  var state = loadState();
+  state['item__' + itemId] = cb.checked;
+  saveState(state);
+  updateAllProgress();
+}
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem('mlops_ult_progress') || '{}'); } catch(e) { return {}; }
+}
+function saveState(s) {
+  try { localStorage.setItem('mlops_ult_progress', JSON.stringify(s)); } catch(e) {}
+}
+
+function updateAllProgress() {
+  ALL_PANELS.forEach(function(pid) {
+    var container;
+    if (['m1','m2','m3','m4','m5','m6'].indexOf(pid) > -1) {
+      container = document.getElementById('sub-' + pid);
+    } else if (pid === 'cloud') {
+      container = document.getElementById('panel-cloud');
+    } else if (pid === 'llm') {
+      container = document.getElementById('panel-llmops');
+    } else if (pid === 'sec') {
+      container = document.getElementById('panel-security');
+    }
+    if (!container) return;
+    var allItems = container.querySelectorAll('.item-checkbox');
+    var done = container.querySelectorAll('.item-checkbox:checked').length;
+    var total = allItems.length;
+    var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    var bar = document.getElementById('bar-' + pid);
+    var pctEl = document.getElementById('pct-' + pid);
+    if (bar) bar.style.width = pct + '%';
+    if (pctEl) pctEl.textContent = pct + '%';
+  });
+}
+
+function injectItemCheckboxes() {
+  document.querySelectorAll('.lec').forEach(function(lec) {
+    var lecId = lec.id;
+    lec.querySelectorAll('.lec-read-item').forEach(function(item, idx) {
+      var itemId = lecId + '_r' + idx;
+      var cb = document.createElement('input');
+      cb.type = 'checkbox'; cb.className = 'item-checkbox';
+      cb.dataset.itemId = itemId; cb.title = 'Mark as done';
+      cb.addEventListener('change', function() { toggleItem(this); });
+      item.insertBefore(cb, item.firstChild);
+    });
+    lec.querySelectorAll('.lec-prob').forEach(function(prob, idx) {
+      var itemId = lecId + '_p' + idx;
+      var probHead = prob.querySelector('.lec-prob-head');
+      if (!probHead) return;
+      var cb = document.createElement('input');
+      cb.type = 'checkbox'; cb.className = 'item-checkbox';
+      cb.dataset.itemId = itemId; cb.title = 'Mark as complete';
+      cb.addEventListener('change', function() { toggleItem(this); });
+      probHead.insertBefore(cb, probHead.firstChild);
+    });
+  });
+}
+
+function restoreState() {
+  var state = loadState();
+  Object.keys(state).forEach(function(key) {
+    if (!key.startsWith('item__') || !state[key]) return;
+    var itemId = key.slice(6);
+    var cb = document.querySelector('[data-item-id="' + itemId + '"]');
+    if (cb) {
+      cb.checked = true;
+      var parent = cb.closest('.lec-read-item') || cb.closest('.lec-prob');
+      if (parent) parent.classList.add('item-done');
+    }
+  });
+  updateAllProgress();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  injectItemCheckboxes();
+  restoreState();
+});
+</script>
+</body>
+</html>
